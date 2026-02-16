@@ -1,1 +1,19 @@
+# === RAÍZ DEL PROYECTO ===
+
+# Entorno
 .env
+.env.local
+.env.*.local
+
+# Docker
+/infra/postgres_data/
+/infra/pgadmin_data/
+/infra/init/  # Si no quieres versionar los scripts SQL
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
