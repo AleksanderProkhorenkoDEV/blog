@@ -3,11 +3,11 @@ FROM node:23-alpine
 WORKDIR /app
 
 # Instala dependencias
-COPY /front/package.json front/pnpm-lock.yaml ./
-RUN corepack enable && \
-    pnpm install
+COPY front/package.json front/pnpm-lock.yaml ./
+
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
 # Copia todo el código
-COPY . .
+COPY front/ .
 
-CMD ["pnpm", "dev"]
+EXPOSE 3000
