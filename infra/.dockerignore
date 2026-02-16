@@ -1,0 +1,53 @@
+/front/node_modules 
+node_modules
+.pnpm-store
+
+# Next.js build
+.next
+out
+
+# Archivos de entorno (ya están en .env del host)
+.env
+.env.local
+.env.*.local
+
+# Git
+.git
+.gitignore
+.github
+
+# Docker (no incluir otros archivos Docker)
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Archivos de sistema
+Thumbs.db
+desktop.ini
+
+# Tests (no necesarios en producción)
+__tests__
+test
+tests
+*.test.js
+*.spec.js
+coverage
+
+# Documentación (no necesaria en la imagen)
+README.md
+LICENSE
+docs
