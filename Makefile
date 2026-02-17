@@ -1,9 +1,10 @@
-.PHONY: help up down build clean
+.PHONY: help up down stop build clean
 
 help:
 	@echo "List of available commands:"
 	@echo "  make up        - Start the development environment"
 	@echo "  make down      - Stop the development environment"
+	@echo "  make stop		- Stop the development enviroment"
 	@echo "  make build     - Build the development environment"
 	@echo "  make clean     - Remove all containers and volumes"
 	@echo "  make help      - Show this help message"
@@ -19,6 +20,8 @@ up:
 down:
 	cd infra && docker-compose -f docker-compose.dev.yml down
 
+stop: 
+	cd infra && docker-compose -f docker-compose.dev.yml stop
 build:
 	cd infra && docker-compose -f docker-compose.dev.yml up -d --build
 	@echo "Waiting for the containers to be ready..."
