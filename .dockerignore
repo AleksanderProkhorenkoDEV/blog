@@ -1,5 +1,4 @@
-/front/node_modules 
-node_modules
+front/node_modules 
 .pnpm-store
 
 # Next.js build
