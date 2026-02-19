@@ -11,6 +11,8 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.4.0",
     "@prisma/client": "^7.4.0",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.97.0",
     "@types/pg": "^8.16.0",
     "dotenv": "^17.3.1",
     "install": "^0.13.0",
