@@ -1,6 +1,7 @@
 'use client'
 
 import { userRegistration } from "@/actions/auth";
+import { CustomInput } from "@/components";
 import { initStateRegisterForm } from "@/types/auth";
 import { useActionState } from "react";
 
@@ -13,19 +14,35 @@ export default function Register() {
 
     const [state, formAction, pending] = useActionState(userRegistration, initialState)
     console.log(state.errors?.email?.[0]);
-    
+
     return (
         <>
             <h1>Register page</h1>
             <form action={formAction}>
                 <label htmlFor="name">name</label>
-                <input type="text" id="name" name="name" />
+                <CustomInput
+                    name="name"
+                    type="text"
+                    error={state.errors?.name?.[0]}
+                />
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" />
+                <CustomInput
+                    name="email"
+                    type="email"
+                    error={state.errors?.email?.[0]}
+                />
                 <label htmlFor="password" >Password</label>
-                <input type="password" id="password" name="password" />
+                <CustomInput
+                    name="password"
+                    type="password"
+                    error={state.errors?.password?.[0]}
+                />
                 <label htmlFor="password" >Password confirmation</label>
-                <input type="password" id="password" name="passwordConfirmation" />
+                <CustomInput
+                    name="passwordConfirmation"
+                    type="password"
+                    error={state.errors?.passwordConfirmation?.[0]}
+                />
                 <button type="submit" disabled={pending}>Submit</button>
             </form>
         </>
