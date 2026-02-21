@@ -9,11 +9,10 @@ export default function Register() {
 
     const initialState: initStateRegisterForm = {
         success: false,
-        errors: {}
+        inputErrors: {},
     }
 
     const [state, formAction, pending] = useActionState(userRegistration, initialState)
-    console.log(state.errors?.email?.[0]);
 
     return (
         <>
@@ -23,25 +22,25 @@ export default function Register() {
                 <CustomInput
                     name="name"
                     type="text"
-                    error={state.errors?.name?.[0]}
+                    error={state.inputErrors?.name?.[0]}
                 />
                 <label htmlFor="email">Email</label>
                 <CustomInput
                     name="email"
                     type="email"
-                    error={state.errors?.email?.[0]}
+                    error={state.inputErrors?.email?.[0]}
                 />
                 <label htmlFor="password" >Password</label>
                 <CustomInput
                     name="password"
                     type="password"
-                    error={state.errors?.password?.[0]}
+                    error={state.inputErrors?.password?.[0]}
                 />
                 <label htmlFor="password" >Password confirmation</label>
                 <CustomInput
                     name="passwordConfirmation"
                     type="password"
-                    error={state.errors?.passwordConfirmation?.[0]}
+                    error={state.inputErrors?.passwordConfirmation?.[0]}
                 />
                 <button type="submit" disabled={pending}>Submit</button>
             </form>
