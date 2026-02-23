@@ -1,4 +1,4 @@
-export interface initStateRegisterForm{
+export interface initStateSingUp{
     success: boolean,
     inputErrors?: {
         name?: string[]
@@ -10,5 +10,14 @@ export interface initStateRegisterForm{
         name: string,
         email: string
     }
+    formError?: string
+} 
+
+export interface initStateSingIn{
+    success: boolean,
+    inputErrors?: {
+        email?: string[]
+        password?: string[]
+    },
     formError?: string
 } 

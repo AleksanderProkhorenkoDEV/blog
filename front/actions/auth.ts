@@ -1,14 +1,13 @@
 'use server'
 
-import { initStateRegisterForm } from "@/types/auth"
+import { initStateSingIn, initStateSingUp } from "@/types/auth"
 import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
-import { registerSchema } from "@/schemas"
+import { signInSchema, signUpSchema } from "@/schemas"
 import z from "zod"
 
-export const userRegistration = async (prevState: initStateRegisterForm, formData: FormData): Promise<initStateRegisterForm> => {
+export const userSingUp = async (prevState: initStateSingUp, formData: FormData): Promise<initStateSingUp> => {
 
-    const validateFields = registerSchema.safeParse(Object.fromEntries(formData.entries()))
+    const validateFields = signUpSchema.safeParse(Object.fromEntries(formData.entries()))
 
     if (!validateFields.success) {
         return {
@@ -36,7 +35,29 @@ export const userRegistration = async (prevState: initStateRegisterForm, formDat
 
     if (error) return { success: false, formError: error.message }
 
-    redirect("/auth/register/check-email")
+    return { success: true }
+}
+
+
+export const userSingIn = async (prevState: initStateSingIn, formData: FormData): Promise<initStateSingIn> => {
+
+    const validateFields = signInSchema.safeParse(Object.fromEntries(formData.entries()))
+
+    if (!validateFields.success) {
+        return {
+            success: false,
+            inputErrors: z.flattenError(validateFields.error).fieldErrors,
+        }
+    }
+
+    const supabase = await createClient()
+
+    const { error } = await supabase.auth.signInWithPassword({
+        email: validateFields.data.email,
+        password: validateFields.data.password
+    })
+
+    if (error) return { success: false, formError: error.message }
 
     return { success: true }
 }

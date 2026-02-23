@@ -1,1 +1,2 @@
-export { registerSchema } from './auth'
+export { signUpSchema } from './auth'
+export { signInSchema } from './auth'
