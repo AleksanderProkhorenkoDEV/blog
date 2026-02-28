@@ -8,3 +8,9 @@ model Profile {
 
     createdAt DateTime @default(now())
 }
+
+enum Role {
+    SUBSCRIBER
+    EDITOR
+    ADMIN
+}
