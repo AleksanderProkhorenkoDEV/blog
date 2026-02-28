@@ -1,9 +1,9 @@
--- When you execute the migration, copy this function, change the NULL:UUID for auth.uid() 
--- and execute in SQL Editor in supabase
+-- when execute this, in SQL editor execute /functions/user_uid
 CREATE OR REPLACE FUNCTION public.request_user_uid()
-RETURNS UUID  
+RETURNS UUID
 LANGUAGE sql
 STABLE
+SET search_path = public, pg_catalog
 AS $$
   SELECT NULL::UUID; 
 $$;
