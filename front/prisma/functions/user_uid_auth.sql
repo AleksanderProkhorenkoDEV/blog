@@ -1,8 +1,8 @@
--- 0002_enable_auth_wrapper: reemplaza la wrapper para que use auth.uid()
 CREATE OR REPLACE FUNCTION public.request_user_uid()
-RETURNS text
+RETURNS UUID
 LANGUAGE sql
 STABLE
+SET search_path = public, pg_catalog
 AS $$
-  SELECT auth.uid();
+  SELECT auth.uid()::uuid;
 $$;
