@@ -1,4 +1,4 @@
-export interface initStateSingUp{
+export interface initStateSingUp {
     success: boolean,
     inputErrors?: {
         name?: string[]
@@ -6,18 +6,27 @@ export interface initStateSingUp{
         password?: string[]
         passwordConfirmation?: string[]
     },
-    formData?:{
+    formData?: {
         name: string,
         email: string
     }
     formError?: string
-} 
+}
 
-export interface initStateSingIn{
+export interface initStateSingIn {
     success: boolean,
     inputErrors?: {
         email?: string[]
         password?: string[]
     },
     formError?: string
-} 
+}
+
+export interface initStateResetPassword {
+    success: boolean,
+    inputErrors?: {
+        email?: string[],
+        password?: string[]
+    },
+    formError?: string
+}
