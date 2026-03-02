@@ -5,51 +5,15 @@ services:
       context: ../
       dockerfile: infra/Dockerfile.dev
     command: ["pnpm", "dev"]
-    env_file:
-      - ../.env
     volumes:
       - ../front:/app
       - /app/node_modules
     restart: unless-stopped
     ports:
       - 3000:3000
-    depends_on:
-      - postgres_db
-    networks:
-      - my_network
-
-  postgres_db:
-    container_name: db
-    image: postgres:15-alpine
-    restart: unless-stopped
-    env_file:
-      - ../.env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - my_network
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    env_file:
-      - ../.env
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-    depends_on:
-      - postgres_db
     networks:
       - my_network
 
 networks:
   my_network:
     driver: bridge
-
-volumes:
-  postgres_data:
-    driver: local
-  pgadmin_data:
-    driver: local
