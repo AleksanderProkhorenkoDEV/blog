@@ -14,3 +14,8 @@ export const signInSchema = z.object({
     email: z.email({ error: "El email tiene que tener un formato válido: ejemplo@dominio.com" }),
     password: z.string({ error: "El campo contraseña debe estar relleno" })
 })
+
+export const resetPasswordSchema = z.object({
+    email: z.email({ error: "El email tiene que tener un formato válido: ejemplo@dominio.com" }),
+    password: z.string({ error: "El campo contraseña debe estar relleno" }).regex(/^.{8,}$/, { error: "Tiene que ser una combinación de ocho números, letras y carácteres" })
+})
