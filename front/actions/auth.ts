@@ -1,9 +1,10 @@
 'use server'
 
-import { initStateSingIn, initStateSingUp } from "@/types/auth"
+import { initStateResetPassword, initStateSingIn, initStateSingUp } from "@/types/auth"
 import { createClient } from "@/lib/supabase/server"
 import { signInSchema, signUpSchema } from "@/schemas"
 import z from "zod"
+import { resetPasswordSchema } from "@/schemas/auth"
 
 export const userSingUp = async (prevState: initStateSingUp, formData: FormData): Promise<initStateSingUp> => {
 
@@ -58,6 +59,32 @@ export const userSingIn = async (prevState: initStateSingIn, formData: FormData)
     })
 
     if (error) return { success: false, formError: error.message }
+
+    return { success: true }
+}
+
+// Dont' followind develop, because i don't have smpt server.
+export const resetPassword = async (prevState: initStateResetPassword, formData: FormData): Promise<initStateResetPassword> => {
+
+
+    const validateFields = resetPasswordSchema.safeParse(Object.fromEntries(formData.entries()))
+
+    if (!validateFields.success) {
+        return {
+            success: false,
+            inputErrors: z.flattenError(validateFields.error).fieldErrors,
+        }
+    }
+
+    const supabase = await createClient()
+
+
+    const { data, error } = await supabase.auth.resetPasswordForEmail(
+        validateFields.data.email,
+        {
+            redirectTo: "http://localhost:3000/auth/update-password"
+        }
+    )
 
     return { success: true }
 }
