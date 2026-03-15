@@ -1,8 +1,8 @@
 'use client'
 
-import { userSingUp } from "@/actions/auth";
-import { CustomInput } from "@/components";
+import { CustomInput } from "@/components/forms/parts/input";
 import { initStateSingUp } from "@/types/auth";
+import { userSingUp } from "@/actions/auth";
 import { useActionState } from "react";
 
 export default function Register() {
