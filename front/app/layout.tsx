@@ -1,4 +1,4 @@
-import { NavBar } from "@/components/navbar/navbar";
+import { CustomNavBar} from "@/components/navbar/navbar";
 import { Geist } from "next/font/google";
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={cn("font-sans", geist.variable)}>
       <body>
-        <NavBar></NavBar>
+        <CustomNavBar />
         {children}
       </body>
     </html>
