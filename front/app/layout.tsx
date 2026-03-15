@@ -1,10 +1,6 @@
 import { CustomNavBar} from "@/components/navbar/navbar";
-import { Geist } from "next/font/google";
 import type { Metadata } from "next";
-import { cn } from "@/lib/utils";
 import "./globals.css";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -17,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={cn("font-sans", geist.variable)}>
+    <html lang="es">
       <body>
         <CustomNavBar />
         {children}
