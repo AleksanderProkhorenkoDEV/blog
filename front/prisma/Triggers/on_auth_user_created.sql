@@ -1,24 +1,29 @@
-CREATE OR REPLACE FUNCTION on_auth_user_created([])
+CREATE OR REPLACE FUNCTION public.on_auth_user_created()
 RETURNS TRIGGER AS $$
 DECLARE
     user_name TEXT;
 BEGIN
-    if new.raw_user_meta_data ->> 'name' is null or new.raw_user_meta_data ->> 'name' = '' then
-        user_name := substring(new.email from '([^@]+)');
+    IF new.raw_user_meta_data ->> 'name' IS NULL 
+       OR new.raw_user_meta_data ->> 'name' = '' THEN
+       
+        user_name := substring(new.email FROM '([^@]+)');
         user_name := regexp_replace(user_name, '[_.-]', ' ', 'g');
         user_name := initcap(user_name);
-    else
+        
+    ELSE
         user_name := new.raw_user_meta_data ->> 'name';
-    end if;
+    END IF;
 
-    INSERT INTO public.profile (id, email, name, createdAt) VALUES (new.id, new.email, user_name, NOW());
+    INSERT INTO public.profile (id, email, name, "createdAt")
+    VALUES (new.id, new.email, user_name, NOW())
+    ON CONFLICT (id) DO NOTHING;
 
-    return new;
+    RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 
 
-CREATE TRIGGER create_user_on_singUp()
-AFTER INSERT ON auth.user
+CREATE TRIGGER create_user_on_signup
+AFTER INSERT ON auth.users
 FOR EACH ROW
 EXECUTE FUNCTION public.on_auth_user_created();
