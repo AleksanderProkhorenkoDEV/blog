@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 
 :root {
-  --primary: oklch(72.1% 0.3525 164.687);
+  --primary:  oklab(0.72078 -0.13595 0.03715);
   --primary-text: oklch(93% 0.0125 258.325);
   --secondary-text: oklch(25.1% 0.0125 248.02);
   --primary-bg: oklch(12.8% 0.015 262.001);
@@ -63,7 +63,4 @@
     @apply bg-background text-foreground;
   }
 
-  html {
-    @apply font-sans;
-  }
 }
