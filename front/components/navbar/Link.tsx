@@ -1,5 +1,5 @@
-import { usePathname } from "next/navigation"
 import { NavigationMenuLink } from "../ui/navigation-menu";
+import { usePathname } from "next/navigation"
 import Link from "next/link";
 import React from "react";
 
@@ -8,8 +8,8 @@ export const NavBarLink = ({ href, children, ...props }: { href: string, childre
     const isActive = href === pathname
 
     return (
-        <NavigationMenuLink asChild active={isActive}>
-            <Link href={href} {...props} className="NavigationMenuLink">{children}</Link>
+        <NavigationMenuLink asChild  data-active={isActive} key={`nav-home-${pathname}`}>
+            <Link href={href} {...props}>{children}</Link>
         </NavigationMenuLink>
     )
 }
