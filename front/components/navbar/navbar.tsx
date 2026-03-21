@@ -9,8 +9,8 @@ import { NavBarLink } from "./Link"
 
 export const CustomNavBar = () => {
     return (
-        <header className="flex items-center justify-between border p-2">
-            <div className="flex gap-2 border">
+        <header className="flex items-center justify-around p-2">
+            <div className="flex gap-2">
                 <span className="text-primary">{`>_`}</span><p>~/init</p>
             </div>
             <NavigationMenu>
