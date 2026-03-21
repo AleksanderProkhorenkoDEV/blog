@@ -6,6 +6,7 @@ import { NavigationMenu as NavigationMenuPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { ChevronDownIcon } from "lucide-react"
+import { jetBrain } from "@/app/fonts/fonts"
 
 function NavigationMenu({
   className,
@@ -20,7 +21,7 @@ function NavigationMenu({
       data-slot="navigation-menu"
       data-viewport={viewport}
       className={cn(
-        "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+        `group/navigation-menu relative flex max-w-max flex-1 items-center justify-center ${jetBrain.className}`,
         className
       )}
       {...props}
@@ -39,7 +40,7 @@ function NavigationMenuList({
     <NavigationMenuPrimitive.List
       data-slot="navigation-menu-list"
       className={cn(
-        "group flex flex-1 list-none items-center justify-center gap-4 border",
+        "group flex flex-1 list-none items-center justify-center gap-4",
         className
       )}
       {...props}
@@ -127,7 +128,7 @@ function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "flex items-center gap-2 rounded-lg p-2 text-sm  transition-all outline-none focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-md data-active:bg-muted/25  data-active:focus:bg-muted data-active:text-primary [&_svg:not([class*='size-'])]:size-4",
+        "flex items-center gap-2 rounded-sm p-2 text-sm  transition-all outline-none focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-sm  data-active:focus:bg-muted data-active:text-primary data-active:bg-primary/20 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
