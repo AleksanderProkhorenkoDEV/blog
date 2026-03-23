@@ -10,7 +10,7 @@ help:
 	@echo "  make help      - Show this help message"
 
 up:
-	cd infra && docker-compose -f docker-compose.dev.yml up -d
+	cd infra && docker-compose -f compose.yaml up -d
 	@echo "Waiting for the containers to be ready..."
 	@sleep 5
 	@echo "✅ App deployed!"
@@ -18,12 +18,12 @@ up:
 	@echo "📌 pgAdmin: http://localhost:8080"
 
 down:
-	cd infra && docker-compose -f docker-compose.dev.yml down
+	cd infra && docker-compose -f compose.yaml down
 
 stop: 
-	cd infra && docker-compose -f docker-compose.dev.yml stop
+	cd infra && docker-compose -f compose.yaml stop
 build:
-	cd infra && docker-compose -f docker-compose.dev.yml up -d --build
+	cd infra && docker-compose -f compose.yaml up -d --build
 	@echo "Waiting for the containers to be ready..."
 	@sleep 10
 	@echo "✅ App deployed!"
@@ -31,4 +31,4 @@ build:
 	@echo "📌 pgAdmin: http://localhost:8080"
 
 clean:
-	cd infra && docker-compose -f docker-compose.dev.yml down -v --rmi all
+	cd infra && docker-compose -f compose.yaml down -v --rmi all
