@@ -18,6 +18,7 @@ export const CustomInput = ({
                 type={type}
                 name={name}
                 id={name}
+                className=""
             />
             <p>{error}</p>
         </>
