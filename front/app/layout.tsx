@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${Konkhmer.className}`}> 
       <body>
-        <CustomNavBar />
+        
         {children}
       </body>
     </html>
