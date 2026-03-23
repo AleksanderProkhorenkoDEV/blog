@@ -1,8 +1,8 @@
 'use client'
 
-import { userSingIn } from "@/actions/auth";
-import { CustomInput } from "@/components";
+import { CustomInput } from "@/components/forms/parts/input";
 import { initStateSingIn } from "@/types/auth";
+import { userSingIn } from "@/actions/auth";
 import { useActionState } from "react";
 
 export default function Login() {
