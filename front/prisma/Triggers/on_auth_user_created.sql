@@ -14,7 +14,7 @@ BEGIN
         user_name := new.raw_user_meta_data ->> 'name';
     END IF;
 
-    INSERT INTO public.profile (id, email, name, "createdAt")
+    INSERT INTO public."Profile" (id, email, name, "createdAt")
     VALUES (new.id, new.email, user_name, NOW())
     ON CONFLICT (id) DO NOTHING;
 
