@@ -2,6 +2,7 @@
 
 import { CustomInput } from "@/components/forms/parts/input";
 import { initStateSingIn } from "@/types/auth";
+import { Form } from "@/components/forms/form";
 import { userSingIn } from "@/actions/auth";
 import { useActionState } from "react";
 
@@ -18,7 +19,7 @@ export default function Login() {
     return (
         <>
             <h1>Página de inicio de sesión.</h1>
-            <form action={formAction}>
+            <Form action={formAction}>
                 <label htmlFor="email">E-mail</label>
                 <CustomInput
                     type="email"
@@ -32,7 +33,7 @@ export default function Login() {
                     error={state.inputErrors?.password?.[0]}
                 />
                 <button type="submit" disabled={pending}>Iniciar sesión</button>
-            </form>
+            </Form>
         </>
     )
 }
