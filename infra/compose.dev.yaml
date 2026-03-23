@@ -1,0 +1,18 @@
+services:
+  nextjs-dev:
+    build:
+      context: ../
+      dockerfile: infra/Dockerfile.dev
+      target: development
+    container_name: blog-dev
+    volumes:
+      - ../front:/app/front
+      - /app/front/node_modules 
+      - /app/front/.next
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true  
+      - CHOKIDAR_USEPOLLING=true  
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

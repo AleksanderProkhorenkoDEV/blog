@@ -1,0 +1,23 @@
+ARG NODE_VERSION=24.13.0-slim
+
+FROM node:${NODE_VERSION} AS development
+
+# Instalar pnpm globalmente
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Establecer directorio de trabajo
+WORKDIR /app/front
+
+# Copiar archivos de dependencias
+COPY front/package.json front/pnpm-lock.yaml* ./
+
+# Instalar dependencias
+RUN pnpm install
+
+# Copiar el resto del código (los volúmenes sobrescribirán esto)
+COPY front/ .
+
+EXPOSE 3000
+
+# Comando para desarrollo con hot-reload
+CMD ["pnpm", "dev"]
