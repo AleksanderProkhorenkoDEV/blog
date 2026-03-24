@@ -12,13 +12,16 @@ export const CustomInput = ({
     name,
     error,
 }: InputProps) => {
-    return(
+    return (
         <>
             <input
                 type={type}
                 name={name}
                 id={name}
-                className=""
+                className={`rounded p-2 box-border w-full ${error ?
+                    'bg-destructive/50 text-secondary-foreground    ' :
+                    'bg-foreground text-secondary'}
+                `}
             />
             <p>{error}</p>
         </>
