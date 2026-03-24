@@ -1,39 +1,12 @@
-'use client'
-
-import { CustomInput } from "@/components/forms/parts/input";
-import { initStateSingIn } from "@/types/auth";
-import { Form } from "@/components/forms/form";
-import { userSingIn } from "@/actions/auth";
-import { useActionState } from "react";
+import { jetBrain } from "@/app/fonts/fonts";
+import { LoginForm } from "@/components/forms/login-form";
 
 export default function Login() {
 
-    const initialState: initStateSingIn = {
-        success: false,
-        inputErrors: {},
-    }
-
-    const [state, formAction, pending] = useActionState(userSingIn, initialState)
-
-
     return (
-        <>
-            <h1>Página de inicio de sesión.</h1>
-            <Form action={formAction}>
-                <label htmlFor="email">E-mail</label>
-                <CustomInput
-                    type="email"
-                    name="email"
-                    error={state.inputErrors?.email?.[0]}
-                />
-                <label htmlFor="password">Contraseña</label>
-                <CustomInput
-                    type="password"
-                    name="password"
-                    error={state.inputErrors?.password?.[0]}
-                />
-                <button type="submit" disabled={pending}>Iniciar sesión</button>
-            </Form>
-        </>
+        <div>
+            <h1 className={`${jetBrain.className} uppercase mb-8`}>Inicio de Sesión</h1>
+            <LoginForm />
+        </div>
     )
 }
