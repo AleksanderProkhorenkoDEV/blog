@@ -36,7 +36,7 @@ export const userSingUp = async (prevState: initStateSingUp, formData: FormData)
 
     if (error) return { success: false, formError: error.message }
 
-    return { success: true }
+    return { success: true, formData: { email: formData.get("email") as string, name: "" } }
 }
 
 

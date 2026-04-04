@@ -1,1 +1,63 @@
 @import "tailwindcss" layer(base);
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+:root {
+  --primary: oklab(0.72078 -0.13595 0.03715);
+  --primary-text: oklch(93% 0.0125 258.325);
+  --secondary-text: oklch(25.1% 0.0125 248.02);
+  --primary-bg: oklch(12.8% 0.015 262.001);
+  --border-color: oklch(25.1% 0.0125 248.02);
+  --error: oklch(65.57% 0.1744 23.19);
+  --warning: oklch(80.6% 0.305 82.772);
+
+  --background: var(--primary-bg);
+  --foreground: var(--primary-text);
+  --card: var(--primary-bg);
+  --card-foreground: var(--secondary-text);
+  --border: var(--border-color);
+  --input: var(--border-color);
+  --ring: var(--primary);
+  --primary-foreground: var(--primary-bg);
+  --secondary: var(--secondary-text);
+  --secondary-foreground: var(--primary-text);
+  --muted: color-mix(in oklch, var(--secondary-text) 10%, transparent);
+  --muted-foreground: var(--secondary-text);
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-bg);
+  --popover: var(--primary-bg);
+  --popover-foreground: var(--primary-text);
+  --destructive: var(--error);
+  --destructive-foreground: white;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-montserrat);
+  }
+}
