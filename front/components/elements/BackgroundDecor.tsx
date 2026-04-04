@@ -8,6 +8,8 @@ interface Props {
 
 export const BackgroundDecor = ({ position, children }: Props) => {
     return (
-        <span className={`${jetBrain.className} absolute  ${position} text-9xl text-secondary/55 hover:text-primary/60 ease-in-out transition-all`}>{children}</span>
+        <span className={`${jetBrain.className} absolute  ${position} text-9xl text-secondary/55 hover:text-primary/60 ease-in-out transition-all`}>
+            {children}
+        </span>
     )
 }
