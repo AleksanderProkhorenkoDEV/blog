@@ -1,12 +1,14 @@
 'use client'
 
+import { CustomLink } from "../link/customLink"
 import { initStateSingIn } from "@/types/auth"
 import { CustomInput } from "./parts/input"
 import { userSingIn } from "@/actions/auth"
 import { Button } from "./parts/button"
-import { useActionState } from "react"
+import { useActionState, useEffect } from "react"
 import { Label } from "./parts/label"
 import { Form } from "./base-form"
+import { toast } from "sonner"
 
 export const LoginForm = () => {
 
@@ -17,6 +19,15 @@ export const LoginForm = () => {
     }
 
     const [state, formAction, pending] = useActionState(userSingIn, initialState)
+
+    useEffect(() => {
+        if (state.success) {
+            toast.success("Inicio de sesión correcto.")
+        }
+        if (state.formError) {
+            toast.error(`Error al iniciar sesión: ${state.formError}`)
+        }
+    }, [state])
 
     return (
         <Form action={formAction}>
@@ -32,6 +43,7 @@ export const LoginForm = () => {
                 name="password"
                 error={state.inputErrors?.password?.[0]}
             />
+            <CustomLink href="/register"><p>¿No tienes cuenta? Registrare.</p></CustomLink>
             <Button type="submit" disabled={pending}>Inicia sesión</Button>
         </Form>
     )
