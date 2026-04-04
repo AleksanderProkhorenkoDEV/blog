@@ -9,6 +9,7 @@ import { useActionState, useEffect } from "react"
 import { Label } from "./parts/label"
 import { Form } from "./base-form"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 export const LoginForm = () => {
 
@@ -18,16 +19,19 @@ export const LoginForm = () => {
         inputErrors: {},
     }
 
+    const router = useRouter()
+    
     const [state, formAction, pending] = useActionState(userSingIn, initialState)
 
     useEffect(() => {
         if (state.success) {
             toast.success("Inicio de sesión correcto.")
+            router.push("/")
         }
         if (state.formError) {
             toast.error(`Error al iniciar sesión: ${state.formError}`)
         }
-    }, [state])
+    }, [state, router])
 
     return (
         <Form action={formAction}>
