@@ -1,13 +1,23 @@
-FROM node:23-alpine
+ARG NODE_VERSION=24.13.0-slim
 
-WORKDIR /app
+FROM node:${NODE_VERSION} AS development
 
-# Instala dependencias
-COPY front/package.json front/pnpm-lock.yaml ./
+# Instalar pnpm globalmente
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+# Establecer directorio de trabajo
+WORKDIR /app/front
 
-# Copia todo el código
+# Copiar archivos de dependencias
+COPY front/package.json front/pnpm-lock.yaml* ./
+
+# Instalar dependencias
+RUN pnpm install
+
+# Copiar el resto del código (los volúmenes sobrescribirán esto)
 COPY front/ .
 
 EXPOSE 3000
+
+# Comando para desarrollo con hot-reload
+CMD ["pnpm", "dev"]

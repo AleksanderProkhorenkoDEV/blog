@@ -1,0 +1,16 @@
+model Profile {
+    id    String  @id @db.Uuid
+    email String  @unique
+    name  String?
+    role  Role    @default(SUBSCRIBER)
+    bio   String?
+    posts Post[]
+
+    createdAt DateTime @default(now())
+}
+
+enum Role {
+    SUBSCRIBER
+    EDITOR
+    ADMIN
+}

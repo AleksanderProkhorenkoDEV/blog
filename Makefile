@@ -1,34 +1,99 @@
-.PHONY: help up down stop build clean
+.PHONY: help dev prod up-dev up-prod down-dev down-prod build-dev build-prod stop clean logs-dev logs-prod
+
+# Colores para output
+GREEN := \033[0;32m
+YELLOW := \033[1;33m
+NC := \033[0m # No Color
 
 help:
-	@echo "List of available commands:"
-	@echo "  make up        - Start the development environment"
-	@echo "  make down      - Stop the development environment"
-	@echo "  make stop		- Stop the development enviroment"
-	@echo "  make build     - Build the development environment"
-	@echo "  make clean     - Remove all containers and volumes"
-	@echo "  make help      - Show this help message"
+	@echo "$(GREEN)Available commands:$(NC)"
+	@echo ""
+	@echo "$(YELLOW)Development (with hot-reload):$(NC)"
+	@echo "  make dev         - Start development environment (hot-reload enabled)"
+	@echo "  make up-dev      - Start development containers"
+	@echo "  make build-dev   - Build and start development environment"
+	@echo "  make logs-dev    - Show development container logs"
+	@echo ""
+	@echo "$(YELLOW)Production (standalone):$(NC)"
+	@echo "  make prod        - Start production environment (optimized)"
+	@echo "  make up-prod     - Start production containers"
+	@echo "  make build-prod  - Build and start production environment"
+	@echo "  make logs-prod   - Show production container logs"
+	@echo ""
+	@echo "$(YELLOW)Common commands:$(NC)"
+	@echo "  make stop        - Stop all containers"
+	@echo "  make down        - Stop and remove all containers"
+	@echo "  make clean       - Remove all containers, volumes and images"
+	@echo "  make help        - Show this help message"
 
-up:
-	cd infra && docker-compose -f docker-compose.dev.yml up -d
-	@echo "Waiting for the containers to be ready..."
+# ============================================
+# Development commands (hot-reload)
+# ============================================
+dev:
+	@echo "$(GREEN)Starting development environment with hot-reload...$(NC)"
+	cd infra && docker-compose -f compose.dev.yaml up -d
 	@sleep 5
-	@echo "✅ App deployed!"
-	@echo "📌 Next.js: http://localhost:3000"
-	@echo "📌 pgAdmin: http://localhost:8080"
+	@echo "$(GREEN)✅ Development environment ready!$(NC)"
+	@echo "📌 Next.js (dev): http://localhost:3000"
+	@echo "⚡ Hot-reload enabled - changes will auto-refresh"
+
+up-dev:
+	cd infra && docker-compose -f compose.dev.yaml up -d
+
+build-dev:
+	cd infra && docker-compose -f compose.dev.yaml up -d --build
+	@sleep 5
+	@echo "$(GREEN)✅ Development environment built and started!$(NC)"
+	@echo "📌 Next.js (dev): http://localhost:3000"
+
+logs-dev:
+	cd infra && docker-compose -f compose.dev.yaml logs -f
+
+down-dev:
+	cd infra && docker-compose -f compose.dev.yaml down
+
+# ============================================
+# Production commands (standalone)
+# ============================================
+prod:
+	@echo "$(GREEN)Starting production environment...$(NC)"
+	cd infra && docker-compose -f compose.yaml up -d
+	@sleep 5
+	@echo "$(GREEN)✅ Production environment ready!$(NC)"
+	@echo "📌 Next.js (prod): http://localhost:3000"
+
+up-prod:
+	cd infra && docker-compose -f compose.yaml up -d
+
+build-prod:
+	cd infra && docker-compose -f compose.yaml up -d --build
+	@sleep 5
+	@echo "$(GREEN)✅ Production environment built and started!$(NC)"
+	@echo "📌 Next.js (prod): http://localhost:3000"
+
+logs-prod:
+	cd infra && docker-compose -f compose.yaml logs -f
+
+down-prod:
+	cd infra && docker-compose -f compose.yaml down
+
+# ============================================
+# Common commands
+# ============================================
+stop:
+	@echo "Stopping all containers..."
+	cd infra && docker-compose -f compose.yaml stop 2>/dev/null || true
+	cd infra && docker-compose -f compose.dev.yaml stop 2>/dev/null || true
+	@echo "✅ All containers stopped"
 
 down:
-	cd infra && docker-compose -f docker-compose.dev.yml down
-
-stop: 
-	cd infra && docker-compose -f docker-compose.dev.yml stop
-build:
-	cd infra && docker-compose -f docker-compose.dev.yml up -d --build
-	@echo "Waiting for the containers to be ready..."
-	@sleep 10
-	@echo "✅ App deployed!"
-	@echo "📌 Next.js: http://localhost:3000"
-	@echo "📌 pgAdmin: http://localhost:8080"
+	@echo "Removing all containers..."
+	cd infra && docker-compose -f compose.yaml down 2>/dev/null || true
+	cd infra && docker-compose -f compose.dev.yaml down 2>/dev/null || true
+	@echo "✅ All containers removed"
 
 clean:
-	cd infra && docker-compose -f docker-compose.dev.yml down -v --rmi all
+	@echo "Cleaning all containers, volumes and images..."
+	cd infra && docker-compose -f compose.yaml down -v --rmi all 2>/dev/null || true
+	cd infra && docker-compose -f compose.dev.yaml down -v --rmi all 2>/dev/null || true
+	@echo "✅ Cleanup complete"
