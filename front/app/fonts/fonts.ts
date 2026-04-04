@@ -12,7 +12,8 @@ export const jetBrain = localFont({
             weight: "200",
             style: "normal"
         }
-    ]
+    ],
+    variable: "--font-jetbrain"
 })
 
 export const Konkhmer = localFont({
@@ -22,11 +23,17 @@ export const Konkhmer = localFont({
             weight: "400",
             style: "normal"
         }
-    ]
+    ],
+    variable: "--font-konkhmer"
 })
 
 export const Montserrat = localFont({
     src: [
+        {
+            path: "./montserrat/Montserrat-SemiBold.ttf",
+            weight: "600",
+            style: "normal"
+        },
         {
             path: "./montserrat/Montserrat-Regular.ttf",
             weight: "400",
@@ -34,8 +41,9 @@ export const Montserrat = localFont({
         },
         {
             path: "./montserrat/Montserrat-Light.ttf",
-            weight: "200",
+            weight: "300",
             style: "normal"
         }
-    ]
+    ],
+    variable: "--font-montserrat"
 })
