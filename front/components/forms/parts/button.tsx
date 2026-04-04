@@ -1,3 +1,5 @@
+'use client'
+
 import { jetBrain } from "@/app/fonts/fonts";
 import React from "react";
 
@@ -18,10 +20,11 @@ interface Props {
     disabled: boolean,
     children: React.ReactNode,
     variant?: typeof VariantType[keyof typeof VariantType]
+    onClick?: () => void
 }
 
 
-export const Button = ({ type = "button", disabled, children, variant = "primary" }: Props) => {
+export const Button = ({ type = "button", disabled, children, variant = "primary", onClick }: Props) => {
 
     const variantStyles = {
         primary: "bg-primary/90  text-background hover:bg-primary",
@@ -30,7 +33,14 @@ export const Button = ({ type = "button", disabled, children, variant = "primary
     };
 
     return (
-        <button type={type} disabled={disabled} className={`${variantStyles[variant]} font-normal p-2 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className}`}>{children}</button>
+        <button
+            type={type}
+            disabled={disabled}
+            className={`${variantStyles[variant]} font-normal p-2 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className}`}
+            onClick={onClick}
+        >
+            {children}
+        </button>
     )
 }
 
