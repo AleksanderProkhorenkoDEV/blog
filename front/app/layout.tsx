@@ -1,5 +1,5 @@
-import { CustomNavBar } from "@/components/navbar/navbar";
-import { Konkhmer } from "./fonts/fonts";
+import { Toaster } from "@/components/ui/sonner";
+import { Montserrat } from "./fonts/fonts";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,10 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${Konkhmer.className}`}> 
+    <html lang="es" className={`${Montserrat.variable}`}> 
       <body>
-        
         {children}
+        <Toaster />
       </body>
     </html>
   );
