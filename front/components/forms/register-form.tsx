@@ -1,11 +1,12 @@
 'use client'
 
+import { useActionState, useEffect } from "react"
 import { CustomLink } from "../link/customLink"
 import { initStateSingUp } from "@/types/auth"
 import { userSingUp } from "@/actions/auth"
 import { CustomInput } from "./parts/input"
+import { useRouter } from "next/navigation"
 import { Button } from "./parts/button"
-import { useActionState, useEffect } from "react"
 import { Form } from "./base-form"
 import { toast } from "sonner"
 
@@ -17,16 +18,19 @@ export const RegisterForm = () => {
         formError: "",
     }
 
+    const router = useRouter()
+
     const [state, formAction, pending] = useActionState(userSingUp, initialState)
 
     useEffect(() => {
         if (state.success) {
             toast.success("Cuenta creada, revise su correo para verificar su e-mail")
+            router.push(`/register/check-email?email=${encodeURIComponent(state.formData!.email)}`)
         }
         if (state.formError) {
-            toast.error(`Error al crear la cuenta: ${state.formError}`)
+            toast.error(`Error al crear la cuenta. Intentelo más tarde.`)
         }
-    }, [state])
+    }, [state, router])
 
     return (
         <Form action={formAction}>
