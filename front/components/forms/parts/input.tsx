@@ -23,7 +23,13 @@ export const CustomInput = ({
                     'bg-foreground text-secondary'}
                 `}
             />
-            <p>{error}</p>
+            <p className={`min-h-5 text-sm ${error
+                        ? "text-destructive before:content-['*'] before:mr-0.5"
+                        : ""
+                    }`}
+            >
+                {error ?? ""}
+            </p>
         </>
     )
 }
