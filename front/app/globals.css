@@ -53,6 +53,8 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-error: var(--error);
   --color-warning: var(--warning);
+
+  --breakpoint-xs: 29.375rem;
 }
 
 @layer base {
