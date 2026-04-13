@@ -17,7 +17,7 @@ export const VariantType = {
 
 interface Props {
     type?: typeof ButtonType[keyof typeof ButtonType],
-    disabled: boolean,
+    disabled?: boolean,
     children: React.ReactNode,
     variant?: typeof VariantType[keyof typeof VariantType]
     onClick?: () => void
@@ -28,7 +28,7 @@ export const Button = ({ type = "button", disabled, children, variant = "primary
 
     const variantStyles = {
         primary: "bg-primary/90  text-background hover:bg-primary",
-        secondary: "bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80",
+        secondary: "bg-none text-secondary border-2 border-border",
         danger: "bg-destructive text-destructive-foreground hover:bg-destructive/80"
     };
 
@@ -36,7 +36,7 @@ export const Button = ({ type = "button", disabled, children, variant = "primary
         <button
             type={type}
             disabled={disabled}
-            className={`${variantStyles[variant]} font-normal p-2 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className}`}
+            className={`${variantStyles[variant]} flex gap-2 items-center justify-center font-normal p-2 px-4 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className}`}
             onClick={onClick}
         >
             {children}
