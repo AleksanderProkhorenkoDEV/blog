@@ -5,7 +5,9 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
     return (
         <>
             <CustomNavBar />
-            {children}
+            <main className="max-w-7xl mx-auto">
+                {children}
+            </main>
         </>
     )
 }
