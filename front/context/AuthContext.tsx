@@ -21,12 +21,8 @@ export const AuthProvider = ({ children, initialData }: Props) => {
     )
 }
 
-export function useAuth(): ProfileSummary {
+export function useAuth(): ProfileSummary | null {
     const context = useContext(AuthContext)
-
-    if (!context) {
-        throw new Error("useAuth must be used within AuthProvider")
-    }
 
     return context
 }
