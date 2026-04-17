@@ -1,10 +1,11 @@
 'use server'
 
-import { initStateResetPassword, initStateSingIn, initStateSingUp } from "@/types/auth"
-import { createClient } from "@/lib/supabase/server"
-import { signInSchema, signUpSchema } from "@/schemas"
 import z from "zod"
-import { resetPasswordSchema } from "@/schemas/auth"
+import { initStateLogout, initStateResetPassword, initStateSingIn, initStateSingUp } from "../types/auth"
+import { signInSchema, signUpSchema } from "../schemas"
+import { createClient } from "../lib/supabase/server"
+import { resetPasswordSchema } from "../schemas/auth"
+import { AuthError } from "@supabase/supabase-js"
 
 export const userSingUp = async (prevState: initStateSingUp, formData: FormData): Promise<initStateSingUp> => {
 
@@ -87,4 +88,21 @@ export const resetPassword = async (prevState: initStateResetPassword, formData:
     )
 
     return { success: true }
+}
+
+export const logOut = async (): Promise<initStateLogout> => {
+    const supabase = await createClient()
+
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+        return {
+            success: false,
+            formError: error.message,
+        };
+    }
+
+    return {
+        success: true,
+    };
 }
