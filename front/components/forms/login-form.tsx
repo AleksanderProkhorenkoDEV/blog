@@ -1,15 +1,15 @@
 'use client'
 
-import { CustomLink } from "../link/customLink"
-import { initStateSingIn } from "@/types/auth"
-import { CustomInput } from "./parts/input"
-import { userSingIn } from "@/actions/auth"
-import { Button } from "./parts/button"
+import { initStateSingIn } from "../../types/auth"
 import { useActionState, useEffect } from "react"
+import { CustomLink } from "../link/customLink"
+import { userSingIn } from "../../actions/auth"
+import { CustomInput } from "./parts/input"
+import { useRouter } from "next/navigation"
+import { Button } from "./parts/button"
 import { Label } from "./parts/label"
 import { Form } from "./base-form"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
 
 export const LoginForm = () => {
 
