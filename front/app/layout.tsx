@@ -1,6 +1,8 @@
-import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "../context/AuthContext";
+import { getProfile } from "../lib/supabase/rol";
 import { Montserrat } from "./fonts/fonts";
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,15 +11,18 @@ export const metadata: Metadata = {
 };
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const profile = await getProfile();
   return (
-    <html lang="es" className={`${Montserrat.variable}`}> 
+    <html lang="es" className={`${Montserrat.variable}`}>
       <body>
-        {children}
+        <AuthProvider initialData={profile}>
+          {children}
+        </AuthProvider>
         <Toaster />
       </body>
     </html>
