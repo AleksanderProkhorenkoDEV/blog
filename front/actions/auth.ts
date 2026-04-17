@@ -1,11 +1,10 @@
 'use server'
 
 import z from "zod"
-import { initStateLogout, initStateResetPassword, initStateSingIn, initStateSingUp } from "../types/auth"
+import { initStateResetPassword, initStateSingIn, initStateSingUp } from "../types/auth"
 import { signInSchema, signUpSchema } from "../schemas"
 import { createClient } from "../lib/supabase/server"
 import { resetPasswordSchema } from "../schemas/auth"
-import { AuthError } from "@supabase/supabase-js"
 
 export const userSingUp = async (prevState: initStateSingUp, formData: FormData): Promise<initStateSingUp> => {
 
@@ -90,7 +89,7 @@ export const resetPassword = async (prevState: initStateResetPassword, formData:
     return { success: true }
 }
 
-export const logOut = async (): Promise<initStateLogout> => {
+export const logOut = async (): Promise<> => {
     const supabase = await createClient()
 
     const { error } = await supabase.auth.signOut()
