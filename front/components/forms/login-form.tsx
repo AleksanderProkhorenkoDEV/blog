@@ -1,5 +1,6 @@
 'use client'
 
+import { useAuth } from "../../context/AuthContext"
 import { initStateSingIn } from "../../types/auth"
 import { useActionState, useEffect } from "react"
 import { CustomLink } from "../link/customLink"
@@ -20,11 +21,13 @@ export const LoginForm = () => {
     }
 
     const router = useRouter()
-    
+    const { login } = useAuth()
+
     const [state, formAction, pending] = useActionState(userSingIn, initialState)
 
     useEffect(() => {
-        if (state.success) {
+        if (state.success && state.profile) {
+            login(state.profile) 
             toast.success("Inicio de sesión correcto.")
             router.push("/")
         }
