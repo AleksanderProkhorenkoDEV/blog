@@ -13,7 +13,7 @@ export const ListItem = ({
                     href={href}
                     className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent/20 hover:text-primary focus:bg-accent focus:text-accent-foreground"
                 >
-                    <div className="font-medium">{title}</div>
+                    <p className="font-medium">{title}</p>
                 </Link>
             </NavigationMenuLink>
         </li>
