@@ -1,8 +1,8 @@
 import { AuthProvider } from "../context/AuthContext";
+import { Toaster } from "../components/ui/sonner";
 import { getProfile } from "../lib/supabase/rol";
 import { Montserrat } from "./fonts/fonts";
 import type { Metadata } from "next";
-import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
