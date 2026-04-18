@@ -1,5 +1,5 @@
-import { CustomNavBar } from "@/components/navbar/navbar";
 import React from "react";
+import { CustomNavBar } from "../../components/navbar/navbar";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
     return (

@@ -1,7 +1,7 @@
 'use client'
 
-import { jetBrain } from "@/app/fonts/fonts";
 import React from "react";
+import { jetBrain } from "../../../app/fonts/fonts";
 
 export const ButtonType = {
     BUTTON: "button",

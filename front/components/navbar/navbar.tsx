@@ -1,12 +1,12 @@
 "use client"
 
-import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuList,
-} from "@/components/ui/navigation-menu"
+
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu"
+import { Konkhmer } from "../../app/fonts/fonts"
+import { User } from "lucide-react"
 import { NavBarLink } from "./Link"
-import { Konkhmer } from "@/app/fonts/fonts"
+import { UserMenu } from "./UserMenu"
+
 
 export const CustomNavBar = () => {
     return (
@@ -27,8 +27,18 @@ export const CustomNavBar = () => {
                     <NavigationMenuItem>
                         <NavBarLink href="/contact">Contact</NavBarLink>
                     </NavigationMenuItem>
+
+                    <NavigationMenuItem className="hidden md:flex">
+                        <NavigationMenuTrigger className="hover:text-primary transition-colors">
+                            <User />
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent >
+                            <UserMenu />
+                        </NavigationMenuContent>
+                    </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
         </header>
     )
 }
+

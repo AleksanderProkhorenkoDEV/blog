@@ -1,3 +1,5 @@
+import { ProfileSummary } from "./user"
+
 export interface initStateSingUp {
     success: boolean,
     inputErrors?: {
@@ -15,6 +17,7 @@ export interface initStateSingUp {
 
 export interface initStateSingIn {
     success: boolean,
+    profile?: ProfileSummary
     inputErrors?: {
         email?: string[]
         password?: string[]
@@ -29,4 +32,9 @@ export interface initStateResetPassword {
         password?: string[]
     },
     formError?: string
+}
+
+export interface initStateSignOut {
+    success: boolean,
+    formError?: string;
 }

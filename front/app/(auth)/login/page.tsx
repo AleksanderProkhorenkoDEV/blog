@@ -1,5 +1,5 @@
-import { jetBrain } from "@/app/fonts/fonts";
-import { LoginForm } from "@/components/forms/login-form";
+import { LoginForm } from "../../../components/forms/login-form";
+import { jetBrain } from "../../fonts/fonts";
 
 export default function Login() {
 

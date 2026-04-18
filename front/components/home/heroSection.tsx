@@ -1,6 +1,6 @@
-import { jetBrain, Konkhmer } from "@/app/fonts/fonts"
-import { Button } from "../forms/parts/button"
 import { BackgroundDecor } from "../elements/BackgroundDecor"
+import { jetBrain, Konkhmer } from "../../app/fonts/fonts"
+import { Button } from "../forms/parts/button"
 import { ArrowRight } from "lucide-react"
 
 export const HeroSection = () => {
