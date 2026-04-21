@@ -1,15 +1,16 @@
 'use client'
 
-import { CustomLink } from "../link/customLink"
-import { initStateSingIn } from "@/types/auth"
-import { CustomInput } from "./parts/input"
-import { userSingIn } from "@/actions/auth"
-import { Button } from "./parts/button"
+import { useAuth } from "../../context/AuthContext"
+import { initStateSingIn } from "../../types/auth"
 import { useActionState, useEffect } from "react"
+import { CustomLink } from "../link/customLink"
+import { userSingIn } from "../../actions/auth"
+import { CustomInput } from "./parts/input"
+import { useRouter } from "next/navigation"
+import { Button } from "./parts/button"
 import { Label } from "./parts/label"
 import { Form } from "./base-form"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
 
 export const LoginForm = () => {
 
@@ -20,11 +21,13 @@ export const LoginForm = () => {
     }
 
     const router = useRouter()
-    
+    const { login } = useAuth()
+
     const [state, formAction, pending] = useActionState(userSingIn, initialState)
 
     useEffect(() => {
-        if (state.success) {
+        if (state.success && state.profile) {
+            login(state.profile) 
             toast.success("Inicio de sesión correcto.")
             router.push("/")
         }

@@ -1,12 +1,14 @@
 "use client"
 
-import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuList,
-} from "@/components/ui/navigation-menu"
+
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu"
+import { Konkhmer } from "../../app/fonts/fonts"
+import { Menu, User } from "lucide-react"
 import { NavBarLink } from "./Link"
-import { Konkhmer } from "@/app/fonts/fonts"
+import { UserMenu } from "./UserMenu"
+import { getNavItems } from "./navItems"
+
+const items = getNavItems()
 
 export const CustomNavBar = () => {
     return (
@@ -14,21 +16,60 @@ export const CustomNavBar = () => {
             <div className={`flex gap-2 tracking-widest ${Konkhmer.className}`}>
                 <span className="text-primary">{`>_`}</span><p>~/init</p>
             </div>
-            <NavigationMenu>
+
+            <NavigationMenu className="hidden sm:flex">
                 <NavigationMenuList>
-                    <NavigationMenuItem>
-                        <NavBarLink href="/">Inicio</NavBarLink>
-                    </NavigationMenuItem>
+                    {
+                        items.map((item) => {
+                            return (
+                                <NavBarLink key={item.title} href={item.href}>{item.title}</NavBarLink>
+                            )
+                        })
+                    }
+                    <UserActions />
+                </NavigationMenuList>
+            </NavigationMenu>
 
-                    <NavigationMenuItem>
-                        <NavBarLink href="/blog">Blog</NavBarLink>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                        <NavBarLink href="/contact">Contact</NavBarLink>
-                    </NavigationMenuItem>
+            <NavigationMenu className="flex sm:hidden">
+                <NavigationMenuList>
+                    <MovileMenuLinks />
+                    <UserActions />
                 </NavigationMenuList>
             </NavigationMenu>
         </header>
+    )
+}
+
+const UserActions = () => {
+    return (
+        <NavigationMenuItem className="">
+            <NavigationMenuTrigger className="hover:text-primary transition-colors">
+                <User />
+            </NavigationMenuTrigger>
+            <NavigationMenuContent >
+                <UserMenu />
+            </NavigationMenuContent>
+        </NavigationMenuItem>
+    )
+}
+
+
+const MovileMenuLinks = () => {
+
+    return (
+        <NavigationMenuItem className="">
+            <NavigationMenuTrigger className="hover:text-primary transition-colors">
+                <Menu />
+            </NavigationMenuTrigger>
+            <NavigationMenuContent >
+                {
+                    items.map((item) => {
+                        return (
+                            <NavBarLink key={item.title} href={item.href}>{item.title}</NavBarLink>
+                        )
+                    })
+                }
+            </NavigationMenuContent>
+        </NavigationMenuItem>
     )
 }
