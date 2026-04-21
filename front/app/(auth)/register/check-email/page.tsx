@@ -1,8 +1,9 @@
 'use client'
 
-import { Button } from "@/components/forms/parts/button";
-import { CustomLink } from "@/components/link/customLink";
-import { createClient } from "@/lib/supabase/client";
+
+import { CustomLink } from "../../../../components/link/customLink";
+import { Button } from "../../../../components/forms/parts/button";
+import { createClient } from "../../../../lib/supabase/client";
 import { useState } from "react";
 import { toast } from "sonner";
 
