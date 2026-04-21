@@ -1,39 +1,18 @@
-import { ProfileSummary } from "../../types/user";
+import { NavItem } from "../../types/navigation"
 
-type NavItem = {
-        title: string;
-        href: string;
-    }
-
-export function getNavItems(user: ProfileSummary | null): NavItem[] {
-
-    if (!user) {
-        return [
-            {
-                title: "Iniciar sesión",
-                href: "/login",
-            },
-        ];
-    }
-
-    if (user.role !== "ADMIN") {
-        return [
-            {
-                title: "Cerrar sesión",
-                href: "#",
-            },
-        ];
-    }
-
-
+export const getNavItems = (): NavItem[] => {
     return [
         {
-            title: "Panel de administrador",
-            href: "/dashboard",
+            title: "Inicio",
+            href: "/",
         },
         {
-            title: "Cerrar sesión",
-            href: "#",
+            title: "Blog",
+            href: "/blog"
         },
-    ];
+        {
+            title: "Contacto",
+            href: "/contact"
+        }
+    ]
 }
