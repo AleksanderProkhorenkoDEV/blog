@@ -29,9 +29,11 @@ export async function updateSession(request: NextRequest) {
 
     const user = data?.claims
 
+
+
     if (
-        !user &&
-        request.nextUrl.pathname.startsWith('/dashboard') 
+        user?.user_role !== "ADMIN" &&
+        request.nextUrl.pathname.startsWith('/dashboard')
     ) {
         const url = request.nextUrl.clone()
         url.pathname = '/login'
