@@ -3,14 +3,12 @@
 import React, { createContext, useContext, useState } from "react"
 import { ProfileSummary } from "../types/user"
 
-// 1. Nuevo tipo
 interface AuthContextType {
     profile: ProfileSummary | null
     logOut: () => void
     login: (profile: ProfileSummary) => void
 }
 
-// 2. Actualizar el createContext
 const AuthContext = createContext<AuthContextType | null>(null)
 
 interface Props {
@@ -37,7 +35,6 @@ export const AuthProvider = ({ children, initialData }: Props) => {
     )
 }
 
-// 3. Actualizar el tipo de retorno
 export function useAuth(): AuthContextType {
     const context = useContext(AuthContext)
     if (!context) throw new Error("useAuth must be used within an AuthProvider")
