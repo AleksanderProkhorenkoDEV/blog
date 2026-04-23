@@ -20,9 +20,9 @@ export const CustomNavBar = () => {
             <NavigationMenu className="hidden sm:flex">
                 <NavigationMenuList>
                     {
-                        items.map((item) => {
+                        items.map((item, index) => {
                             return (
-                                <NavBarLink key={item.title} href={item.href}>{item.title}</NavBarLink>
+                                <NavBarLink key={index} href={item.href}>{item.title}</NavBarLink>
                             )
                         })
                     }
@@ -63,9 +63,9 @@ const MovileMenuLinks = () => {
             </NavigationMenuTrigger>
             <NavigationMenuContent >
                 {
-                    items.map((item) => {
+                    items.map((item, index) => {
                         return (
-                            <NavBarLink key={item.title} href={item.href}>{item.title}</NavBarLink>
+                            <NavBarLink key={index} href={item.href}>{item.title}</NavBarLink>
                         )
                     })
                 }

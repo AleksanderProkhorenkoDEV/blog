@@ -1,0 +1,7 @@
+model PostMetrics {
+    views Int @default(0)
+    likes Int @default(0)
+
+    post   Post @relation(fields: [postId], references: [id])
+    postId Int  @id
+}
