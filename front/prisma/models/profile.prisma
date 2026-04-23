@@ -6,6 +6,8 @@ model Profile {
     bio   String?
     posts Post[]
 
+    comments Comments[]
+
     createdAt DateTime @default(now())
 }
 
