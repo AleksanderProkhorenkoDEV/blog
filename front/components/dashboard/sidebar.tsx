@@ -15,7 +15,7 @@ export const SideBar = ({ isOpen, toggleOpen }: Props) => {
     const { isLoading, handleSignOutSession } = useSignOut()
 
     return (
-        <aside className={`flex flex-col justify-between ${isOpen ? "py-2 px-2" : ""}`}>
+        <aside className={`flex flex-col justify-between border-r border-border ${isOpen ? "py-2 px-2" : ""}`}>
             <div className="flex justify-end w-full p-1">
                 <Button type="button" variant="icons" onClick={toggleOpen}>
                     {isOpen ? <PanelLeftClose /> : <PanelRightClose />}
