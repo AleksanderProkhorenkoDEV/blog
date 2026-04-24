@@ -1,12 +1,18 @@
 model Post {
     id        Int     @id @default(autoincrement())
     title     String
-    content  String  @db.Text
+    content   String  @db.Text
     slug      String  @unique
     published Boolean @default(false)
+    thumbnail String
 
     author   Profile @relation(fields: [authorId], references: [id])
     authorId String  @db.Uuid
+
+    categories CategoryPost[]
+
+    metrics PostMetrics?
+    comments Comments[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

@@ -1,7 +1,7 @@
 'use client'
 
-import { jetBrain } from "@/app/fonts/fonts";
 import React from "react";
+import { jetBrain } from "../../../app/fonts/fonts";
 
 export const ButtonType = {
     BUTTON: "button",
@@ -12,31 +12,34 @@ export const ButtonType = {
 export const VariantType = {
     PRIMARY: "primary",
     SECONDARY: "secondary",
-    DANGER: "danger"
+    DANGER: "danger",
+    ICONS: "icons"
 } as const
 
 interface Props {
     type?: typeof ButtonType[keyof typeof ButtonType],
-    disabled: boolean,
+    disabled?: boolean,
     children: React.ReactNode,
+    className?: string,
     variant?: typeof VariantType[keyof typeof VariantType]
     onClick?: () => void
 }
 
 
-export const Button = ({ type = "button", disabled, children, variant = "primary", onClick }: Props) => {
+export const Button = ({ type = "button", disabled, children, className, variant = "primary", onClick }: Props) => {
 
     const variantStyles = {
         primary: "bg-primary/90  text-background hover:bg-primary",
-        secondary: "bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80",
-        danger: "bg-destructive text-destructive-foreground hover:bg-destructive/80"
+        secondary: "bg-none text-secondary border-2 border-border",
+        danger: "bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        icons: "bg-transparent hover:text-primary !p-0"
     };
 
     return (
         <button
             type={type}
             disabled={disabled}
-            className={`${variantStyles[variant]} font-normal p-2 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className}`}
+            className={`${variantStyles[variant]} ${className} flex gap-2 items-center justify-center font-normal p-2 px-4 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className}`}
             onClick={onClick}
         >
             {children}

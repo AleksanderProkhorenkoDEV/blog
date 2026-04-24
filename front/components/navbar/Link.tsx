@@ -8,7 +8,7 @@ export const NavBarLink = ({ href, children, ...props }: { href: string, childre
     const isActive = href === pathname
 
     return (
-        <NavigationMenuLink asChild  data-active={isActive} key={`nav-home-${pathname}`}>
+        <NavigationMenuLink asChild  data-active={isActive}>
             <Link href={href} {...props}>{children}</Link>
         </NavigationMenuLink>
     )

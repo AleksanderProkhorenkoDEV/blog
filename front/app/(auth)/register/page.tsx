@@ -1,5 +1,6 @@
-import { RegisterForm } from "@/components/forms/register-form";
-import { jetBrain } from "@/app/fonts/fonts";
+import { RegisterForm } from "../../../components/forms/register-form";
+import { jetBrain } from "../../fonts/fonts";
+
 
 export default function Register() {
 

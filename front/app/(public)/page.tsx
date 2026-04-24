@@ -1,5 +1,7 @@
+import { HeroSection } from "../../components/home/heroSection";
+
 export default function HomePage() {
     return (
-        <h1>Home page</h1>
+        <HeroSection />
     )
 }
