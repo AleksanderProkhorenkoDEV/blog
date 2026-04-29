@@ -1,7 +1,13 @@
+import { Montserrat} from "../../../app/fonts/fonts"
 import React from "react"
 
-export const Td = ({ children }: { children: React.ReactNode }) => {
+export const Td = ({ children, className, colSpan }: { children: React.ReactNode, className?: string, colSpan?: number }) => {
     return (
-        <td>{children}</td>
+        <td
+            colSpan={colSpan}
+            className={`text-center align-middle border-b border-secondary/60 ${className} ${Montserrat.className}`}
+        >
+            {children}
+        </td>
     )
 }

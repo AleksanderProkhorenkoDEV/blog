@@ -1,6 +1,6 @@
-export const Tr = ({ children }: { children: React.ReactNode }) => {
+export const Tr = ({ children, className }: { children: React.ReactNode, className?: string }) => {
     return (
-        <tr>
+        <tr className={`${className}`}>
             {children}
         </tr>
     )
