@@ -3,32 +3,36 @@
 @import "shadcn/tailwind.css";
 
 :root {
-  --primary: oklab(0.72078 -0.13595 0.03715);
-  --primary-text: oklch(93% 0.0125 258.325);
-  --secondary-text: oklch(0.5993 0.0098 264.49);
-  --primary-bg: oklch(12.8% 0.015 262.001);
-  --border-color: oklch(25.1% 0.0125 248.02);
-  --error: oklch(65.57% 0.1744 23.19);
-  --warning: oklch(80.6% 0.305 82.772);
+  /* ── Paleta base ── */
+  --green: oklab(0.72078 -0.13595 0.03715);
+  --white: oklch(93% 0.0125 258.325);
+  --gray: oklch(59.93% 0.0098 264.49);
+  --dark: oklch(12.8% 0.015 262.001);
+  --border: oklch(25.1% 0.0125 248.02);
+  --red: oklch(65.57% 0.1744 23.19);
+  --yellow: oklch(80.6% 0.305 82.772);
 
-  --background: var(--primary-bg);
-  --foreground: var(--primary-text);
-  --card: var(--primary-bg);
-  --card-foreground: var(--secondary-text);
-  --border: var(--border-color);
-  --input: var(--border-color);
-  --ring: var(--primary);
-  --primary-foreground: var(--primary-bg);
-  --secondary: var(--secondary-text);
-  --secondary-foreground: var(--primary-text);
-  --muted: color-mix(in oklch, var(--secondary-text) 10%, transparent);
-  --muted-foreground: var(--secondary-text);
-  --accent: var(--primary);
-  --accent-foreground: var(--primary-bg);
-  --popover: var(--primary-bg);
-  --popover-foreground: var(--primary-text);
-  --destructive: var(--error);
+  /* ── Tokens shadcn ── */
+  --background: var(--dark);
+  --foreground: var(--white);
+  --card: var(--dark);
+  --card-foreground: var(--gray);
+  --border: var(--border);
+  --input: var(--border);
+  --ring: var(--green);
+  --primary: var(--green);
+  --primary-foreground: var(--dark);
+  --secondary: var(--gray);
+  --secondary-foreground: var(--white);
+  --muted: color-mix(in oklch, var(--gray) 10%, transparent);
+  --muted-foreground: var(--gray);
+  --accent: var(--green);
+  --accent-foreground: var(--dark);
+  --popover: var(--dark);
+  --popover-foreground: var(--white);
+  --destructive: var(--red);
   --destructive-foreground: white;
+  --warning: var(--yellow);
 }
 
 @theme inline {
@@ -51,7 +55,6 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-error: var(--error);
   --color-warning: var(--warning);
 
   --breakpoint-xs: 29.375rem;
