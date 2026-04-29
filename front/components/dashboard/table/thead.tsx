@@ -1,6 +1,6 @@
 export const Thead = ({ children }: { children: React.ReactNode }) => {
     return (
-        <thead>
+        <thead className="p-2 bg-background">
             {children}
         </thead>
     )

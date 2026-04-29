@@ -1,6 +1,6 @@
 export const Tbody = ({ children }: { children: React.ReactNode }) => {
     return (
-        <tbody>
+        <tbody className="">
             {children}
         </tbody>
     )
