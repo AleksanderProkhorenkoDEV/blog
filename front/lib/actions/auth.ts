@@ -1,11 +1,11 @@
 'use server'
 
 import z from "zod"
-import { initStateResetPassword, initStateSignOut, initStateSingIn, initStateSingUp } from "../types/auth"
-import { signInSchema, signUpSchema } from "../schemas"
-import { createClient } from "../lib/supabase/server"
-import { resetPasswordSchema } from "../schemas/auth"
-import { getProfile } from "../lib/supabase/rol"
+import { initStateResetPassword, initStateSignOut, initStateSingIn, initStateSingUp } from "../../types/auth"
+import { signInSchema, signUpSchema } from "../../schemas"
+import { createClient } from "../supabase/server"
+import { resetPasswordSchema } from "../../schemas/auth"
+import { getProfile } from "../supabase/rol"
 
 const singInWithCredentials = async (email: string, password: string) => {
     const supabase = await createClient()
