@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { singOutSupabase } from "../actions/auth"
+import { singOutSupabase } from "../lib/actions/auth"
 import { useAuth } from "../context/AuthContext"
 import { toast } from "sonner"
 
