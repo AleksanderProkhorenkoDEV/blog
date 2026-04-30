@@ -5,7 +5,7 @@ export const Td = ({ children, className, colSpan }: { children: React.ReactNode
     return (
         <td
             colSpan={colSpan}
-            className={`text-center align-middle border-b border-secondary/60 ${className} ${Montserrat.className}`}
+            className={`text-center align-middle border-b border-secondary/60 px-4 py-3 ${className} ${Montserrat.className}`}
         >
             {children}
         </td>
