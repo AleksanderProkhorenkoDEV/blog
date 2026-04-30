@@ -9,7 +9,7 @@ export const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
     const [isOpen, setOpen] = useState<boolean>(true);
 
     return (
-        <main className={` min-h-svh grid ${isOpen ? "grid-cols-[300px_1fr]" : "grid-cols-[50px_1fr]"} transition-all duration-300`}>
+        <main className={`h-svh grid ${isOpen ? "grid-cols-[300px_1fr]" : "grid-cols-[50px_1fr]"} transition-all duration-300 overflow-hidden`}>
             <SideBar isOpen={isOpen} toggleOpen={() => setOpen(!isOpen)} />
             <article className="p-2 flex items-center justify-center relative overflow-hidden">
                 {children}
