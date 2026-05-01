@@ -3,7 +3,7 @@
 import { initStateSingUp } from "../../types/auth"
 import { useActionState, useEffect } from "react"
 import { CustomLink } from "../link/customLink"
-import { userSingUp } from "../../actions/auth"
+import { userSingUp } from "../../lib/actions/auth"
 import { CustomInput } from "./parts/input"
 import { useRouter } from "next/navigation"
 import { Button } from "./parts/button"
