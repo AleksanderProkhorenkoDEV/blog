@@ -1,5 +1,7 @@
+import { TablePagination } from "../../../../components/dashboard/table/pagination/table-pagination";
 import { StatusBadget } from "../../../../components/dashboard/badgets/status-badget";
 import { TableLink } from "../../../../components/dashboard/table/table-link";
+import { TableEmpty } from "../../../../components/elements/table-empty";
 import { Table } from "../../../../components/dashboard/table/table";
 import { Tbody } from "../../../../components/dashboard/table/tbody";
 import { Thead } from "../../../../components/dashboard/table/thead";
@@ -16,7 +18,7 @@ import { SquarePen, Trash } from "lucide-react";
 
 export default async function PostPage() {
 
-    const { posts, total, pages } = await getPost()
+    const { posts, pages } = await getPost()
     return (
         <Section className="flex flex-col items-center gap-4 p-4">
             <h1 className={`uppercase ${Konkhmer.className} text-xl text-left w-5xl`}>Todos los post creados</h1>
@@ -68,28 +70,11 @@ export default async function PostPage() {
                                     )
                                 })
                                 :
-                                <Tr>
-                                    <Td colSpan={6} className="py-12 text-center">
-                                        <div className="flex flex-col items-center gap-2 text-secondary">
-                                            <span className={`text-4xl ${jetBrain.className}`}>404</span>
-                                            <span className={`text-sm ${jetBrain.className}`}>
-                                                <span className="text-primary">null</span>
-                                                {" !== "}
-                                                <span className="text-primary">undefined</span>
-                                                {", pero aquí no hay posts"}
-                                            </span>
-                                            <span className={`text-xs opacity-50 ${jetBrain.className}`}>
-                                                {"//TODO: crear algún post"}
-                                            </span>
-                                        </div>
-                                    </Td>
-                                </Tr>
+                                <TableEmpty />
                         }
                     </Tbody>
                     <Tfoot>
-                        <Tr>
-                            <Td colSpan={6} className="p-2 border-b-0">Paginación</Td>
-                        </Tr>
+                        <TablePagination totalPages={pages} />
                     </Tfoot>
                 </Table>
             </div>
