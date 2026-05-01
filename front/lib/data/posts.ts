@@ -14,7 +14,7 @@ export const getPost = async (page: number = 1, limit: number = 10) => {
                 },
                 createdAt: true
             },
-            skip: page * limit,
+            skip: (page - 1) * limit,
             take: limit,
             orderBy: { createdAt: "desc" },
         }),
