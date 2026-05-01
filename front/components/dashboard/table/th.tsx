@@ -1,5 +1,5 @@
-export const Th = ({ children }: { children: React.ReactNode }) => {
+export const Th = ({ children, className }: { children: React.ReactNode, className?: string }) => {
     return (
-        <th className="text-center align-middle font-medium p-4">{children}</th>
+        <th className={`text-center align-middle font-medium p-4 ${className}`}>{children}</th>
     )
 }
