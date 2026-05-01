@@ -20,7 +20,7 @@ export default async function PostPage() {
 
     const { posts, pages } = await getPost()
     return (
-        <Section className="flex flex-col items-center gap-4 p-4">
+        <Section className="flex flex-col items-center justify-center gap-4 p-4">
             <h1 className={`uppercase ${Konkhmer.className} text-xl text-left w-5xl`}>Todos los post creados</h1>
             <div className="w-5xl mb-4">
                 <Table>
