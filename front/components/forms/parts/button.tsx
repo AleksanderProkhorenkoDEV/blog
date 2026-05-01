@@ -39,7 +39,7 @@ export const Button = ({ type = "button", disabled, children, className, variant
         <button
             type={type}
             disabled={disabled}
-            className={`${variantStyles[variant]} ${className} flex gap-2 items-center justify-center font-normal p-2 px-4 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className}`}
+            className={`${variantStyles[variant]} ${className} flex gap-2 items-center justify-center font-normal p-2 px-4 rounded cursor-pointer ease-in-out transition uppercase ${jetBrain.className} ${disabled ? "cursor-not-allowed opacity-50 pointer-events-none" : "cursor-pointer"}`}
             onClick={onClick}
         >
             {children}
