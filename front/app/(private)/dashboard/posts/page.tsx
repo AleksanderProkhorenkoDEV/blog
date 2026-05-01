@@ -5,7 +5,6 @@ import { TableEmpty } from "../../../../components/elements/table-empty";
 import { Table } from "../../../../components/dashboard/table/table";
 import { Tbody } from "../../../../components/dashboard/table/tbody";
 import { Thead } from "../../../../components/dashboard/table/thead";
-import { Tfoot } from "../../../../components/dashboard/table/tfoot";
 import { Section } from "../../../../components/dashboard/section";
 import { Button } from "../../../../components/forms/parts/button";
 import { Td } from "../../../../components/dashboard/table/td";
@@ -21,16 +20,16 @@ export default async function PostPage() {
     const { posts, pages } = await getPost()
     return (
         <Section className="flex flex-col items-center justify-center gap-4 p-4">
-            <h1 className={`uppercase ${Konkhmer.className} text-xl text-left w-5xl`}>Todos los post creados</h1>
-            <div className="w-5xl mb-4">
-                <Table>
+            <h1 className={`uppercase ${Konkhmer.className} text-xl text-left w-5xl max-2xl:w-3xl max-xl:w-xl max-lg:w-full`}>Todos los post creados</h1>
+            <div className="w-5xl mb-4 max-2xl:w-3xl max-xl:w-xl max-lg:w-full max-lg:mb-0 max-md:h-100">
+                <Table className="max-lg:min-w-lg">
                     <Thead>
                         <Tr>
                             <Th>Titulo</Th>
-                            <Th>Slug</Th>
+                            <Th className="max-xl:hidden">Slug</Th>
                             <Th>Published</Th>
-                            <Th>Autor</Th>
-                            <Th>Fecha de creación</Th>
+                            <Th className="max-lg:hidden">Autor</Th>
+                            <Th className="max-xl:hidden">Fecha de creación</Th>
                             <Th>Acciones</Th>
                         </Tr>
                     </Thead>
@@ -51,15 +50,15 @@ export default async function PostPage() {
                                                     {item.title}
                                                 </TableLink>
                                             </Td>
-                                            <Td>{item.slug}</Td>
+                                            <Td className="max-xl:hidden">{item.slug}</Td>
                                             <Td>
                                                 <StatusBadget
                                                     title={item.published ? "Publicado" : "No publicado"}
                                                     variant={item.published ? "success" : "danger"}
                                                 />
                                             </Td>
-                                            <Td>{item.author.name}</Td>
-                                            <Td>{item.createdAt.getDate()}</Td>
+                                            <Td className="max-lg:hidden">{item.author.name}</Td>
+                                            <Td className="max-xl:hidden">{item.createdAt.getDate()}</Td>
                                             <Td className="">
                                                 <div className="flex gap-2 items-center justify-center">
                                                     <Button variant="icons"><SquarePen width={20} /></Button>
@@ -73,10 +72,8 @@ export default async function PostPage() {
                                 <TableEmpty />
                         }
                     </Tbody>
-                    <Tfoot>
-                        <TablePagination totalPages={pages} />
-                    </Tfoot>
                 </Table>
+                <TablePagination totalPages={pages} />
             </div>
         </Section>
     )
