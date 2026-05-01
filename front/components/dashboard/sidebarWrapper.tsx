@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { SideBar } from "./sidebar";
-import { BackgroundDecor } from "../elements/BackgroundDecor";
+import { BackgroundDecor } from "../elements/background-decorator";
 
 export const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
 
