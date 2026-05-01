@@ -4,8 +4,6 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { jetBrain } from "../../../../app/fonts/fonts"
 import { Button } from "../../../forms/parts/button"
 import { MoveLeft, MoveRight } from "lucide-react"
-import { Td } from "../td"
-import { Tr } from "../tr"
 
 export const TablePagination = ({ totalPages }: { totalPages: number }) => {
 
@@ -36,31 +34,26 @@ export const TablePagination = ({ totalPages }: { totalPages: number }) => {
 
     return (
 
-        <Tr>
-            <Td colSpan={5}>{null}</Td>
-            <Td colSpan={1} className="p-2 border-b-0">
-                <div className="flex items-center gap-2 w-full justify-end">
-                    <Button
-                        type="button"
-                        variant="icons"
-                        onClick={handlePreviusPage}
-                        disabled={currentPage <= 1}
-                    >
-                        <MoveLeft width={18} />
-                    </Button>
-                    <span className={`text-xs ${jetBrain.className}`}>
-                        {currentPage} / {totalPages}
-                    </span>
-                    <Button
-                        type="button"
-                        variant="icons"
-                        onClick={handleNextPage}
-                        disabled={currentPage >= totalPages}
-                    >
-                        <MoveRight width={18} />
-                    </Button>
-                </div>
-            </Td>
-        </Tr>
+        <div className="flex items-center gap-2 w-full justify-end max-lg:justify-start">
+            <Button
+                type="button"
+                variant="icons"
+                onClick={handlePreviusPage}
+                disabled={currentPage <= 1}
+            >
+                <MoveLeft width={18} />
+            </Button>
+            <span className={`text-xs ${jetBrain.className}`}>
+                {currentPage} / {totalPages}
+            </span>
+            <Button
+                type="button"
+                variant="icons"
+                onClick={handleNextPage}
+                disabled={currentPage >= totalPages}
+            >
+                <MoveRight width={18} />
+            </Button>
+        </div>
     )
 }
