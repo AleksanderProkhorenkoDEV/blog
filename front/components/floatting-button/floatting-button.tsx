@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React from "react"
 
 interface Props {
@@ -10,15 +10,12 @@ interface Props {
 
 export const FloattingButton = ({ children, url }: Props) => {
 
-    const router = useRouter()
-
     return (
-        <button
-            type="button"
-            onClick={() => { router.push(url) }}
-            className="absolute bottom-5 right-5 bg-primary/80 rounded-full size-12 hover:bg-primary duration-200 ease-in-out cursor-pointer"
+        <Link
+            href={url}
+            className="absolute bottom-5 right-5 flex items-center justify-center uppercase text-2xl text-foreground bg-primary/80 rounded-full size-12 hover:bg-primary duration-200 ease-in-out cursor-pointer"
         >
-            <p className="uppercase text-2xl text-foreground">{children}</p>
-        </button >
+            {children}
+        </Link >
     )
 }
