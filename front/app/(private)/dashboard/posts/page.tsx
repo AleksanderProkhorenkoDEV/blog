@@ -76,7 +76,7 @@ export default async function PostPage() {
                 </Table>
                 <TablePagination totalPages={pages} />
             </div>
-            <FloattingButton url="/dashboard/post/create">+</FloattingButton>
+            <FloattingButton url="/dashboard/posts/create">+</FloattingButton>
         </Section>
     )
 }
