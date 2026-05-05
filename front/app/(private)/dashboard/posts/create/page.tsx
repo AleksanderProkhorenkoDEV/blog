@@ -1,11 +1,12 @@
-import { Section } from "../../../../../components/dashboard/section";
-import { TipTap } from "../../../../../components/editor/tip-tap";
+import { Section } from "@/components/dashboard/section";
+import { PostForm } from "@/components/forms/post-form";
+
 
 
 export default function CreatePost() {
     return (
         <Section>
-            <TipTap placeholder="Crea un post" />
+           <PostForm />
         </Section>
     )
 }
