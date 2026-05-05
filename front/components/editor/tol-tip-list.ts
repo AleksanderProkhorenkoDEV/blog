@@ -1,5 +1,6 @@
 import { AlignCenterVertical, LucideIcon, Type } from "lucide-react";
-import { jetBrain } from "../../app/fonts/fonts";
+import { jetBrain } from "@/app/fonts/fonts";
+import type { Editor } from '@tiptap/core'
 
 export interface Tooltip {
     command: string;
