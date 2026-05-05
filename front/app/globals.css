@@ -66,3 +66,8 @@
     font-family: var(--font-montserrat);
   }
 }
+
+.tiptap {
+  min-height: 200px;
+  outline: none;
+}
