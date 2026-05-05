@@ -1,10 +1,10 @@
 'use client'
 
 import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import { TolTip } from './toltip'
-import { toolbarList } from './tol-tip-list'
 import { DropDownTolTips } from './drop-down-tol-tips'
+import StarterKit from '@tiptap/starter-kit'
+import { toolbarList } from './tol-tip-list'
+import { TolTip } from './toltip'
 
 interface Props {
     placeholder?: string
@@ -18,9 +18,9 @@ export const TipTap = ({ placeholder = "Escribe aqui el contenido" }: Props) => 
     })
 
     return (
-        <div className=''>
-            <nav className='border-b border-b-popover mb-2 p-2'>
-                <div className='flex gap-1.5 items-center'>
+        <div className="">
+            <nav className='mb-2 '>
+                <div className='flex gap-1.5 items-center bg-foreground  rounded-sm p-1'>
                     {toolbarList.map((item, index) => {
                         if (item.type === "button") {
                             return (
@@ -41,7 +41,10 @@ export const TipTap = ({ placeholder = "Escribe aqui el contenido" }: Props) => 
                     })}
                 </div>
             </nav>
-            <EditorContent editor={editor} />
+            <div className="min-h-50 max-h-150 overflow-y-auto border rounded-sm p-1 bg-foreground text-popover">
+                <EditorContent editor={editor} />
+            </div>
+
         </div>
     )
 }
