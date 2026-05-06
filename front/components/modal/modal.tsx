@@ -16,7 +16,7 @@ export const Modal = ({ children, title }: Props) => {
     const router = useRouter()
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-3 flex items-center justify-center">
             <div className="absolute inset-0 bg-popover/30 backdrop-blur-xs"></div>
             <article
                 className="relative z-10 bg-foreground text-popover 
