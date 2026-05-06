@@ -23,9 +23,9 @@ export const CategoryForm = () => {
     useEffect(() => {
         if (state.success) {
             toast.success("Categoría creada correctamente.")
-            router.refresh()
-            router.back()
+            router.push("/dashboard/categories")
         }
+
         if (state.formError) {
             toast.error(`Error al crear la categoría: ${state.formError}`)
         }
@@ -34,9 +34,9 @@ export const CategoryForm = () => {
     return (
         <Form action={formAction}>
             <label htmlFor="name">Nombre de la categoría</label>
-            <CustomInput 
-                type="text" 
-                name="name" 
+            <CustomInput
+                type="text"
+                name="name"
                 variant="dark"
                 error={state.inputErrors?.name?.[0]}
             />
