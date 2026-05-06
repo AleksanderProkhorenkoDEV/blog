@@ -4,7 +4,7 @@ import prisma from "../prisma/prisma";
 export const getCategories = async (page: number = 1, limit: number = 10) => {
     'use cache'
     cacheTag("category")
-    cacheLife("weeks")
+    cacheLife("days")
     const [categories, total] = await prisma.$transaction([
         prisma.category.findMany({
             select: {
