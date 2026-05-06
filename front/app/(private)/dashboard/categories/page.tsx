@@ -9,28 +9,26 @@ import { getCategories } from "@/lib/data/categories";
 import { Td } from "@/components/dashboard/table/td";
 import { Th } from "@/components/dashboard/table/th";
 import { Tr } from "@/components/dashboard/table/tr";
-import { CategoriesPromise } from "@/types/category";
 import { SquarePen, Trash } from "lucide-react";
 import { Konkhmer } from "@/app/fonts/fonts";
 import { Suspense } from "react";
+import { TablePagination } from "@/components/dashboard/table/pagination/table-pagination";
 
 export default function CategoriesPage() {
 
-    const categoriesPromise = getCategories()
-
     return (
         <Section className="flex flex-col items-center justify-center gap-4 p-4 relative">
-            <h1 className={`uppercase ${Konkhmer.className} text-xl text-left w-5xl max-2xl:w-3xl max-xl:w-xl max-lg:w-full`}>Todos los post creados</h1>
+            <h1 className={`uppercase ${Konkhmer.className} text-xl text-left w-5xl max-2xl:w-3xl max-xl:w-xl max-lg:w-full`}>Todos las categorías creadas</h1>
             <Suspense fallback={<p>loading data....</p>}>
-                <CategoriesTable categoriesPromise={categoriesPromise} />
+                <CategoriesTable />
             </Suspense>
             <FloattingButton url="/dashboard/categories/create">+</FloattingButton>
         </Section>
     )
 }
 
-const CategoriesTable = async ({ categoriesPromise }: { categoriesPromise: CategoriesPromise }) => {
-    const { categories } = await categoriesPromise
+const CategoriesTable = async () => {
+    const { categories, total, pages } = await getCategories()
     return (
         <div className="w-5xl mb-4 max-2xl:w-3xl max-xl:w-xl max-lg:w-full max-lg:mb-0 max-md:h-100">
             <Table className="max-lg:min-w-lg">
@@ -59,6 +57,7 @@ const CategoriesTable = async ({ categoriesPromise }: { categoriesPromise: Categ
                     }
                 </Tbody>
             </Table>
+            <TablePagination totalPages={pages} />
         </div>
     )
 }
