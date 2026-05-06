@@ -1,6 +1,10 @@
+import { cacheLife, cacheTag } from "next/cache";
 import prisma from "../prisma/prisma"
 
 export const getPost = async (page: number = 1, limit: number = 10) => {
+    'use cache'
+    cacheTag('posts')
+    cacheLife('days')
     const [posts, total] = await prisma.$transaction([
         prisma.post.findMany({
             select: {
