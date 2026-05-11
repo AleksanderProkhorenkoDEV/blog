@@ -30,3 +30,29 @@ export const createCategory = async (prevState: initStateCreateCategory, formDat
 
     return { success: true }
 }
+
+export const updateCategory = async (id: number, prevState: initStateCreateCategory, formData: FormData): Promise<initStateCreateCategory> => {
+    const validateFields = categorySchema.safeParse(Object.fromEntries(formData.entries()))
+
+    if (!validateFields.success) {
+        return {
+            success: false,
+            inputErrors: z.flattenError(validateFields.error).fieldErrors,
+            formData: {
+                name: formData.get("name") as string,
+            }
+        }
+    }
+
+    try {
+        await prisma.category.update({
+            where: { id },
+            data: { name: validateFields.data.name }
+        })
+        updateTag(`category-${id}`);
+    } catch (error) {
+        return { success: false, formError: (error as Error).message }
+    }
+
+    return { success: true }
+}
