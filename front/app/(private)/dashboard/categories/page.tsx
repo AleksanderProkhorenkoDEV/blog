@@ -1,10 +1,12 @@
+import { TablePagination } from "@/components/dashboard/table/pagination/table-pagination";
 import { FloattingButton } from "@/components/floatting-button/floatting-button";
 import { TableEmpty } from "@/components/elements/table-empty";
 import { Thead } from "@/components/dashboard/table/thead";
 import { Table } from "@/components/dashboard/table/table";
 import { Tbody } from "@/components/dashboard/table/tbody";
+import { CustomLink } from "@/components/link/customLink";
 import { Button } from "@/components/forms/parts/button";
-import { Section } from "@/components/dashboard/section";
+import { Section } from "@/components/dashboard/layout/section";
 import { getCategories } from "@/lib/data/categories";
 import { Td } from "@/components/dashboard/table/td";
 import { Th } from "@/components/dashboard/table/th";
@@ -12,7 +14,6 @@ import { Tr } from "@/components/dashboard/table/tr";
 import { SquarePen, Trash } from "lucide-react";
 import { Konkhmer } from "@/app/fonts/fonts";
 import { Suspense } from "react";
-import { TablePagination } from "@/components/dashboard/table/pagination/table-pagination";
 
 export default function CategoriesPage() {
 
@@ -28,7 +29,7 @@ export default function CategoriesPage() {
 }
 
 const CategoriesTable = async () => {
-    const { categories, total, pages } = await getCategories()
+    const { categories, pages } = await getCategories()
     return (
         <div className="w-5xl mb-4 max-2xl:w-3xl max-xl:w-xl max-lg:w-full max-lg:mb-0 max-md:h-100">
             <Table className="max-lg:min-w-lg">
@@ -47,7 +48,7 @@ const CategoriesTable = async () => {
                                 <Td>{item.name}</Td>
                                 <Td>
                                     <div className="flex gap-2 items-center justify-center">
-                                        <Button variant="icons"><SquarePen width={20} /></Button>
+                                        <CustomLink href={`/dashboard/categories/update/${item.id}`}><SquarePen width={20} /></CustomLink>
                                         <Button variant="icons"><Trash width={20} /></Button>
                                     </div>
                                 </Td>
