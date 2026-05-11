@@ -14,7 +14,7 @@ export const VariantType = {
     SECONDARY: "secondary",
     DANGER: "danger",
     ICONS: "icons",
-    GHOST: "ghost"
+    GHOST: "ghost",
 } as const
 
 interface Props {
