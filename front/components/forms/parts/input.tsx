@@ -4,8 +4,9 @@ interface InputProps {
     type: HTMLInputTypeAttribute
     name: string,
     placeholder?: string,
-    error?: string
-    variant?: "light" | "dark"
+    error?: string,
+    variant?: "light" | "dark",
+    defaultValue?: string
 }
 
 const variants = {
@@ -19,7 +20,8 @@ export const CustomInput = ({
     name,
     placeholder,
     error,
-    variant = "light"
+    variant = "light",
+    defaultValue,
 }: InputProps) => {
     return (
         <>
@@ -28,6 +30,7 @@ export const CustomInput = ({
                 name={name}
                 placeholder={placeholder}
                 id={name}
+                defaultValue={defaultValue}
                 className={`rounded p-2 box-border w-full   ${error ?
                     'bg-destructive/50 text-secondary-foreground' :
                     `${variants[variant]}`}
