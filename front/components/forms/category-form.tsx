@@ -7,6 +7,7 @@ import { createCategory } from "@/lib/actions/category"
 import { Form } from "@/components/forms/base-form"
 import { useActionState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { FolderPlus } from "lucide-react"
 import { toast } from "sonner"
 
 export const CategoryForm = () => {
@@ -37,10 +38,11 @@ export const CategoryForm = () => {
             <CustomInput
                 type="text"
                 name="name"
-                variant="dark"
+                placeholder="Ej: Spring boot, AWS"
+                variant="light"
                 error={state.inputErrors?.name?.[0]}
             />
-            <Button disabled={pending} type="submit">Crear categoria</Button>
+            <Button disabled={pending} type="submit"> <FolderPlus width={18} /> Crear categoria</Button>
         </Form>
     )
 }
