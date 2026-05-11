@@ -4,6 +4,7 @@ import { getProfile } from "../lib/supabase/rol";
 import { Montserrat } from "./fonts/fonts";
 import type { Metadata } from "next";
 import "./globals.css";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "La casa del Junior",
@@ -11,20 +12,26 @@ export const metadata: Metadata = {
 };
 
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const profile = await getProfile();
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${Montserrat.variable}`}>
       <body>
-        <AuthProvider initialData={profile}>
-          {children}
-        </AuthProvider>
+        <Suspense fallback={null}>
+          <AuthBootstrap>
+            {children}
+          </AuthBootstrap>
+        </Suspense>
         <Toaster />
       </body>
     </html>
-  );
+  )
+}
+
+const AuthBootstrap = async ({ children }: { children: React.ReactNode }) => {
+  const profile = await getProfile()
+  return (
+    <AuthProvider initialData={profile}>
+      {children}
+    </AuthProvider>
+  )
 }
