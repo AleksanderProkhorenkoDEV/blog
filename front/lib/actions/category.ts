@@ -50,6 +50,7 @@ export const updateCategory = async (id: number, prevState: initStateCreateCateg
             data: { name: validateFields.data.name }
         })
         updateTag(`category-${id}`);
+        updateTag("category");
     } catch (error) {
         return { success: false, formError: (error as Error).message }
     }
