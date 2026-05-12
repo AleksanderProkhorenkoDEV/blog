@@ -47,7 +47,7 @@ export const CategoryForm = ({ defaultValues }: CategoryFormProps) => {
     }, [state, router])
 
     return (
-        <Form action={formAction}>
+        <Form action={formAction} className="max-sm:min-w-fit">
             <label htmlFor="name">Nombre de la categoría</label>
             <CustomInput
                 type="text"
