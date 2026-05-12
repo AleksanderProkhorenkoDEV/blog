@@ -14,8 +14,8 @@ export default async function UpdatePage({ params }: { params: Promise<{ id: str
     if (!category) notFound()
 
     return (
-        <Section className="flex items-center justify-center">
-            <div className="flex flex-col gap-4 flex-wrap justify-center max-xl:items-center p-4">
+        <Section className="flex items-center px-4 max-md:items-baseline">
+            <div className="mx-auto mt-2">
                 <PageHeader
                     title="Actualizar categoría"
                     description="Organiza tus articulos en categorías para facilitar la navegación"
