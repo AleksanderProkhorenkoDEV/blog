@@ -16,7 +16,7 @@ export const FormLayout = ({ children, tips, title, description, icon }: Props) 
     return (
         <div className="flex gap-4 flex-wrap max-xl:justify-center">
             <article className="w-fit border border-border p-4 rounded-sm max-xl:max-w-xl max-sm:max-w-md">
-                <h3 className={`font-bold text-2xl ${jetBrain.className} flex gap-2 items-center mb-1`}> <Icon width={22} className="text-primary" /> {title}</h3>
+                <h3 className={`font-bold text-2xl ${jetBrain.className} flex gap-2 items-center mb-1 max-sm:text-sm`}> <Icon width={22} className="text-primary" /> {title}</h3>
                 <p className="text-sm text-muted-foreground mb-2">
                     {description}
                 </p>
