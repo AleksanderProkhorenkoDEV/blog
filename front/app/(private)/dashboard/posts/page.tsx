@@ -6,7 +6,7 @@ import { TableEmpty } from "../../../../components/elements/table-empty";
 import { Table } from "../../../../components/dashboard/table/table";
 import { Tbody } from "../../../../components/dashboard/table/tbody";
 import { Thead } from "../../../../components/dashboard/table/thead";
-import { Section } from "../../../../components/dashboard/section";
+import { Section } from "../../../../components/dashboard/layout/section";
 import { Button } from "../../../../components/forms/parts/button";
 import { Td } from "../../../../components/dashboard/table/td";
 import { Th } from "../../../../components/dashboard/table/th";

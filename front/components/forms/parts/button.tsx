@@ -14,7 +14,7 @@ export const VariantType = {
     SECONDARY: "secondary",
     DANGER: "danger",
     ICONS: "icons",
-    GHOST: "ghost"
+    GHOST: "ghost",
 } as const
 
 interface Props {
@@ -41,7 +41,7 @@ export const Button = ({ type = "button", disabled, children, className, variant
         <button
             type={type}
             disabled={disabled}
-            className={`${variantStyles[variant]} ${className} flex gap-2 items-center justify-center font-normal p-2 px-4 rounded cursor-pointer ease-in-out transition ${jetBrain.className} ${disabled ? "cursor-not-allowed opacity-50 pointer-events-none" : "cursor-pointer"}`}
+            className={`${variantStyles[variant]} ${className} flex gap-2 items-center justify-center font-normal p-2 px-4 rounded cursor-pointer ease-in-out transition max-sm:text-sm ${jetBrain.className} ${disabled ? "cursor-not-allowed opacity-50 pointer-events-none" : "cursor-pointer"}`}
             onClick={onClick}
         >
             {children}

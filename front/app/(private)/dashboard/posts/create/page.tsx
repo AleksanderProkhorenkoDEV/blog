@@ -1,4 +1,4 @@
-import { Section } from "@/components/dashboard/section";
+import { Section } from "@/components/dashboard/layout/section";
 import { PostForm } from "@/components/forms/post-form";
 
 

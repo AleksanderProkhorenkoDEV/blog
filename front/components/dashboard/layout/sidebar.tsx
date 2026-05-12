@@ -1,8 +1,8 @@
 import { LogOut, PanelLeftClose, PanelRightClose } from "lucide-react"
 import { Route, sidebarNavItems } from "./sidebar-nav-items"
-import { useSignOut } from "../../hooks/useSignOut"
-import { CustomLink } from "../link/customLink"
-import { Button } from "../forms/parts/button"
+import { useSignOut } from "../../../hooks/useSignOut"
+import { CustomLink } from "../../link/customLink"
+import { Button } from "../../forms/parts/button"
 
 interface Props {
     isOpen: boolean,
