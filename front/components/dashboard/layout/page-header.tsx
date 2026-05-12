@@ -5,11 +5,11 @@ import { LucideIcon } from "lucide-react"
 export const PageHeader = ({ title, description, icon }: { title: string, description: string, icon: LucideIcon }) => {
     const Icon = icon
     return (
-        <>
-            <div>
+        <div className="flex flex-col gap-2 mt-0.5">
+            <div className="max-xl:max-w-xl">
                 <BackNavigation text="Cancelar" />
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 max-xl:max-w-xl">
                 <div className="h-full p-2 bg-primary/20 rounded-lg">
                     <Icon width={28} className="text-primary" />
                 </div>
@@ -18,6 +18,6 @@ export const PageHeader = ({ title, description, icon }: { title: string, descri
                     <p className="text-sm text-muted-foreground">{description}</p>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
