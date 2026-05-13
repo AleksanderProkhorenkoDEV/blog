@@ -1,6 +1,6 @@
 "use server"
 
-import { initStateCreateCategory } from "@/types/category";
+import { initStateCreateCategory, initStateDeleteCategory } from "@/types/category";
 import { categorySchema } from "@/schemas/category";
 import { updateTag } from "next/cache";
 import prisma from "../prisma/prisma";
@@ -55,5 +55,18 @@ export const updateCategory = async (id: number, prevState: initStateCreateCateg
         return { success: false, formError: (error as Error).message }
     }
 
+    return { success: true }
+}
+
+export const deleteCategory = async (id: number): Promise<initStateDeleteCategory> => {
+    try {
+        await prisma.category.delete({
+            where: { id }
+        })
+        updateTag(`category-${id}`);
+        updateTag("category");
+    } catch (error) {
+        return { success: false, formError: (error as Error).message }
+    }
     return { success: true }
 }
