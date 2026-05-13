@@ -8,7 +8,7 @@ interface Props {
 export const TolTip = ({ message, command, customStyle }: Props) => {
     return (
         <div className='group relative w-fit cursor-pointer'>
-            <button className={`cursor-pointer px-0.5 text-popover hover:bg-muted rounded ${customStyle}`}>
+            <button className={`cursor-pointer p-1 text-popover hover:bg-primary rounded ${customStyle}`}>
                 {command}
             </button>
             <article className="
