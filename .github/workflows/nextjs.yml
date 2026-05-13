@@ -37,11 +37,6 @@ jobs:
       - name: Install dependencies with pnpm
         run: pnpm install --frozen-lockfile
 
-      - name: Debug env vars
-        run: |
-          echo "DATABASE_URL exists: ${{ secrets.DATABASE_URL != '' }}"
-          echo "DIRECT_URL exists: ${{ secrets.DIRECT_URL != '' }}"
-
       - name: Generate Prisma Client
         run: npx prisma generate
         env:
