@@ -1,4 +1,4 @@
-import { SidebarWrapper } from "../../components/dashboard/sidebarWrapper"
+import { SidebarWrapper } from "../../components/dashboard/layout/sidebarWrapper"
 import React from "react"
 
 
