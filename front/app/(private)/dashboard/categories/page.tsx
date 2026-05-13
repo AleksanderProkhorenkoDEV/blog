@@ -1,19 +1,19 @@
 import { TablePagination } from "@/components/dashboard/table/pagination/table-pagination";
 import { FloattingButton } from "@/components/floatting-button/floatting-button";
+import { Section } from "@/components/dashboard/layout/section";
 import { TableEmpty } from "@/components/elements/table-empty";
 import { Thead } from "@/components/dashboard/table/thead";
 import { Table } from "@/components/dashboard/table/table";
 import { Tbody } from "@/components/dashboard/table/tbody";
 import { CustomLink } from "@/components/link/customLink";
-import { Button } from "@/components/forms/parts/button";
-import { Section } from "@/components/dashboard/layout/section";
 import { getCategories } from "@/lib/data/categories";
 import { Td } from "@/components/dashboard/table/td";
 import { Th } from "@/components/dashboard/table/th";
 import { Tr } from "@/components/dashboard/table/tr";
-import { SquarePen, Trash } from "lucide-react";
 import { Konkhmer } from "@/app/fonts/fonts";
+import { SquarePen } from "lucide-react";
 import { Suspense } from "react";
+import { DeleteButtonWrapper } from "@/components/dashboard/categories/button-delete-wrapper";
 
 export default function CategoriesPage() {
 
@@ -49,7 +49,7 @@ const CategoriesTable = async () => {
                                 <Td>
                                     <div className="flex gap-2 items-center justify-center">
                                         <CustomLink href={`/dashboard/categories/update/${item.id}`}><SquarePen width={20} /></CustomLink>
-                                        <Button variant="icons"><Trash width={20} /></Button>
+                                        <DeleteButtonWrapper id={item.id} />
                                     </div>
                                 </Td>
                             </Tr>
