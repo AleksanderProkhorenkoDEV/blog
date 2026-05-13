@@ -18,7 +18,7 @@ export const DropDownTolTips = ({ item }: Props) => {
     const Icon = item.icon;
     return (
         <div className="relative group/dropdown cursor-pointer">
-            <div className="px-0.5 text-popover hover:bg-muted rounded">
+            <div className="p-1 text-popover hover:bg-primary rounded text-center">
                 <Icon size={16} />
             </div>
 
