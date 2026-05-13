@@ -10,8 +10,3 @@ export interface initStateCreateCategory {
 }
 
 export type CategoriesPromise = Promise<{ categories: { id: number; name: string }[], total: number, pages: number }>
-
-export interface initStateDeleteCategory {
-    success: boolean,
-    formError?: string
-}
