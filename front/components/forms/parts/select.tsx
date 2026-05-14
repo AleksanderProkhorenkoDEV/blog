@@ -21,6 +21,7 @@ const variants = {
 export const CustomSelect = ({ name, multiple = false, options, onChange, variant = "light", className }: Props) => {
     return (
         <select
+            id={name}
             name={name}
             multiple={multiple}
             onChange={(e) => {
