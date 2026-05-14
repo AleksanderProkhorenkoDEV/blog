@@ -1,5 +1,5 @@
 import { UploadImages } from "@/types/storage"
-import { createClient } from "../supabase/server"
+import { createClient } from "../supabase/client"
 
 export const uploadImage = async (formData: FormData): Promise<UploadImages> => {
 
