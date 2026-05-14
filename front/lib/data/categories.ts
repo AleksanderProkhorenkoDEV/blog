@@ -20,6 +20,20 @@ export const getCategories = async (page: number = 1, limit: number = 10) => {
     return { categories, total, pages: Math.ceil(total / limit) }
 }
 
+export const getAllCategories = async () => {
+    'use cache'
+    cacheTag("category")
+    cacheLife("days")
+    const categories = await
+        prisma.category.findMany({
+            select: {
+                id: true,
+                name: true,
+            },
+        })
+    return categories;
+}
+
 export const getCategory = async (id: string) => {
     'use cache'
     cacheTag(`category-${id}`)
