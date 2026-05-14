@@ -9,6 +9,8 @@ import { CustomInputFiles } from "./parts/input-file"
 import { ImageUp } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
+import Image from "next/image"
+import { uploadImage } from "@/lib/actions/storage"
 
 interface Props {
     categories: OptionSelect[]
@@ -17,43 +19,54 @@ interface Props {
 export const PostForm = ({ categories }: Props) => {
 
     const [selectedCategory, setSelectedCategory] = useState<OptionSelect[]>([])
+    const [thumbnail, setThumbnail] = useState<string>("/working-code.webp")
 
     const handleChangeSelect = (values: string[]) => {
         const newCategory = categories.filter(item => values.includes(String(item.value)))
         setSelectedCategory(newCategory)
     }
 
-    const handleImageUpload = (value: File) => {
+    const handleImageUpload = async (value: File) => {
         console.log(value);
         const maxSize = 2 * 1024 * 1024
         if (value.size > maxSize) {
             toast.error("La imagen pesa mucho, no puedes subirla")
             return
         }
+
+        const formData = new FormData()
+        formData.append('image', value)
+
+        const result = await uploadImage(formData)
+        if (result.error) return
+        setThumbnail(result.url!)
     }
 
     return (
         <form
             className="border border-primary w-5xl m-auto p-2 flex flex-col gap-1"
         >
-            <div className="flex border gap-2">
-                <div className="flex flex-col flex-1 border border-primary">
-                    <label htmlFor="name">Titulo del post</label>
+            <div className="flex gap-2">
+                <div className="flex flex-col flex-1">
+                    <label htmlFor="title">Titulo del post</label>
                     <CustomInput type="text" name="title" />
+                    <label htmlFor="slug">Slug</label>
+                    <CustomInput type="text" name="slug" />
                 </div>
-                <div className="flex-1 border border-warning">
+                <div className="flex-1 flex flex-col items-end gap-2">
+                    <Image src={thumbnail} alt="thumbnail" width={400} height={400} />
                     <CustomInputFiles
                         name="thumbnail"
                         accept="image/jpeg, image/webp"
                         onChange={handleImageUpload}
+                        className=""
                     >
                         <ImageUp />
                         Añade una imagen de portada
                     </CustomInputFiles>
                 </div>
             </div>
-            <label htmlFor="name">Slug</label>
-            <CustomInput type="text" name="slug" />
+
             <div className="flex flex-col">
                 <label htmlFor="categories" className="font-semibold mb-1">Categorías</label>
                 <div className="flex gap-4 ">
