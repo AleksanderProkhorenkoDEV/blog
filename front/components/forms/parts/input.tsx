@@ -31,7 +31,7 @@ export const CustomInput = ({
                 placeholder={placeholder}
                 id={name}
                 defaultValue={defaultValue}
-                className={`rounded p-2 box-border w-full   ${error ?
+                className={`rounded p-2 box-border    ${error ?
                     'bg-destructive/50 text-secondary-foreground' :
                     `${variants[variant]}`}
                 `}
