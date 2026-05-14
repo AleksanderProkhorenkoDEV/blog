@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import { DropDownTolTips } from './drop-down-tol-tips'
 import StarterKit from '@tiptap/starter-kit'
 import { toolbarList } from './tol-tip-list'
+import Image from '@tiptap/extension-image'
 import { TolTip } from './toltip'
 
 interface Props {
@@ -12,7 +13,10 @@ interface Props {
 
 export const TipTap = ({ placeholder = "Escribe aqui el contenido" }: Props) => {
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [
+            StarterKit,
+            Image
+        ],
         content: `<p>${placeholder}</p>`,
         immediatelyRender: false,
     })
