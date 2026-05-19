@@ -28,7 +28,7 @@ export const CustomInputFiles = ({ name, children, className, onChange, accept =
                     if (file) onChange(file)
                 }}
             />
-            <div className="flex items-center gap-2 w-fit bg-primary/90  text-popover hover:bg-primary uppercase rounded-sm p-2 duration-200 ease-in-out transition">
+            <div className="flex items-center gap-2 w-fit">
                 {children}
             </div>
         </label>
