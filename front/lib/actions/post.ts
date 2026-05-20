@@ -1,3 +1,5 @@
+'use server'
+
 import { initPostCreate } from "@/types/post";
 import { postSchema } from "@/schemas/post";
 import { updateTag } from "next/cache";
@@ -6,7 +8,17 @@ import z from "zod";
 
 export const createPost = async (formData: FormData): Promise<initPostCreate> => {
 
-    const validateFields = postSchema.safeParse(Object.fromEntries(formData.entries()))
+    const rawData = {
+        title: formData.get('title'),
+        slug: formData.get('slug'),
+        thumbnail: formData.get('thumbnail'),
+        categories: formData.getAll('categories[]'),
+        content: formData.get('content'),
+        authorId: formData.get('authorId'),
+        published: formData.get('published') === 'true',
+    }
+
+    const validateFields = postSchema.safeParse(rawData)
 
     if (!validateFields.success) {
         return {
