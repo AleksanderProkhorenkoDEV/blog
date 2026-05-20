@@ -1,24 +1,38 @@
 'use client'
 
+import { createPost } from "@/lib/actions/post"
+import { postSchema } from "@/schemas/post"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { toast } from "sonner"
+import z from "zod"
 
-export const usePostCreate = (authorId: string | undefined) => {
+export const usePostCreate = () => {
 
 
     const [loading, setLoading] = useState<boolean>(false)
+    const [inputErrors, setInputErrors] = useState<Partial<Record<keyof z.infer<typeof postSchema>, string[]>>>({})
 
-    const handleCreatePost = async (e: React.SubmitEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const router = useRouter()
 
-        setLoading(true)
-        const formData = new FormData(e.currentTarget)
-        console.log(e.currentTarget);
+    const handleCreatePost = async (formData: FormData) => {
+        try {
+            setLoading(true)
 
-        console.log(Object.fromEntries(formData.entries()))
+            const { success, inputErrors } = await createPost(formData)
 
-
-        setLoading(false)
+            if (!success) {
+                if (inputErrors) setInputErrors(inputErrors)
+                return
+            }
+            toast.success('Post creado')
+            router.back()
+        } catch (error) {
+            toast.error(`Ha ocurrido un error creando el post: ${error}`)
+        } finally {
+            setLoading(false)
+        }
     }
 
-    return { loading, handleCreatePost }
+    return { loading, handleCreatePost, inputErrors }
 }
