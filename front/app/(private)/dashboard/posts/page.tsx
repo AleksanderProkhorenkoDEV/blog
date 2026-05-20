@@ -49,9 +49,9 @@ const PostsTable = async () => {
                 <Tbody>
                     {posts.length != 0
                         ? posts.map((item, i) => (
-                            <Tr key={item.slug} className="hover:bg-border">
+                            <Tr key={item.id} className="hover:bg-border">
                                 <Td className="group">
-                                    <TableLink href="#">
+                                    <TableLink href={`/dashboard/posts/${item.slug}`}>
                                         <span className={`text-xs text-start align-top text-secondary mr-0.5 group-hover:text-primary transition-text duration-200 ${jetBrain.className}`}>
                                             {String(i + 1).padStart(2, "0")}
                                         </span>
@@ -66,7 +66,7 @@ const PostsTable = async () => {
                                     />
                                 </Td>
                                 <Td className="max-lg:hidden">{item.author.name}</Td>
-                                <Td className="max-xl:hidden">{item.createdAt.getDate()}</Td>
+                                <Td className="max-xl:hidden">{item.createdAt.toLocaleDateString('es-ES')}</Td>
                                 <Td>
                                     <div className="flex gap-2 items-center justify-center">
                                         <Button variant="icons"><SquarePen width={20} /></Button>
