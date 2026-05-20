@@ -101,7 +101,7 @@ export const PostForm = ({ categories, authorId }: Props) => {
             <hr className="border-t border-secondary my-4" />
             {/* Categorías y estado de publicación */}
             <div className="flex flex-wrap gap-4">
-                <label htmlFor="categories" className="flex-1">
+                <label htmlFor="categories[]" className="flex-1">
                     <span className="uppercase text-md tracking-wider text-foreground/60 mb-2">Categorías</span>
                     <div className="flex flex-col gap-4 mt-2">
                         <CustomSelect
@@ -132,7 +132,7 @@ export const PostForm = ({ categories, authorId }: Props) => {
                 </div>
             </div>
             <hr className="border-t border-secondary mb-2" />
-            <label htmlFor="name" className="uppercase text-foreground/60 tracking-wider">Contenido</label>
+            <label htmlFor="content" className="uppercase text-foreground/60 tracking-wider">Contenido</label>
             <TipTap content={content} setContent={setContent} error={inputErrors.content?.[0]} />
             <footer className="w-full flex justify-end">
                 <Button type="submit" variant="primary" disabled={loading} >
