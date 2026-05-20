@@ -15,7 +15,7 @@ export const createPost = async (formData: FormData): Promise<initPostCreate> =>
         categories: formData.getAll('categories[]'),
         content: formData.get('content'),
         authorId: formData.get('authorId'),
-        published: formData.get('published') === 'true',
+        published: formData.get('published') !== 'true',
     }
 
     const validateFields = postSchema.safeParse(rawData)
