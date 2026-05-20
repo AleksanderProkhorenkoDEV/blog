@@ -4,14 +4,14 @@ import { CategoryBadget } from "../dashboard/badgets/category-badget"
 import { CustomInput } from "@/components/forms/parts/input"
 import { CustomSelect, OptionSelect } from "./parts/select"
 import { Button } from "@/components/forms/parts/button"
+import { usePostCreate } from "@/hooks/usePostCreate"
 import { CustomInputFiles } from "./parts/input-file"
 import { TipTap } from "@/components/editor/tip-tap"
 import { uploadImage } from "@/lib/actions/storage"
 import { ImageUp } from "lucide-react"
-import { SubmitEventHandler, useState } from "react"
+import { useState } from "react"
 import { toast } from "sonner"
 import Image from "next/image"
-import { usePostCreate } from "@/hooks/usePostCreate"
 
 interface Props {
     categories: OptionSelect[]
@@ -23,6 +23,7 @@ export const PostForm = ({ categories, authorId }: Props) => {
 
     const [selectedCategory, setSelectedCategory] = useState<OptionSelect[]>([])
     const [thumbnail, setThumbnail] = useState<string>("/working-code.webp")
+    const [content, setContent] = useState<string>("Escribe tu primer post...")
 
     const handleChangeSelect = (values: string[]) => {
         const newCategory = categories.filter(item => values.includes(String(item.value)))
@@ -44,12 +45,23 @@ export const PostForm = ({ categories, authorId }: Props) => {
         setThumbnail(result.url!)
     }
 
-    const { loading, handleCreatePost } = usePostCreate(authorId)
+    const { loading, handleCreatePost, inputErrors } = usePostCreate()
+
+    const handleSubmitForm = (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget)
+        formData.append('authorId', String(authorId))
+        formData.append('thumbnail', thumbnail)
+        formData.append('content', content)
+        formData.set('published', String(formData.get('published') === 'on'))
+
+        handleCreatePost(formData)
+    }
 
     return (
         <form
-            className="w-5xl m-auto p-4 flex flex-col gap-1 bg-card text-card rounded-md"
-            onSubmit={handleCreatePost}
+            className="w-6xl m-auto p-4 flex flex-col gap-1 bg-card text-card rounded-md"
+            onSubmit={handleSubmitForm}
         >
             {/* Metadatos y Portada */}
             <div className="flex gap-4 justify-center">
@@ -57,16 +69,16 @@ export const PostForm = ({ categories, authorId }: Props) => {
                     <h1 className="uppercase text-md tracking-wider mb-2 text-foreground/60">Metadatos</h1>
                     <label htmlFor="title" className="flex flex-col gap-2 text-foreground">
                         Titulo del post
-                        <CustomInput type="text" name="title" variant="light" />
+                        <CustomInput type="text" name="title" variant="light" error={inputErrors?.title?.[0]} />
                     </label>
                     <label htmlFor="slug" className="flex flex-col gap-2 text-foreground">
                         Slug
-                        <CustomInput type="text" name="slug" variant="light" />
+                        <CustomInput type="text" name="slug" variant="light" error={inputErrors?.slug?.[0]} />
                     </label>
                 </div>
                 <div className="flex-1">
                     <h1 className="uppercase text-md tracking-wider text-foreground/60 mb-2">Portada</h1>
-                    <div className="relative aspect-video rounded-md overflow-hidden">
+                    <div className={`relative aspect-video rounded-md overflow-hidden ${inputErrors.thumbnail?.[0] ? "border border-destructive" : ""}`}>
                         <Image
                             src={thumbnail}
                             alt="thumbnail"
@@ -89,23 +101,24 @@ export const PostForm = ({ categories, authorId }: Props) => {
             <hr className="border-t border-secondary my-4" />
             {/* Categorías y estado de publicación */}
             <div className="flex flex-wrap gap-4">
-                <label htmlFor="categories" className="uppercase text-md tracking-wider text-foreground/60 mb-2 flex-1">
-                    Categorías
+                <label htmlFor="categories" className="flex-1">
+                    <span className="uppercase text-md tracking-wider text-foreground/60 mb-2">Categorías</span>
                     <div className="flex flex-col gap-4 mt-2">
                         <CustomSelect
-                            name="categories"
+                            name="categories[]"
                             multiple
                             variant="light"
                             options={categories}
                             className="flex-1"
                             onChange={handleChangeSelect}
+                            error={inputErrors.categories?.[0]}
                         />
                         <div className="flex flex-1 flex-wrap gap-2">
                             {
                                 selectedCategory.length != 0 ?
                                     selectedCategory.map((item) => {
                                         return (
-                                            <CategoryBadget key={item.value} name={item.label} variant="dark" />
+                                            <CategoryBadget key={item.value} name={item.label} variant="light" />
                                         )
                                     })
                                     : <p>No has seleccionado ninguna categoría</p>
@@ -114,13 +127,13 @@ export const PostForm = ({ categories, authorId }: Props) => {
                     </div>
                 </label>
                 <div className="flex-1 flex items-center  h-fit gap-1">
-                    <CustomInput name="published" type="checkbox" />
+                    <CustomInput name="published" type="checkbox" error={inputErrors?.published?.[0]} />
                     <label htmlFor="published" className="text-foreground">Borrador</label>
                 </div>
             </div>
             <hr className="border-t border-secondary mb-2" />
             <label htmlFor="name" className="uppercase text-foreground/60 tracking-wider">Contenido</label>
-            <TipTap placeholder="Crea un post" />
+            <TipTap content={content} setContent={setContent} error={inputErrors.content?.[0]} />
             <footer className="w-full flex justify-end">
                 <Button type="submit" variant="primary" disabled={loading} >
                     Crear articulo
