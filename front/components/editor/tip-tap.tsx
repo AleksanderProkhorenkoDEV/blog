@@ -2,10 +2,12 @@
 
 import { useEditor, EditorContent } from '@tiptap/react'
 import { DropDownTolTips } from './drop-down-tol-tips'
+import TextAlign from '@tiptap/extension-text-align'
 import StarterKit from '@tiptap/starter-kit'
 import { toolbarList } from './tol-tip-list'
 import Image from '@tiptap/extension-image'
 import { TolTip } from './toltip'
+
 
 interface Props {
     content: string,
@@ -17,6 +19,9 @@ export const TipTap = ({ content, setContent, error }: Props) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
+            TextAlign.configure({
+                types: ['heading', 'paragraph'],
+            }),
             Image
         ],
         content: content,
@@ -35,9 +40,12 @@ export const TipTap = ({ content, setContent, error }: Props) => {
                             return (
                                 <TolTip
                                     key={index}
+                                    editor={editor}
                                     command={item.tooltip.command}
                                     message={item.tooltip.message}
                                     customStyle={item.tooltip.customStyle}
+                                    action={item.tooltip.action}
+                                    isActive={item.tooltip.isActive}
                                 />
                             );
                         }
