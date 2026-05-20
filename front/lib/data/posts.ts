@@ -8,6 +8,7 @@ export const getPost = async (page: number = 1, limit: number = 10) => {
     const [posts, total] = await prisma.$transaction([
         prisma.post.findMany({
             select: {
+                id: true,
                 title: true,
                 slug: true,
                 published: true,
