@@ -8,16 +8,21 @@ import Image from '@tiptap/extension-image'
 import { TolTip } from './toltip'
 
 interface Props {
-    placeholder?: string
+    content: string,
+    setContent: (content: string) => void;
+    error: string | undefined
 }
 
-export const TipTap = ({ placeholder = "Escribe aqui el contenido" }: Props) => {
+export const TipTap = ({ content, setContent, error }: Props) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
             Image
         ],
-        content: `<p>${placeholder}</p>`,
+        content: content,
+        onUpdate: ({ editor }) => {
+            setContent(editor.getHTML())
+        },
         immediatelyRender: false,
     })
 
@@ -45,7 +50,7 @@ export const TipTap = ({ placeholder = "Escribe aqui el contenido" }: Props) => 
                     })}
                 </div>
             </nav>
-            <div className="min-h-50 max-h-150 overflow-y-auto border rounded-sm p-1 bg-foreground text-popover">
+            <div className={`min-h-50 max-h-150 overflow-y-auto rounded-sm p-1  ${error ? "border border-destructive bg-destructive/30 text-foreground" : " border bg-foreground text-popover"}`}>
                 <EditorContent editor={editor} />
             </div>
 
