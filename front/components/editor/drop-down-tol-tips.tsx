@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { Tooltip } from "./tol-tip-list";
 import { TolTip } from "./toltip";
+import { Editor } from "@tiptap/core";
 
 
 
@@ -12,9 +13,10 @@ type DropdownItem = {
 
 interface Props {
     item: DropdownItem;
+    editor: Editor | null
 }
 
-export const DropDownTolTips = ({ item }: Props) => {
+export const DropDownTolTips = ({ item, editor }: Props) => {
     const Icon = item.icon;
     return (
         <div className="relative group/dropdown cursor-pointer">
@@ -34,6 +36,9 @@ export const DropDownTolTips = ({ item }: Props) => {
                             message={subItem.message}
                             command={subItem.command}
                             customStyle={`${subItem.customStyle} !text-foreground !hover:bg-foreground/10`}
+                            isActive={subItem.isActive}
+                            action={subItem.action}
+                            editor={editor}
                         />
                     ))}
                 </div>
