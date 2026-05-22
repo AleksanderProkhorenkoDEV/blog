@@ -1,4 +1,4 @@
-import { AlignCenterVertical, LucideIcon, Type } from "lucide-react";
+import { AlignCenterVertical, List, LucideIcon, Type } from "lucide-react";
 import { jetBrain } from "@/app/fonts/fonts";
 import { type Editor } from '@tiptap/core'
 
@@ -49,6 +49,16 @@ export const toolbarList: ToolbarItem[] = [
         }
     },
     {
+        type: "button",
+        tooltip: {
+            command: "</>",
+            message: "Bloque de código (Ctrl + E)",
+            customStyle: `${jetBrain.className}`,
+            action: (editor) => editor.chain().focus().toggleCode().run(),
+            isActive: (editor) => editor.isActive('code')
+        }
+    },
+    {
         type: "dropdown",
         icon: Type,
         items: [
@@ -63,6 +73,12 @@ export const toolbarList: ToolbarItem[] = [
                 message: "Título 2 (Ctrl + Alt + 2)",
                 action: (editor) => editor.chain().focus().toggleHeading({ level: 2 }).run(),
                 isActive: (editor) => editor.isActive('heading', { level: 2 })
+            },
+            {
+                command: "H3",
+                message: "Título 3 (Ctrl + Alt + 3)",
+                action: (editor) => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+                isActive: (editor) => editor.isActive('heading', { level: 3 })
             }
         ]
     },
@@ -97,6 +113,35 @@ export const toolbarList: ToolbarItem[] = [
         ]
     },
     {
-        type: "image"
+        type: "dropdown",
+        icon: List,
+        items: [
+            {
+                command: "Lista viñetas",
+                message: "(Ctrl + Shift + 8)",
+                customStyle: "text-sm",
+                action: (editor) => editor.chain().focus().toggleBulletList().run(),
+                isActive: (editor) => editor.isActive('bulletList')
+            },
+            {
+                command: "Lista ordenada",
+                message: "(Ctrl + Shift + 9)",
+                customStyle: "text-sm",
+                action: (editor) => editor.chain().focus().toggleTaskList().run(),
+                isActive: (editor) => editor.isActive('tasklist')
+            }
+        ]
+    },
+    {
+        type: "button",
+        tooltip: {
+            command: "🧷",
+            message: "Inserta una imagen por URL",
+            action: (editor) => {
+                const url = window.prompt('URL de la imagen')
+                if (url) editor.chain().focus().setImage({ src: url }).run()
+            },
+            isActive: (editor) => editor.isActive('image')
+        }
     }
 ];
