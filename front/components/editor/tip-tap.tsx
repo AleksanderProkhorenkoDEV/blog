@@ -3,6 +3,9 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import { DropDownTolTips } from './drop-down-tol-tips'
 import TextAlign from '@tiptap/extension-text-align'
+import Underline from '@tiptap/extension-underline'
+import TaskItem from '@tiptap/extension-task-item'
+import TaskList from '@tiptap/extension-task-list'
 import StarterKit from '@tiptap/starter-kit'
 import { toolbarList } from './tol-tip-list'
 import Image from '@tiptap/extension-image'
@@ -19,6 +22,11 @@ export const TipTap = ({ content, setContent, error }: Props) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
+            Underline,
+            TaskList,
+            TaskItem.configure({
+                nested: true, 
+            }),
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
             }),
@@ -30,6 +38,7 @@ export const TipTap = ({ content, setContent, error }: Props) => {
         },
         immediatelyRender: false,
     })
+
 
     return (
         <div className="">
@@ -52,7 +61,7 @@ export const TipTap = ({ content, setContent, error }: Props) => {
 
                         if (item.type === "dropdown") {
                             return (
-                                <DropDownTolTips item={item} key={index} />
+                                <DropDownTolTips item={item} key={index} editor={editor} />
                             );
                         }
                     })}
