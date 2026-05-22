@@ -100,7 +100,7 @@ export const PostForm = ({ categories, authorId }: Props) => {
             </div>
             <hr className="border-t border-secondary my-4" />
             {/* Categorías y estado de publicación */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mb-2">
                 <label htmlFor="categories[]" className="flex-1">
                     <span className="uppercase text-md tracking-wider text-foreground/60 mb-2">Categorías</span>
                     <div className="flex flex-col gap-4 mt-2">
