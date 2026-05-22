@@ -29,7 +29,16 @@ importers:
       '@tiptap/extension-image':
         specifier: ^3.23.4
         version: 3.23.4(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))
+      '@tiptap/extension-task-item':
+        specifier: ^3.23.5
+        version: 3.23.5(@tiptap/extension-list@3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5))
+      '@tiptap/extension-task-list':
+        specifier: ^3.23.5
+        version: 3.23.5(@tiptap/extension-list@3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5))
       '@tiptap/extension-text-align':
+        specifier: ^3.23.5
+        version: 3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))
+      '@tiptap/extension-underline':
         specifier: ^3.23.5
         version: 3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))
       '@tiptap/pm':
@@ -1854,6 +1863,12 @@ packages:
       '@tiptap/core': 3.22.5
       '@tiptap/pm': 3.22.5
 
+  '@tiptap/extension-list@3.23.5':
+    resolution: {integrity: sha512-nzZXpVwnyKwTj4TVyPyu1bCUFjJCsaXnhAthmvJDnX3RBtemNG9Ka07xGR2NIspzumSbQSMFtDxjmxv3W5dEtg==}
+    peerDependencies:
+      '@tiptap/core': 3.23.5
+      '@tiptap/pm': 3.23.5
+
   '@tiptap/extension-ordered-list@3.22.5':
     resolution: {integrity: sha512-OXdh4k4CNrukwiSdWdEQ49uvgnqvR0Z9aNSP4HI5/kZQ/Te1NtRtYCpUrzWyO/7CtjcCisXHti0o9C/TV8YMbQ==}
     peerDependencies:
@@ -1869,6 +1884,16 @@ packages:
     peerDependencies:
       '@tiptap/core': 3.22.5
 
+  '@tiptap/extension-task-item@3.23.5':
+    resolution: {integrity: sha512-PjnsH/0gFP92E7jb0dRrtN5GWj/kd8e/AOY6X31utXC6v5T16hI0dCAOSK7cs3wjyj6Ic/B0jpSvokOCfYRjOQ==}
+    peerDependencies:
+      '@tiptap/extension-list': 3.23.5
+
+  '@tiptap/extension-task-list@3.23.5':
+    resolution: {integrity: sha512-366CsI17fOsdOFps9/wTK9tLL0M5XZHxDC7z9MntdyxbKaWECczTygiyeGZtkR/rP4RqlAK42mrQAfpLTbjnGQ==}
+    peerDependencies:
+      '@tiptap/extension-list': 3.23.5
+
   '@tiptap/extension-text-align@3.23.5':
     resolution: {integrity: sha512-eOeXrbpPWc6gfXli2aXYg9t61HhkvEkdxQgpEpZPFhrT4pPQcIqTlihswByC+cPb8B5ynrc/iamiY9cRSU1qvw==}
     peerDependencies:
@@ -1883,6 +1908,11 @@ packages:
     resolution: {integrity: sha512-9ut09rJD0iEbS6sk7yd2j6IwuFDLTNmDEGTDLodvqAfi+bq7ddsTDv0YviXoZaA9sdHAdTEVr2ITy2m6WK5jpA==}
     peerDependencies:
       '@tiptap/core': 3.22.5
+
+  '@tiptap/extension-underline@3.23.5':
+    resolution: {integrity: sha512-fyxthzE6CNCi9a9OVAwXs1sSyJ7jlrzT3aP2KhYLQCsJABHaPJgJA7k52/CRuKqCW3WbxU1ULH9LGuGtBbhEyw==}
+    peerDependencies:
+      '@tiptap/core': 3.23.5
 
   '@tiptap/extensions@3.22.5':
     resolution: {integrity: sha512-Ifg4MzKCj3uRqe3ieTwYnomu2y4p7EXr2avVSKZYfh12i2dyWe2Gkn1KuZDREANVE+gHqFlQjJRYzhJFwzSCrg==}
@@ -6307,6 +6337,11 @@ snapshots:
       '@tiptap/core': 3.22.5(@tiptap/pm@3.22.5)
       '@tiptap/pm': 3.22.5
 
+  '@tiptap/extension-list@3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5)':
+    dependencies:
+      '@tiptap/core': 3.22.5(@tiptap/pm@3.22.5)
+      '@tiptap/pm': 3.22.5
+
   '@tiptap/extension-ordered-list@3.22.5(@tiptap/extension-list@3.22.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5))':
     dependencies:
       '@tiptap/extension-list': 3.22.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5)
@@ -6319,6 +6354,14 @@ snapshots:
     dependencies:
       '@tiptap/core': 3.22.5(@tiptap/pm@3.22.5)
 
+  '@tiptap/extension-task-item@3.23.5(@tiptap/extension-list@3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5))':
+    dependencies:
+      '@tiptap/extension-list': 3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5)
+
+  '@tiptap/extension-task-list@3.23.5(@tiptap/extension-list@3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5))':
+    dependencies:
+      '@tiptap/extension-list': 3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))(@tiptap/pm@3.22.5)
+
   '@tiptap/extension-text-align@3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))':
     dependencies:
       '@tiptap/core': 3.22.5(@tiptap/pm@3.22.5)
@@ -6328,6 +6371,10 @@ snapshots:
       '@tiptap/core': 3.22.5(@tiptap/pm@3.22.5)
 
   '@tiptap/extension-underline@3.22.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))':
+    dependencies:
+      '@tiptap/core': 3.22.5(@tiptap/pm@3.22.5)
+
+  '@tiptap/extension-underline@3.23.5(@tiptap/core@3.22.5(@tiptap/pm@3.22.5))':
     dependencies:
       '@tiptap/core': 3.22.5(@tiptap/pm@3.22.5)
 
