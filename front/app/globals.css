@@ -97,3 +97,32 @@
   min-height: 200px;
   outline: none;
 }
+
+.tiptap h1 {
+  font-size: 26px;
+}
+
+.tiptap h2 {
+  font-size: 20px;
+}
+
+.tiptap img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 0.375rem;
+}
+
+.tiptap ul:not([data-type="taskList"]) {
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.tiptap ul:not([data-type="taskList"]) li p {
+  margin: 0;
+  display: inline;
+}
+
+.tiptap ul[data-type="taskList"] li  {
+  display: flex;
+  gap:8px;
+}
