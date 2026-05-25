@@ -16,7 +16,6 @@ import { CustomLink } from "@/components/link/customLink";
 import { getPosts } from "../../../../lib/data/posts";
 import { SquarePen, Trash } from "lucide-react";
 import { Suspense } from "react";
-import { StatusBadget } from "@/components/dashboard/badgets/status-badget";
 
 
 export default function PostPage() {
