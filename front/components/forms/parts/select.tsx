@@ -5,8 +5,8 @@ interface Props {
     onChange?: (value: string[]) => void
     variant?: "light" | "dark",
     className?: string,
-    error: string | undefined
-
+    error: string | undefined,
+    defaultValue?: string[]
 }
 
 export type OptionSelect = {
@@ -19,7 +19,7 @@ const variants = {
     dark: "border border-popover shadow-lg",
 }
 
-export const CustomSelect = ({ name, multiple = false, options, onChange, variant = "light", className, error }: Props) => {
+export const CustomSelect = ({ name, multiple = false, options, onChange, variant = "light", className, error, defaultValue }: Props) => {
     return (
 
         <>
@@ -27,6 +27,7 @@ export const CustomSelect = ({ name, multiple = false, options, onChange, varian
                 id={name}
                 name={name}
                 multiple={multiple}
+                defaultValue={defaultValue}
                 onChange={(e) => {
                     if (multiple) {
                         const selected = Array.from(e.target.selectedOptions).map(opt => opt.value)
