@@ -1,6 +1,6 @@
 import { TablePagination } from "../../../../components/dashboard/table/pagination/table-pagination";
+import { PublishedButtonWrapper } from "@/components/dashboard/post/button-published-wrapper";
 import { FloattingButton } from "../../../../components/floatting-button/floatting-button";
-import { StatusBadget } from "../../../../components/dashboard/badgets/status-badget";
 import { TableLink } from "../../../../components/dashboard/table/table-link";
 import { Section } from "../../../../components/dashboard/layout/section";
 import { TableEmpty } from "../../../../components/elements/table-empty";
@@ -16,6 +16,7 @@ import { CustomLink } from "@/components/link/customLink";
 import { getPosts } from "../../../../lib/data/posts";
 import { SquarePen, Trash } from "lucide-react";
 import { Suspense } from "react";
+import { StatusBadget } from "@/components/dashboard/badgets/status-badget";
 
 
 export default function PostPage() {
@@ -61,10 +62,7 @@ const PostsTable = async () => {
                                 </Td>
                                 <Td className="max-xl:hidden">{item.slug}</Td>
                                 <Td>
-                                    <StatusBadget
-                                        title={item.published ? "Publicado" : "No publicado"}
-                                        variant={item.published ? "success" : "danger"}
-                                    />
+                                    <PublishedButtonWrapper id={item.id} published={item.published} />
                                 </Td>
                                 <Td className="max-lg:hidden">{item.author.name}</Td>
                                 <Td className="max-xl:hidden">{item.createdAt.toLocaleDateString('es-ES')}</Td>
