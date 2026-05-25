@@ -14,7 +14,7 @@ export const StatusBadget = ({ title, variant = "success" }: Props) => {
 
     const variantStyles = {
         success: "border border-primary bg-primary/40 text-foreground shadow-xs shadow-primary",
-        danger: "border border-destructive bg-destructive/40 shadow-xs shadow-destructive",
+        danger: "border border-destructive bg-destructive/40 shadow-xs shadow-destructive text-foreground",
         info: "border border-warning bg-warning/40 shadow-xs shadow-warning"
     }
 
