@@ -2,17 +2,18 @@ import { TablePagination } from "../../../../components/dashboard/table/paginati
 import { FloattingButton } from "../../../../components/floatting-button/floatting-button";
 import { StatusBadget } from "../../../../components/dashboard/badgets/status-badget";
 import { TableLink } from "../../../../components/dashboard/table/table-link";
+import { Section } from "../../../../components/dashboard/layout/section";
 import { TableEmpty } from "../../../../components/elements/table-empty";
 import { Table } from "../../../../components/dashboard/table/table";
 import { Tbody } from "../../../../components/dashboard/table/tbody";
 import { Thead } from "../../../../components/dashboard/table/thead";
-import { Section } from "../../../../components/dashboard/layout/section";
 import { Button } from "../../../../components/forms/parts/button";
 import { Td } from "../../../../components/dashboard/table/td";
 import { Th } from "../../../../components/dashboard/table/th";
 import { Tr } from "../../../../components/dashboard/table/tr";
 import { jetBrain, Konkhmer } from "../../../fonts/fonts";
-import { getPost } from "../../../../lib/data/posts";
+import { CustomLink } from "@/components/link/customLink";
+import { getPosts } from "../../../../lib/data/posts";
 import { SquarePen, Trash } from "lucide-react";
 import { Suspense } from "react";
 
@@ -32,7 +33,7 @@ export default function PostPage() {
 }
 
 const PostsTable = async () => {
-    const { posts, pages } = await getPost()
+    const { posts, pages } = await getPosts()
     return (
         <div className="w-5xl mb-4 max-2xl:w-3xl max-xl:w-xl max-lg:w-full max-lg:mb-0 max-md:h-100">
             <Table className="max-lg:min-w-lg">
@@ -69,7 +70,7 @@ const PostsTable = async () => {
                                 <Td className="max-xl:hidden">{item.createdAt.toLocaleDateString('es-ES')}</Td>
                                 <Td>
                                     <div className="flex gap-2 items-center justify-center">
-                                        <Button variant="icons"><SquarePen width={20} /></Button>
+                                        <CustomLink href={`/dashboard/posts/update/${item.id}`}><SquarePen width={20} /></CustomLink>
                                         <Button variant="icons"><Trash width={20} /></Button>
                                     </div>
                                 </Td>
