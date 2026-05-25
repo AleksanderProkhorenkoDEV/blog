@@ -6,7 +6,8 @@ interface InputProps {
     placeholder?: string,
     error?: string,
     variant?: "light" | "dark",
-    defaultValue?: string
+    defaultValue?: string,
+    defaultChecked?: boolean
 }
 
 const variants = {
@@ -22,6 +23,7 @@ export const CustomInput = ({
     error,
     variant = "light",
     defaultValue,
+    defaultChecked,
 }: InputProps) => {
     return (
         <>
@@ -31,6 +33,7 @@ export const CustomInput = ({
                 placeholder={placeholder}
                 id={name}
                 defaultValue={defaultValue}
+                defaultChecked={defaultChecked}
                 className={`rounded p-2 box-border    ${error ?
                     'bg-destructive/50 text-secondary-foreground' :
                     `${variants[variant]}`}
