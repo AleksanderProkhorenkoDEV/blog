@@ -89,13 +89,25 @@ export const updatePost = async (formData: FormData): Promise<initPostCreate> =>
                 }
             }
         })
-
         updateTag("posts")
         updateTag(`post-${id}`)
         redirect('/dashboard/posts')
     } catch (error) {
         return { success: false, formError: (error as Error).message }
     }
+}
 
-    return { success: true }
+export const changePublishedStatus = async (id: number, published: boolean) => {
+    try {
+        await prisma.post.update({
+            where: { id },
+            data: {
+                published: published
+            }
+        })
+        updateTag("posts")
+        return { success: true }
+    } catch (error) {
+        return { success: false, formError: (error as Error).message }
+    }
 }
