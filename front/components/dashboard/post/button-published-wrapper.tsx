@@ -29,6 +29,7 @@ export const PublishedButtonWrapper = ({ published, id }: Props) => {
             type="button"
             variant="ghost"
             onClick={() => handleUpdate(id, !published)}
+            className="cursor-pointer"
         >
             <StatusBadget
                 title={published ? "Publicado" : "No publicado"}
