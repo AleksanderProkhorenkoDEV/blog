@@ -9,7 +9,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app/front
 
 # Copiar archivos de dependencias
-COPY front/package.json front/pnpm-lock.yaml* ./
+COPY front/package.json front/pnpm-lock.yaml* front/pnpm-workspace.yaml ./
 
 # Instalar dependencias
 RUN pnpm install

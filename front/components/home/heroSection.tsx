@@ -1,4 +1,4 @@
-import { BackgroundDecor } from "../elements/BackgroundDecor"
+import { BackgroundDecor } from "../elements/background-decorator"
 import { jetBrain, Konkhmer } from "../../app/fonts/fonts"
 import { Button } from "../forms/parts/button"
 import { ArrowRight } from "lucide-react"

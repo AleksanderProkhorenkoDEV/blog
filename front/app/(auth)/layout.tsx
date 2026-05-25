@@ -1,4 +1,4 @@
-import { BackgroundDecor } from "../../components/elements/BackgroundDecor";
+import { BackgroundDecor } from "../../components/elements/background-decorator";
 import { jetBrain } from "../fonts/fonts";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {

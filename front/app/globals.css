@@ -3,32 +3,61 @@
 @import "shadcn/tailwind.css";
 
 :root {
-  --primary: oklab(0.72078 -0.13595 0.03715);
-  --primary-text: oklch(93% 0.0125 258.325);
-  --secondary-text: oklch(0.5993 0.0098 264.49);
-  --primary-bg: oklch(12.8% 0.015 262.001);
-  --border-color: oklch(25.1% 0.0125 248.02);
-  --error: oklch(65.57% 0.1744 23.19);
-  --warning: oklch(80.6% 0.305 82.772);
+  /* ── Primitivos ── */
+  /* Escala de grises: L 12 → 18 → 25 → 38 → 60 → 93 */
+  --primitive-dark: oklch(12.8% 0.015 262.001);
+  --primitive-surface: oklch(18% 0.012 262.000);
+  /* ← nuevo: cards / popover */
+  --primitive-border: oklch(25.1% 0.0125 248.020);
+  --primitive-subtle: oklch(38% 0.010 262.000);
+  /* ← nuevo: hover, inputs */
+  --primitive-gray: oklch(59.93% 0.0098 264.490);
+  --primitive-white: oklch(93% 0.0125 258.325);
 
-  --background: var(--primary-bg);
-  --foreground: var(--primary-text);
-  --card: var(--primary-bg);
-  --card-foreground: var(--secondary-text);
-  --border: var(--border-color);
-  --input: var(--border-color);
-  --ring: var(--primary);
-  --primary-foreground: var(--primary-bg);
-  --secondary: var(--secondary-text);
-  --secondary-foreground: var(--primary-text);
-  --muted: color-mix(in oklch, var(--secondary-text) 10%, transparent);
-  --muted-foreground: var(--secondary-text);
-  --accent: var(--primary);
-  --accent-foreground: var(--primary-bg);
-  --popover: var(--primary-bg);
-  --popover-foreground: var(--primary-text);
-  --destructive: var(--error);
-  --destructive-foreground: white;
+  /* Colores semánticos */
+  --primitive-green: oklab(0.72078 -0.13595 0.03715);
+  --primitive-red: oklch(65.57% 0.1744 23.190);
+  --primitive-yellow: oklch(80.6% 0.200 82.772);
+  /* chroma bajado 0.305 → 0.200 */
+
+  /* ── Tokens shadcn ── */
+  /* Fondo y texto */
+  --background: var(--primitive-dark);
+  --foreground: var(--primitive-white);
+
+  /* Cards y popovers usan la surface (L=18%) para separarse visualmente del bg */
+  --card: var(--primitive-surface);
+  --card-foreground: var(--primitive-white);
+  --popover: var(--primitive-surface);
+  --popover-foreground: var(--primitive-white);
+
+  /* Bordes e inputs */
+  --border: var(--primitive-border);
+  --input: var(--primitive-subtle);
+  /* inputs más claros que border */
+  --ring: var(--primitive-green);
+
+  /* Colores de marca */
+  --primary: var(--primitive-green);
+  --primary-foreground: var(--primitive-dark);
+
+  --secondary: var(--primitive-subtle);
+  /* hover/secondary surfaces */
+  --secondary-foreground: var(--primitive-white);
+
+  /* Muted: usa el tono sutil en lugar de gray con alpha (más predecible) */
+  --muted: var(--primitive-subtle);
+  --muted-foreground: var(--primitive-gray);
+
+  /* Accent = mismo verde que primary */
+  --accent: var(--primitive-green);
+  --accent-foreground: var(--primitive-dark);
+
+  /* Estados semánticos */
+  --destructive: var(--primitive-red);
+  --destructive-foreground: var(--primitive-white);
+  --warning: var(--primitive-yellow);
+  --warning-foreground: var(--primitive-dark);
 }
 
 @theme inline {
@@ -36,6 +65,8 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -47,12 +78,10 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-error: var(--error);
   --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
 
   --breakpoint-xs: 29.375rem;
 }
@@ -62,4 +91,38 @@
     @apply bg-background text-foreground;
     font-family: var(--font-montserrat);
   }
+}
+
+.tiptap {
+  min-height: 200px;
+  outline: none;
+}
+
+.tiptap h1 {
+  font-size: 26px;
+}
+
+.tiptap h2 {
+  font-size: 20px;
+}
+
+.tiptap img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 0.375rem;
+}
+
+.tiptap ul:not([data-type="taskList"]) {
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.tiptap ul:not([data-type="taskList"]) li p {
+  margin: 0;
+  display: inline;
+}
+
+.tiptap ul[data-type="taskList"] li  {
+  display: flex;
+  gap:8px;
 }
