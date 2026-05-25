@@ -1,9 +1,17 @@
+allowBuilds:
+  '@prisma/engines': true
+  esbuild: true
+  msw: false
+  prisma: true
+  sharp: true
+  unrs-resolver: false
+
 ignoredBuiltDependencies:
+  - msw
+  - unrs-resolver
+
+onlyBuiltDependencies:
   - '@prisma/engines'
   - esbuild
   - prisma
   - sharp
-  - unrs-resolver
-
-onlyBuiltDependencies:
-  - msw
