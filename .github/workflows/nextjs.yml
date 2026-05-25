@@ -2,9 +2,9 @@ name: Nextjs full stack app
 
 on:
   push:
-    branches: ["main", "dev", "prod"]
+    branches: ["main", "prod"]
   pull_request:
-    branches: ["main", "dev", "prod"]
+    branches: ["main", "prod"]
 
 jobs:
   test:
