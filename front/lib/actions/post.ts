@@ -5,7 +5,6 @@ import { postSchema, updatePostSchema } from "@/schemas/post";
 import { updateTag } from "next/cache";
 import prisma from "../prisma/prisma";
 import z from "zod";
-import { redirect } from "next/navigation";
 
 export const createPost = async (formData: FormData): Promise<initPostCreate> => {
 
@@ -30,12 +29,12 @@ export const createPost = async (formData: FormData): Promise<initPostCreate> =>
 
     const { categories, ...postData } = validateFields.data
 
-
     try {
         await prisma.post.create({
             data: {
                 ...postData,
                 authorId: postData.authorId,
+                archived: false,
                 categories: {
                     create: categories.map(categoryId => ({
                         categoryId: Number(categoryId),
@@ -44,12 +43,10 @@ export const createPost = async (formData: FormData): Promise<initPostCreate> =>
             }
         })
         updateTag("posts");
-        redirect('/dashboard/posts')
+        return { success: true }
     } catch (error) {
         return { success: false, formError: (error as Error).message }
     }
-
-    return { success: true }
 }
 
 export const updatePost = async (formData: FormData): Promise<initPostCreate> => {
@@ -91,7 +88,7 @@ export const updatePost = async (formData: FormData): Promise<initPostCreate> =>
         })
         updateTag("posts")
         updateTag(`post-${id}`)
-        redirect('/dashboard/posts')
+        return { success: true }
     } catch (error) {
         return { success: false, formError: (error as Error).message }
     }
