@@ -11,8 +11,6 @@ export default async function UpdatePostPage({ params }: { params: Promise<{ id:
     const categories = await getAllCategories()
     const categoriesOption = toSelectOptions(categories, "id", "name");
     const post = await getPost(id)
-    console.log(post);
-
 
     if (!post) notFound()
 
