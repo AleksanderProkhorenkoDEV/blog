@@ -18,11 +18,10 @@ export const usePostCreate = (postId?: number) => {
     const handleCreatePost = async (formData: FormData) => {
         try {
             setLoading(true)
-
+            
             const { success, inputErrors } = postId
                 ? await updatePost(formData)
                 : await createPost(formData)
-            console.log(success, inputErrors);
 
             if (!success) {
                 if (inputErrors) setInputErrors(inputErrors)
