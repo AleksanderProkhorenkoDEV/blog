@@ -4,6 +4,7 @@ model Post {
     content   String  @db.Text
     slug      String  @unique
     published Boolean @default(false)
+    archived  Boolean @default(false)
     thumbnail String
 
     author   Profile @relation(fields: [authorId], references: [id])
@@ -11,7 +12,7 @@ model Post {
 
     categories CategoryPost[]
 
-    metrics PostMetrics?
+    metrics  PostMetrics?
     comments Comments[]
 
     createdAt DateTime @default(now())
