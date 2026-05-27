@@ -148,7 +148,7 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
                 <div className="flex-1 flex items-center  h-fit gap-1">
                     <CustomInput
                         name="published"
-                        defaultChecked={post?.published}
+                        defaultChecked={!post?.published}
                         type="checkbox"
                         error={inputErrors?.published?.[0]}
                     />
