@@ -12,6 +12,7 @@ export const getPosts = async (page: number = 1, limit: number = 10) => {
                 title: true,
                 slug: true,
                 published: true,
+                archived: true,
                 author: {
                     select: {
                         name: true
