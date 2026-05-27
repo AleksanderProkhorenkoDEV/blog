@@ -108,3 +108,22 @@ export const changePublishedStatus = async (id: number, published: boolean) => {
         return { success: false, formError: (error as Error).message }
     }
 }
+
+
+
+export const archivePost = async (id: number, archived: boolean) => {
+    try {
+        await prisma.post.update({
+            data: {
+                archived: !archived,
+                published: false,
+            },
+            where: { id: id }
+        })
+        updateTag("posts")
+        updateTag(`post-${id}`)
+        return { success: true }
+    } catch (error) {
+        return { success: false, formError: (error as Error).message }
+    }
+}
