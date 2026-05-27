@@ -4,16 +4,14 @@ import { Button } from "@/components/forms/parts/button";
 import { Konkhmer } from "@/app/fonts/fonts";
 import { X } from "lucide-react";
 import React from "react"
-import { useRouter } from "next/navigation";
 
 interface Props {
     children: React.ReactNode;
     title: string;
+    onClose?: () => void;
 }
 
-export const Modal = ({ children, title }: Props) => {
-
-    const router = useRouter()
+export const Modal = ({ children, title, onClose }: Props) => {
 
     return (
         <div className="fixed inset-0 z-3 flex items-center justify-center">
@@ -31,7 +29,7 @@ export const Modal = ({ children, title }: Props) => {
                     <Button
                         type="button"
                         variant="icons"
-                        onClick={() => router.back()}
+                        onClick={onClose}
                     >
                         <X />
                     </Button>
