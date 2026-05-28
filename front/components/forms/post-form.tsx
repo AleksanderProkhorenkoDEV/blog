@@ -96,20 +96,20 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
                 </div>
                 <div className="flex-1">
                     <h1 className="uppercase text-md tracking-wider text-foreground/60 mb-2">Portada</h1>
-                    <div className={`relative aspect-video rounded-md overflow-hidden ${inputErrors.thumbnail?.[0] ? "border border-destructive" : ""}`}>
+                    <div className={`relative group aspect-video rounded-md overflow-hidden ${inputErrors.thumbnail?.[0] ? "border border-destructive" : ""}`}>
                         <Image
                             src={thumbnail}
                             alt="thumbnail"
                             fill
-                            className="object-cover"
+                            className="object-cover pointer-events-none"
                         />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background/50 opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
-                            <ImageUp className="text-foreground" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 w-full h-full rounded-lg flex flex-col items-center justify-center bg-background/50 opacity-0 group-hover:opacity-100 transition-opacity">
                             <CustomInputFiles
                                 name="thumbnail"
                                 onChange={handleImageUpload}
-                                className="text-foreground"
+                                className="text-foreground cursor-pointer w-full h-full flex items-center justify-center"
                             >
+                                <ImageUp className="text-foreground" />
                                 Actualizar imagen
                             </CustomInputFiles>
                         </div>
