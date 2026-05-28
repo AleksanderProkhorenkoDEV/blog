@@ -2,6 +2,7 @@
 
 import React from "react";
 import { jetBrain } from "../../../app/fonts/fonts";
+import { LoaderCircle } from "lucide-react";
 
 export const ButtonType = {
     BUTTON: "button",
@@ -20,6 +21,7 @@ export const VariantType = {
 interface Props {
     type?: typeof ButtonType[keyof typeof ButtonType],
     disabled?: boolean,
+    loading?: boolean,
     children: React.ReactNode,
     className?: string,
     variant?: typeof VariantType[keyof typeof VariantType]
@@ -27,7 +29,7 @@ interface Props {
 }
 
 
-export const Button = ({ type = "button", disabled, children, className, variant = "primary", onClick }: Props) => {
+export const Button = ({ type = "button", disabled, loading, children, className, variant = "primary", onClick }: Props) => {
 
     const styleBase = `flex gap-2 items-center justify-center font-normal p-2 px-4 rounded cursor-pointer ease-in-out transition max-sm:text-sm ${jetBrain.className} ${disabled ? "cursor-not-allowed opacity-50 pointer-events-none" : "cursor-pointer"}`
 
@@ -46,7 +48,9 @@ export const Button = ({ type = "button", disabled, children, className, variant
             className={`${variantStyles[variant]} ${className}`}
             onClick={onClick}
         >
-            {children}
+            {
+                loading ? <span className="flex gap-2 text-inherit"><LoaderCircle className="animate-spin text-inherit" /> Cargando...</span> : children
+            }
         </button>
     )
 }
