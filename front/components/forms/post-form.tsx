@@ -159,7 +159,7 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
             <label htmlFor="content" className="uppercase text-foreground/60 tracking-wider">Contenido</label>
             <TipTap content={content} setContent={setContent} error={inputErrors.content?.[0]} />
             <footer className="w-full flex justify-end">
-                <Button type="submit" variant="primary" disabled={loading} >
+                <Button type="submit" variant="primary" disabled={loading} loading={loading} >
                     {post ? 'Actualizar artículo' : 'Crear artículo'}
                 </Button>
             </footer>

@@ -51,7 +51,7 @@ export const LoginForm = () => {
                 error={state.inputErrors?.password?.[0]}
             />
             <CustomLink href="/register"><p>¿No tienes cuenta? Registrare.</p></CustomLink>
-            <Button type="submit" disabled={pending}>Inicia sesión</Button>
+            <Button type="submit" disabled={pending} loading={pending}>Inicia sesión</Button>
         </Form>
     )
 }
