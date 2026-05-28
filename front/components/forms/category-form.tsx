@@ -59,6 +59,7 @@ export const CategoryForm = ({ defaultValues }: CategoryFormProps) => {
             />
             <Button
                 disabled={pending}
+                loading={pending}
                 type="submit"
                 variant={isEditing ? "secondary" : "primary"}
             >
