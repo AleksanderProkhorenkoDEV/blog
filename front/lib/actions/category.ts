@@ -2,6 +2,7 @@
 
 import { initStateCreateCategory, initStateDeleteCategory } from "@/types/category";
 import { categorySchema } from "@/schemas/category";
+import { redirect } from "next/navigation";
 import { updateTag } from "next/cache";
 import prisma from "../prisma/prisma";
 import z from "zod";
@@ -27,8 +28,7 @@ export const createCategory = async (prevState: initStateCreateCategory, formDat
     } catch (error) {
         return { success: false, formError: (error as Error).message }
     }
-
-    return { success: true }
+    redirect('/dashboard/categories')
 }
 
 export const updateCategory = async (id: number, prevState: initStateCreateCategory, formData: FormData): Promise<initStateCreateCategory> => {
@@ -54,8 +54,7 @@ export const updateCategory = async (id: number, prevState: initStateCreateCateg
     } catch (error) {
         return { success: false, formError: (error as Error).message }
     }
-
-    return { success: true }
+    redirect('/dashboard/categories')
 }
 
 export const deleteCategory = async (id: number): Promise<initStateDeleteCategory> => {
