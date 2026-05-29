@@ -1,77 +1,64 @@
 'use server'
 
-import { initPostCreate } from "@/types/post";
+import { formError, validationError } from "../utils/validate";
 import { postSchema, updatePostSchema } from "@/schemas/post";
-import { updateTag } from "next/cache";
+import { revalidateTag, updateTag } from "next/cache";
+import { ActionState } from "@/types/actions";
+import { PostFormData } from "@/types/post";
+import { redirect } from "next/navigation";
 import prisma from "../prisma/prisma";
-import z from "zod";
 
-export const createPost = async (formData: FormData): Promise<initPostCreate> => {
 
-    const rawData = {
-        title: formData.get('title'),
-        slug: formData.get('slug'),
-        thumbnail: formData.get('thumbnail'),
-        categories: formData.getAll('categories[]'),
-        content: formData.get('content'),
-        authorId: formData.get('authorId'),
-        published: formData.get('published') !== 'true',
-    }
+const extractPostRawData = (formData: FormData) => ({
+    title: formData.get('title'),
+    slug: formData.get('slug'),
+    thumbnail: formData.get('thumbnail'),
+    categories: formData.getAll('categories[]'),
+    content: formData.get('content'),
+    authorId: formData.get('authorId'),
+    published: formData.get('published') !== 'true',
+})
 
-    const validateFields = postSchema.safeParse(rawData)
+export async function createPost(
+    _: ActionState<PostFormData>,
+    formData: FormData
+): Promise<ActionState<PostFormData>> {
+    const parsed = postSchema.safeParse(extractPostRawData(formData))
+    if (!parsed.success) return validationError(parsed.error, {})
 
-    if (!validateFields.success) {
-        return {
-            success: false,
-            inputErrors: z.flattenError(validateFields.error).fieldErrors,
-        }
-    }
-
-    const { categories, ...postData } = validateFields.data
+    const { categories, ...postData } = parsed.data
 
     try {
         await prisma.post.create({
             data: {
                 ...postData,
-                authorId: postData.authorId,
                 archived: false,
                 categories: {
                     create: categories.map(categoryId => ({
-                        categoryId: Number(categoryId),
+                        categoryId: Number(categoryId)
                     }))
                 }
             }
         })
-        updateTag("posts");
-        return { success: true }
+        revalidateTag("posts", "max")
     } catch (error) {
-        return { success: false, formError: (error as Error).message }
+        return formError(error)
     }
+    redirect("/dashboard/posts")
 }
 
-export const updatePost = async (formData: FormData): Promise<initPostCreate> => {
+export async function updatePost(
+    _: ActionState<PostFormData>,
+    formData: FormData
+): Promise<ActionState<PostFormData>> {
 
-    const rawData = {
+    const parsed = updatePostSchema.safeParse({
         id: formData.get('id'),
-        title: formData.get('title'),
-        slug: formData.get('slug'),
-        thumbnail: formData.get('thumbnail'),
-        categories: formData.getAll('categories[]'),
-        content: formData.get('content'),
-        authorId: formData.get('authorId'),
-        published: formData.get('published') !== 'true',
-    }
+        ...extractPostRawData(formData)
+    })
+    if (!parsed.success) return validationError(parsed.error, {})
 
-    const validateFields = updatePostSchema.safeParse(rawData)
-
-    if (!validateFields.success) {
-        return {
-            success: false,
-            inputErrors: z.flattenError(validateFields.error).fieldErrors,
-        }
-    }
-
-    const { categories, id, ...postData } = validateFields.data
+    const { categories, id, ...postData } = parsed.data
 
     try {
         await prisma.post.update({
@@ -81,7 +68,7 @@ export const updatePost = async (formData: FormData): Promise<initPostCreate> =>
                 categories: {
                     deleteMany: {},
                     create: categories.map(categoryId => ({
-                        categoryId: Number(categoryId),
+                        categoryId: Number(categoryId)
                     }))
                 }
             }
@@ -90,40 +77,36 @@ export const updatePost = async (formData: FormData): Promise<initPostCreate> =>
         updateTag(`post-${id}`)
         return { success: true }
     } catch (error) {
-        return { success: false, formError: (error as Error).message }
+        return formError(error)
     }
 }
 
-export const changePublishedStatus = async (id: number, published: boolean) => {
+export async function changePublishedStatus(
+    id: number,
+    published: boolean
+): Promise<ActionState> {
     try {
-        await prisma.post.update({
-            where: { id },
-            data: {
-                published: published
-            }
-        })
+        await prisma.post.update({ where: { id }, data: { published } })
         updateTag("posts")
         return { success: true }
     } catch (error) {
-        return { success: false, formError: (error as Error).message }
+        return formError(error)
     }
 }
 
-
-
-export const archivePost = async (id: number, archived: boolean) => {
+export async function archivePost(
+    id: number,
+    archived: boolean
+): Promise<ActionState> {
     try {
         await prisma.post.update({
-            data: {
-                archived: !archived,
-                published: false,
-            },
-            where: { id: id }
+            where: { id },
+            data: { archived: !archived, published: false }
         })
         updateTag("posts")
         updateTag(`post-${id}`)
         return { success: true }
     } catch (error) {
-        return { success: false, formError: (error as Error).message }
+        return formError(error)
     }
 }
