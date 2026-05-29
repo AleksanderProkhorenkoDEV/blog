@@ -1,40 +1,37 @@
 'use client'
 
 import { createPost, updatePost } from "@/lib/actions/post"
-import { postSchema } from "@/schemas/post"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useTransition } from "react"
+import { ActionState } from "@/types/actions"
+import { PostFormData } from "@/types/post"
 import { toast } from "sonner"
-import z from "zod"
 
 export const usePostCreate = (postId?: number) => {
 
 
-    const [loading, setLoading] = useState<boolean>(false)
-    const [inputErrors, setInputErrors] = useState<Partial<Record<keyof z.infer<typeof postSchema>, string[]>>>({})
-
-    const router = useRouter()
+    const [inputErrors, setInputErrors] = useState<ActionState<PostFormData>>(null)
+    const [pending, startTransition] = useTransition()
 
     const handleCreatePost = async (formData: FormData) => {
-        try {
-            setLoading(true)
-            
-            const { success, inputErrors } = postId
-                ? await updatePost(formData)
-                : await createPost(formData)
+        startTransition(async () => {
+            const result = postId
+                ? await updatePost(null, formData)
+                : await createPost(null, formData)
 
-            if (!success) {
-                if (inputErrors) setInputErrors(inputErrors)
+            if (!result) return
+
+            if (!result.success) {
+                if (result.inputErrors) setInputErrors(result)
+                if (result.formError) toast.error(result.formError)
                 return
             }
-            toast.success(postId ? 'Post actualizado' : 'Post creado')
-            router.push('/dashboard/posts')
-        } catch (error) {
-            toast.error(`Ha ocurrido un error: ${error}`)
-        } finally {
-            setLoading(false)
-        }
+        })
     }
 
-    return { loading, handleCreatePost, inputErrors }
+    const getFieldError = (field: keyof PostFormData): string | undefined => {
+        if (!inputErrors || inputErrors.success) return undefined
+        return inputErrors.inputErrors?.[field]?.[0]
+    }
+
+    return { pending, handleCreatePost, getFieldError }
 }
