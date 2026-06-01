@@ -32,7 +32,7 @@ export const PublishedButtonWrapper = ({ published, id }: Props) => {
             className="cursor-pointer"
         >
             <StatusBadget
-                title={published ? "Publicado" : "No publicado"}
+                title={"Publicado"}
                 variant={published ? "success" : "danger"}
             />
         </Button>
