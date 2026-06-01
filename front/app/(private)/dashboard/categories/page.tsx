@@ -54,7 +54,7 @@ const CategoriesTable = async () => {
                                 </Td>
                             </Tr>
                         ))
-                        : <TableEmpty />
+                        : <TableEmpty colspan={3} />
                     }
                 </Tbody>
             </Table>
