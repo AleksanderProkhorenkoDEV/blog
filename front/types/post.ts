@@ -14,7 +14,7 @@ export type Post = {
     slug: string,
     content: string,
     thumbnail: string,
-    categories: {categoryId: number}[],
-    published: string,
+    categories: { categoryId: number }[],
+    published: boolean,
     authorId: string,
 }
