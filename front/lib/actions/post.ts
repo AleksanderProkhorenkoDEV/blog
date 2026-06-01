@@ -37,8 +37,11 @@ export async function createPost(
                     create: categories.map(categoryId => ({
                         categoryId: Number(categoryId)
                     }))
+                },
+                metrics: {
+                    create: {}
                 }
-            }
+            },
         })
         revalidateTag("posts", "max")
     } catch (error) {
