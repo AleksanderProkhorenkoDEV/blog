@@ -2,10 +2,10 @@ import { jetBrain } from "../../app/fonts/fonts"
 import { Td } from "../dashboard/table/td"
 import { Tr } from "../dashboard/table/tr"
 
-export const TableEmpty = () => {
+export const TableEmpty = ({ colspan }: { colspan: number }) => {
     return (
         <Tr>
-            <Td colSpan={6} className="py-12 text-center">
+            <Td colSpan={colspan} className="py-12 text-center">
                 <div className="flex flex-col items-center gap-2 text-secondary">
                     <span className={`text-4xl ${jetBrain.className}`}>404</span>
                     <span className={`text-sm ${jetBrain.className}`}>

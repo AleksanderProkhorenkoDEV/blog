@@ -74,7 +74,7 @@ const PostsTable = async () => {
                                 </Td>
                             </Tr>
                         ))
-                        : <TableEmpty />
+                        : <TableEmpty colspan={6} />
                     }
                 </Tbody>
             </Table>
