@@ -17,7 +17,7 @@ export const PublishedButtonWrapper = ({ published, id }: Props) => {
         const result = await changePublishedStatus(id, published)
 
         if (result?.success) {
-            toast.success("Se ha publicado correctamente el post")
+            toast.success(published ? "Se ha publicado correctamente el post" : "Se ha puesto como borrador el post")
             return
         }
 
