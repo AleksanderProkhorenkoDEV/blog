@@ -14,14 +14,14 @@ export const PublishedButtonWrapper = ({ published, id }: Props) => {
 
     const handleUpdate = async (id: number, published: boolean) => {
 
-        const { success, formError } = await changePublishedStatus(id, published)
+        const result = await changePublishedStatus(id, published)
 
-        if (success) {
+        if (result?.success) {
             toast.success("Se ha publicado correctamente el post")
             return
         }
 
-        toast.error(`Ha ocurrido un error: ${formError}`)
+        toast.error(`Ha ocurrido un error: ${result?.formError}`)
     }
 
     return (

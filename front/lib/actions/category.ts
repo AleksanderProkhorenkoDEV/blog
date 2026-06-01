@@ -1,72 +1,81 @@
 "use server"
 
-import { initStateCreateCategory, initStateDeleteCategory } from "@/types/category";
+import { formError, validationError } from "../utils/validate";
 import { categorySchema } from "@/schemas/category";
-import { updateTag } from "next/cache";
+import { ActionState } from "@/types/actions";
+import { redirect } from "next/navigation";
+import { revalidateTag, updateTag } from "next/cache";
 import prisma from "../prisma/prisma";
-import z from "zod";
 
-export const createCategory = async (prevState: initStateCreateCategory, formData: FormData): Promise<initStateCreateCategory> => {
-    const validateFields = categorySchema.safeParse(Object.fromEntries(formData.entries()))
+type CategoryFormData = { name: string }
 
-    if (!validateFields.success) {
-        return {
-            success: false,
-            inputErrors: z.flattenError(validateFields.error).fieldErrors,
-            formData: {
-                name: formData.get("name") as string,
-            }
-        }
-    }
+export async function createCategory(
+    prevState: ActionState<CategoryFormData>,
+    formData: FormData
+): Promise<ActionState<CategoryFormData>> {
+
+    const raw = { name: formData.get('name') as string }
+    const parsed = categorySchema.safeParse(raw)
+
+    if (!parsed.success) return validationError(parsed.error, raw)
 
     try {
         await prisma.category.create({
-            data: { name: validateFields.data.name }
-        })
-        updateTag("category");
-    } catch (error) {
-        return { success: false, formError: (error as Error).message }
-    }
-
-    return { success: true }
-}
-
-export const updateCategory = async (id: number, prevState: initStateCreateCategory, formData: FormData): Promise<initStateCreateCategory> => {
-    const validateFields = categorySchema.safeParse(Object.fromEntries(formData.entries()))
-
-    if (!validateFields.success) {
-        return {
-            success: false,
-            inputErrors: z.flattenError(validateFields.error).fieldErrors,
-            formData: {
-                name: formData.get("name") as string,
+            data: {
+                name: parsed.data.name
             }
-        }
+        })
+        revalidateTag('category', 'max')
+    } catch (error) {
+        return formError(error)
     }
+    redirect('/dashboard/categories')
+}
+
+
+export async function updateCategory(
+    id: number,
+    prevState: ActionState<CategoryFormData>,
+    formData: FormData
+): Promise<ActionState<CategoryFormData>> {
+    const raw = { name: formData.get('name') as string }
+    const parsed = categorySchema.safeParse(raw)
+
+    if (!parsed.success) return validationError(parsed.error, raw)
 
     try {
-        await prisma.category.update({
-            where: { id },
-            data: { name: validateFields.data.name }
-        })
-        updateTag(`category-${id}`);
-        updateTag("category");
+        await prisma.category.update({ where: { id: id }, data: { name: parsed.data.name } })
+        updateTag(`category-${id}`)
+        updateTag('category')
     } catch (error) {
-        return { success: false, formError: (error as Error).message }
+        return formError(error)
     }
+    redirect('/dashboard/categories')
+}
 
+export async function deleteCategory(
+    id: number
+): Promise<ActionState> {
+    try {
+        const hasPost = await postHasCategory(id)
+        if (hasPost > 0) {
+            return formError('No se puede eliminar una categoría con post asociados')
+        }
+        await prisma.category.delete({ where: { id: id } })
+        updateTag(`category-${id}`)
+        updateTag('category')
+    } catch (error) {
+        return formError(error)
+    }
     return { success: true }
 }
 
-export const deleteCategory = async (id: number): Promise<initStateDeleteCategory> => {
-    try {
-        await prisma.category.delete({
-            where: { id }
-        })
-        updateTag(`category-${id}`);
-        updateTag("category");
-    } catch (error) {
-        return { success: false, formError: (error as Error).message }
-    }
-    return { success: true }
+async function postHasCategory(
+    id: number
+): Promise<number> {
+    return await prisma.categoryPost.count({
+        where: {
+            categoryId: id
+        }
+    })
 }

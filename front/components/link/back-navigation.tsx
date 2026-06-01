@@ -11,6 +11,7 @@ export const BackNavigation = ({ text }: { text: string }) => {
         <Button
             onClick={() => { router.back() }}
             variant="ghost"
+            className="flex gap-2"
         >
             <MoveLeft />
             {text}

@@ -9,10 +9,10 @@ import { CustomInputFiles } from "./parts/input-file"
 import { TipTap } from "@/components/editor/tip-tap"
 import { uploadImage } from "@/lib/actions/storage"
 import { ImageUp } from "lucide-react"
+import { Post } from "@/types/post"
 import { useState } from "react"
 import { toast } from "sonner"
 import Image from "next/image"
-import { Post } from "@/types/post"
 
 interface Props {
     categories: OptionSelect[]
@@ -31,6 +31,8 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
     const [selectedCategory, setSelectedCategory] = useState<OptionSelect[]>(initCategoriesSelected)
     const [thumbnail, setThumbnail] = useState<string>(post?.thumbnail ?? "/working-code.webp")
     const [content, setContent] = useState<string>(post?.content ?? "Escribe tu primer post...")
+
+    const { pending, handleCreatePost, getFieldError } = usePostCreate(post?.id)
 
     const handleChangeSelect = (values: string[]) => {
         const newCategory = categories.filter(item => values.includes(String(item.value)))
@@ -52,10 +54,8 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
         setThumbnail(result.url!)
     }
 
-    const { loading, handleCreatePost, inputErrors } = usePostCreate(post?.id)
-
-    const handleSubmitForm = (e: React.SubmitEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         const formData = new FormData(e.currentTarget)
         formData.append('authorId', String(post?.authorId ?? authorId))
         formData.append('thumbnail', thumbnail)
@@ -69,7 +69,7 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
     return (
         <form
             className="w-6xl m-auto p-4 flex flex-col gap-1 bg-card text-card rounded-md"
-            onSubmit={handleSubmitForm}
+            onSubmit={handleSubmit}
         >
             {/* Metadatos y Portada */}
             <div className="flex gap-4 justify-center">
@@ -82,7 +82,7 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
                             name="title"
                             defaultValue={post?.title}
                             variant="light"
-                            error={inputErrors?.title?.[0]} />
+                            error={getFieldError("title")} />
                     </label>
                     <label htmlFor="slug" className="flex flex-col gap-2 text-foreground">
                         Slug
@@ -91,12 +91,12 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
                             name="slug"
                             defaultValue={post?.slug}
                             variant="light"
-                            error={inputErrors?.slug?.[0]} />
+                            error={getFieldError("slug")} />
                     </label>
                 </div>
                 <div className="flex-1">
                     <h1 className="uppercase text-md tracking-wider text-foreground/60 mb-2">Portada</h1>
-                    <div className={`relative group aspect-video rounded-md overflow-hidden ${inputErrors.thumbnail?.[0] ? "border border-destructive" : ""}`}>
+                    <div className={`relative group aspect-video rounded-md overflow-hidden ${getFieldError("thumbnail") ? "border border-destructive" : ""}`}>
                         <Image
                             src={thumbnail}
                             alt="thumbnail"
@@ -130,7 +130,7 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
                             className="flex-1"
                             defaultValue={post?.categories.map(c => String(c.categoryId))}
                             onChange={handleChangeSelect}
-                            error={inputErrors.categories?.[0]}
+                            error={getFieldError("categories")}
                         />
                         <div className="flex flex-1 flex-wrap gap-2">
                             {
@@ -150,16 +150,16 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
                         name="published"
                         defaultChecked={!post?.published}
                         type="checkbox"
-                        error={inputErrors?.published?.[0]}
+                        error={getFieldError("published")}
                     />
                     <label htmlFor="published" className="text-foreground">Borrador</label>
                 </div>
             </div>
             <hr className="border-t border-secondary mb-2" />
             <label htmlFor="content" className="uppercase text-foreground/60 tracking-wider">Contenido</label>
-            <TipTap content={content} setContent={setContent} error={inputErrors.content?.[0]} />
+            <TipTap content={content} setContent={setContent} error={getFieldError("content")} />
             <footer className="w-full flex justify-end">
-                <Button type="submit" variant="primary" disabled={loading} loading={loading} >
+                <Button type="submit" variant="primary" disabled={pending} loading={pending} >
                     {post ? 'Actualizar artículo' : 'Crear artículo'}
                 </Button>
             </footer>

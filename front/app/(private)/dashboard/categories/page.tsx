@@ -1,3 +1,4 @@
+import { CategoryDeleteButtonWrapper } from "@/components/dashboard/categories/modal-category-delete-wrapper";
 import { TablePagination } from "@/components/dashboard/table/pagination/table-pagination";
 import { FloattingButton } from "@/components/floatting-button/floatting-button";
 import { Section } from "@/components/dashboard/layout/section";
@@ -13,7 +14,6 @@ import { Tr } from "@/components/dashboard/table/tr";
 import { Konkhmer } from "@/app/fonts/fonts";
 import { SquarePen } from "lucide-react";
 import { Suspense } from "react";
-import { DeleteButtonWrapper } from "@/components/dashboard/categories/button-delete-wrapper";
 
 export default function CategoriesPage() {
 
@@ -49,7 +49,7 @@ const CategoriesTable = async () => {
                                 <Td>
                                     <div className="flex gap-2 items-center justify-center">
                                         <CustomLink href={`/dashboard/categories/update/${item.id}`}><SquarePen width={20} /></CustomLink>
-                                        <DeleteButtonWrapper id={item.id} />
+                                        <CategoryDeleteButtonWrapper id={item.id} />
                                     </div>
                                 </Td>
                             </Tr>

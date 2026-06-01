@@ -2,13 +2,10 @@
 
 import { createCategory, updateCategory } from "@/lib/actions/category"
 import { CustomInput } from "@/components/forms/parts/input"
-import { initStateCreateCategory } from "@/types/category"
 import { Button } from "@/components/forms/parts/button"
+import { useFormAction } from "@/hooks/useFormAction"
 import { FolderPen, FolderPlus } from "lucide-react"
 import { Form } from "@/components/forms/base-form"
-import { useActionState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
 
 interface CategoryFormProps {
     defaultValues?: {
@@ -22,32 +19,14 @@ export const CategoryForm = ({ defaultValues }: CategoryFormProps) => {
 
     const isEditing = !!defaultValues
 
-    const initState: initStateCreateCategory = {
-        success: false,
-        inputErrors: {}
-    }
-
     const action = isEditing
-        ? updateCategory.bind(null, defaultValues.id)
+        ? updateCategory.bind(null, defaultValues!.id)
         : createCategory
 
-    const [state, formAction, pending] = useActionState(action, initState);
-
-    const router = useRouter();
-
-    useEffect(() => {
-        if (state.success) {
-            toast.success(isEditing ? "Categoría actualizada correctamente." : "Categoría creada correctamente.")
-            router.push("/dashboard/categories")
-        }
-
-        if (state.formError) {
-            toast.error(`Error al ${isEditing ? "actualizar" : "crear"} la categoría: ${state.formError}`)
-        }
-    }, [state, router])
+    const { dispatch, pending, getFieldError } = useFormAction(action)
 
     return (
-        <Form action={formAction} className="max-sm:min-w-fit">
+        <Form action={dispatch} className="max-sm:min-w-fit">
             <label htmlFor="name">Nombre de la categoría</label>
             <CustomInput
                 type="text"
@@ -55,7 +34,7 @@ export const CategoryForm = ({ defaultValues }: CategoryFormProps) => {
                 placeholder="Ej: Spring boot, AWS"
                 defaultValue={defaultValues?.name}
                 variant="light"
-                error={state.inputErrors?.name?.[0]}
+                error={getFieldError("name")}
             />
             <Button
                 disabled={pending}

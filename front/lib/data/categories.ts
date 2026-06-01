@@ -3,9 +3,10 @@ import prisma from "../prisma/prisma";
 
 export const getCategories = async (page: number = 1, limit: number = 10) => {
     'use cache'
-    cacheTag("category")
     cacheLife("days")
-    const [categories, total] = await prisma.$transaction([
+    cacheTag("category")
+
+    const [categories, total] = await Promise.all([
         prisma.category.findMany({
             select: {
                 id: true,
@@ -15,29 +16,28 @@ export const getCategories = async (page: number = 1, limit: number = 10) => {
             take: limit,
         }),
         prisma.category.count()
-    ]);
+    ])
 
     return { categories, total, pages: Math.ceil(total / limit) }
 }
 
 export const getAllCategories = async () => {
     'use cache'
-    cacheTag("category")
     cacheLife("days")
-    const categories = await
-        prisma.category.findMany({
-            select: {
-                id: true,
-                name: true,
-            },
-        })
+    cacheTag("category")
+    const categories = await prisma.category.findMany({
+        select: {
+            id: true,
+            name: true,
+        },
+    })
     return categories;
 }
 
 export const getCategory = async (id: string) => {
     'use cache'
-    cacheTag(`category-${id}`)
     cacheLife("days")
+    cacheTag(`category-${id}`)
 
     const idParse = Number(id)
 

@@ -17,14 +17,14 @@ export const ArchiveModalWrapper = ({ id, archived }: Props) => {
     const [open, setOpen] = useState<boolean>(false)
 
     const handleConfirm = async (id: number) => {
-        const { success, formError } = await archivePost(id, archived)
-        if (success) {
+        const result = await archivePost(id, archived)
+        if (result?.success) {
             toast.success(archived ? 'Articulo restaurado' : 'Articulo archivado')
             setOpen(false);
             return
         }
 
-        toast.error(`Ha ocurrido un error archivando el post ${formError}`)
+        toast.error(`Ha ocurrido un error archivando el post ${result?.formError}`)
         return
     }
 

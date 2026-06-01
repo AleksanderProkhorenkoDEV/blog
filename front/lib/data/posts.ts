@@ -3,8 +3,8 @@ import prisma from "../prisma/prisma"
 
 export const getPosts = async (page: number = 1, limit: number = 10) => {
     'use cache'
-    cacheTag('posts')
     cacheLife('days')
+    cacheTag('posts')
     const [posts, total] = await prisma.$transaction([
         prisma.post.findMany({
             select: {
@@ -32,8 +32,8 @@ export const getPosts = async (page: number = 1, limit: number = 10) => {
 
 export const getPost = async (id: string) => {
     'use cache'
-    cacheTag(`post-${id}`)
     cacheLife("days")
+    cacheTag(`post-${id}`)
 
     const idParse = Number(id)
 

@@ -1,19 +1,20 @@
-import { postSchema } from "@/schemas/post";
-import z from "zod";
-
-export interface initPostCreate {
-    success: boolean,
-    inputErrors?: Partial<Record<keyof z.infer<typeof postSchema>, string[]>>,
-    formError?: string
+export type PostFormData = {
+    title: string,
+    slug: string,
+    content: string,
+    thumbnail: string,
+    categories: string[],
+    published: string,
+    authorId: string
 }
 
-export interface Post {
+export type Post = {
     id: number,
     title: string,
-    content: string,
     slug: string,
+    content: string,
+    thumbnail: string,
+    categories: { categoryId: number }[],
     published: boolean,
     authorId: string,
-    thumbnail: string,
-    categories: { categoryId: number }[]
 }
