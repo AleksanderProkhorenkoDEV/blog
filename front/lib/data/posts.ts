@@ -67,7 +67,7 @@ export const getPublishedPost = async (category: string | undefined) => {
     cacheLife('days')
     cacheTag('posts')
 
-    const post = await prisma.post.findMany({
+    const posts = await prisma.post.findMany({
         select: {
             id: true,
             title: true,
@@ -84,6 +84,20 @@ export const getPublishedPost = async (category: string | undefined) => {
                 }
             }
         },
-        where: { published: true, archived: false }
+        where: {
+            published: true,
+            archived: false,
+            ...(category && {
+                categories: {
+                    some: {
+                        category: {
+                            name: category
+                        }
+                    }
+                }
+            })
+        }
     })
+
+    return posts;
 }
