@@ -18,3 +18,12 @@ export type Post = {
     published: boolean,
     authorId: string,
 }
+
+export type PostCard = {
+    id: number,
+    title: string,
+    slug: string,
+    content: string,
+    createdAt: Date,
+    categories: { category: { name: string } }[]
+}
