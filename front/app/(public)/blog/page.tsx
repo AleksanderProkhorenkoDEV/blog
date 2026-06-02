@@ -1,43 +1,60 @@
 import { CategoryBadgetWrapper } from "@/components/blog/category-bagdet-wrapper";
+import { PostCardItem } from "@/components/elements/post-card";
 import { getAllCategories } from "@/lib/data/categories";
+import { getPublishedPost } from "@/lib/data/posts";
 import { Konkhmer } from "@/app/fonts/fonts";
 import { Suspense } from "react";
+import { BackgroundDecor } from "@/components/elements/background-decorator";
 
 export default async function BlogPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
 
     const category = (await searchParams).category
 
     return (
-        <>
-            <p className="text-primary">{"//"} todos los post</p>
+        <section className="flex flex-col gap-4">
+            <p className="text-primary mt-8">{"//"} todos los post</p>
             <h1 className={`${Konkhmer.className} text-2xl`}>Blog</h1>
             <p className="text-sm text-muted-foreground">Explorando ideas, exponiendo dudas y soluciones</p>
             <Suspense fallback={<p>Loading....</p>}>
-                <CategoryList name={category} />
+                <CategoryList categoryName={category} />
             </Suspense>
             <Suspense fallback={<p>Loading....</p>}>
-
+                <PostList categoryName={category} />
             </Suspense>
-        </>
+            <BackgroundDecor position="left-40 bottom-1/2">{'{'}</BackgroundDecor>
+            <BackgroundDecor position="right-55 bottom-1">*</BackgroundDecor>
+        </section>
     )
 }
 
 
-export const CategoryList = async ({ name }: { name: string | undefined }) => {
+export const CategoryList = async ({ categoryName }: { categoryName: string | undefined }) => {
     const categories = await getAllCategories()
 
     return (
-        <article className="border p-2 flex flex-wrap gap-2">
-            <CategoryBadgetWrapper name="Todas" active={name === undefined} />
+        <article className="p-2 flex flex-wrap gap-2">
+            <CategoryBadgetWrapper name="Todas" active={categoryName === undefined} />
             {
                 categories.map((item) => {
-                    return <CategoryBadgetWrapper name={item.name} key={item.id} active={name === item.name} />
+                    return <CategoryBadgetWrapper name={item.name} key={item.id} active={categoryName === item.name} />
                 })
             }
         </article>
     )
 }
 
-export const PostList = async ({ name }: { name: string | undefined }) => {
-    
+export const PostList = async ({ categoryName }: { categoryName: string | undefined }) => {
+    const posts = await getPublishedPost(categoryName)
+
+    return (
+        <>
+            {
+                posts.map((item) => {
+                    return (
+                        <PostCardItem post={item} key={item.id} />
+                    )
+                })
+            }
+        </>
+    )
 }
