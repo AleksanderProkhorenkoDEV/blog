@@ -1,14 +1,18 @@
 model Comments {
-    id        Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
     postId    Int
     profileId String @db.Uuid
 
-    approve   Boolean
-    edited    Boolean
+    approve   Boolean  @default(false)
+    edited    Boolean  @default(false)
     content   String
     createdAt DateTime @default(now())
 
-    post Post @relation(fields: [postId], references: [id])
+    parentId Int?
+    parent   Comments?  @relation("CommentReplies", fields: [parentId], references: [id])
+    replies  Comments[] @relation("CommentReplies")
+
+    post    Post    @relation(fields: [postId], references: [id])
     profile Profile @relation(fields: [profileId], references: [id])
 }
