@@ -30,7 +30,7 @@ export const getPosts = async (page: number = 1, limit: number = 10) => {
     return { posts, total, pages: Math.ceil(total / limit) }
 }
 
-export const getPost = async (id: string) => {
+export const getPostById = async (id: string) => {
     'use cache'
     cacheLife("days")
     cacheTag(`post-${id}`)
@@ -100,4 +100,42 @@ export const getPublishedPost = async (category: string | undefined) => {
     })
 
     return posts;
+}
+
+export const getPostBySlug = async (slug: string) => {
+    'use cache'
+    cacheLife('days')
+    cacheTag('posts')
+
+    const post = await prisma.post.findUnique({
+        where: {
+            slug: slug,
+            published: true
+        },
+        select: {
+            id: true,
+            title: true,
+            thumbnail: true,
+            content: true,
+            createdAt: true,
+            categories: {
+                select: {
+                    category: {
+                        select: { name: true }
+                    }
+                }
+            },
+            author: {
+                select: { name: true }
+            },
+            metrics: {
+                select: {
+                    views: true,
+                    likes: true
+                }
+            }
+        }
+    })
+
+    return post
 }
