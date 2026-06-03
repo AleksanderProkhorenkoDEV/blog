@@ -21,8 +21,8 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
             <Suspense fallback={<p>Loading....</p>}>
                 <PostList categoryName={category} />
             </Suspense>
-            <BackgroundDecor position="left-40 bottom-1/2">{'{'}</BackgroundDecor>
-            <BackgroundDecor position="right-55 bottom-1">*</BackgroundDecor>
+            <BackgroundDecor position="left-10 bottom-1/2 max-sm:hidden">{'{'}</BackgroundDecor>
+            <BackgroundDecor position="right-55 bottom-1 max-xs:hidden">*</BackgroundDecor>
         </section>
     )
 }
