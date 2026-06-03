@@ -6,6 +6,7 @@ import { revalidateTag, updateTag } from "next/cache";
 import { ActionState } from "@/types/actions";
 import { PostFormData } from "@/types/post";
 import { redirect } from "next/navigation";
+import { getProfileUUID } from "./auth";
 import prisma from "../prisma/prisma";
 
 
@@ -110,6 +111,55 @@ export async function archivePost(
         updateTag(`post-${id}`)
         return { success: true }
     } catch (error) {
+        return formError(error)
+    }
+}
+
+export async function likePost(
+    postId: number,
+    email: string,
+    prevState: ActionState,
+    formData: FormData
+): Promise<ActionState> {
+    try {
+
+        console.log('PARAMETROS -> EMAIL', email, 'POST ID', postId);
+
+
+        const uuid = await getProfileUUID(email)
+
+        console.log('UUID en el LIKE POST', uuid);
+
+        const existingLike = await prisma.postLike.findUnique({
+            where: {
+                postId_profileId: {
+                    postId,
+                    profileId: uuid
+                }
+            }
+        })
+        console.log('EXISTE EL LIKE', existingLike);
+
+        if (existingLike) {
+            await prisma.postLike.delete({
+                where: {
+                    postId_profileId: {
+                        postId,
+                        profileId: uuid
+                    }
+                }
+            })
+            return { success: true, message: "Articulo eliminado como me gusta" }
+        } else {
+            await prisma.postLike.create({
+                data: { postId, profileId: uuid }
+            })
+            return { success: true, message: "Articulo marcado como me gusta" }
+        }
+
+    } catch (error) {
+        console.log(error);
+
         return formError(error)
     }
 }
