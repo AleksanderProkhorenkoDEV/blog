@@ -27,7 +27,7 @@ export const PostCardItem = ({ post }: { post: PostCard }) => {
                 <CustomLink
                     href={`/blog/${post.slug}`}
                     isUnderline={false}
-                    className="text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="text-primary opacity-0 group-hover:opacity-100 transition-opacity max-xl:opacity-100 max-xl:text-muted-foreground"
                 >
                     Leer más <MoveRight />
                 </CustomLink>
