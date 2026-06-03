@@ -1,4 +1,5 @@
 import { Konkhmer } from "@/app/fonts/fonts"
+import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
 import { Button } from "@/components/forms/parts/button"
@@ -67,7 +68,7 @@ const PostContent = async ({ slug }: { slug: string }) => {
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
             <div className="flex gap-3">
-                <Button type="button" variant="icons" className="hover:text-destructive!"><Heart /></Button>
+                <LikeButtonWrapper postId={post.id} />
                 <Button type="button" variant="icons" ><MessageCircle /></Button>
             </div>
         </article>
