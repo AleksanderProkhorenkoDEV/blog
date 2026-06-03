@@ -38,7 +38,7 @@ export const Button = ({ type = "button", disabled, loading, children, className
         secondary: `bg-none text-secondary border-2 border-border uppercase ${styleBase}`,
         danger: `bg-destructive text-destructive-foreground hover:bg-destructive/80 uppercase ${styleBase}`,
         icons: `bg-transparent hover:text-primary !p-0 ${styleBase}`,
-        ghost: "text-muted-foreground capitalize hover:text-foreground transition ease-in-out duration-200 !p-0"
+        ghost: `text-muted-foreground capitalize hover:text-foreground transition ease-in-out duration-200 !p-0 w-fit ${styleBase}`
     };
 
     return (
