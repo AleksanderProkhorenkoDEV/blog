@@ -1,0 +1,11 @@
+model PostLike {
+    id        String   @id @default(cuid())
+    postId    Int
+    profileId String   @db.Uuid
+    createdAt DateTime @default(now())
+
+    post    Post    @relation(fields: [postId], references: [id])
+    profile Profile @relation(fields: [profileId], references: [id])
+
+    @@unique([postId, profileId])
+}
