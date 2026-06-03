@@ -1,10 +1,11 @@
 model Profile {
-    id    String  @id @db.Uuid
-    email String  @unique
+    id    String     @id @db.Uuid
+    email String     @unique
     name  String?
-    role  Role    @default(SUBSCRIBER)
+    role  Role       @default(SUBSCRIBER)
     bio   String?
     posts Post[]
+    likes PostLike[]
 
     comments Comments[]
 

@@ -11,9 +11,9 @@ model Post {
     authorId String  @db.Uuid
 
     categories CategoryPost[]
-
     metrics  PostMetrics?
     comments Comments[]
+    likes    PostLike[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
