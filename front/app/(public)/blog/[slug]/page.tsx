@@ -1,23 +1,25 @@
-import { Konkhmer } from "@/app/fonts/fonts"
 import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
-import { Button } from "@/components/forms/parts/button"
 import { BackNavigation } from "@/components/link/back-navigation"
+import { Calendar, Eye, Heart, MessageCircle } from "lucide-react"
+import { ViewTracker } from "@/components/blog/view-tracker"
+import { Button } from "@/components/forms/parts/button"
+import { formatDatePost } from "@/lib/utils/post-date"
+import { createClient } from "@/lib/supabase/server"
 import { isPostLiked } from "@/lib/actions/post"
 import { getPostBySlug } from "@/lib/data/posts"
-import { createClient } from "@/lib/supabase/server"
-import { formatDatePost } from "@/lib/utils/post-date"
-import { Calendar, Eye, Heart, MessageCircle } from "lucide-react"
-import Image from "next/image"
+import { Konkhmer } from "@/app/fonts/fonts"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import Image from "next/image"
 
 export default async function SinglePostPage({ params }: { params: Promise<{ slug: string }> }) {
     const slug = (await params).slug
 
     return (
         <>
+            <ViewTracker slug={slug} />
             <Suspense fallback={<p>loading post....</p>}>
                 <PostContent slug={slug} />
             </Suspense>
@@ -38,7 +40,6 @@ const PostContent = async ({ slug }: { slug: string }) => {
 
     if (!post) return notFound()
     const isLiked = user ? await isPostLiked(user.email ?? '', post?.id) : false
-    console.log(isLiked);
 
     return (
         <article className="my-10 flex flex-col gap-4">
@@ -74,7 +75,7 @@ const PostContent = async ({ slug }: { slug: string }) => {
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
             <div className="flex gap-3">
-                <LikeButtonWrapper postId={post.id} isLiked={isLiked} />
+                <LikeButtonWrapper postId={post.id} isLiked={isLiked} slug={slug} />
                 <Button type="button" variant="icons" ><MessageCircle /></Button>
             </div>
         </article>
