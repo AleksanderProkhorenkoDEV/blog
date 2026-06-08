@@ -122,13 +122,7 @@ export async function likePost(
     formData: FormData
 ): Promise<ActionState> {
     try {
-
-        console.log('PARAMETROS -> EMAIL', email, 'POST ID', postId);
-
-
         const uuid = await getProfileUUID(email)
-
-        console.log('UUID en el LIKE POST', uuid);
 
         const existingLike = await prisma.postLike.findUnique({
             where: {
@@ -138,7 +132,6 @@ export async function likePost(
                 }
             }
         })
-        console.log('EXISTE EL LIKE', existingLike);
 
         if (existingLike) {
             await prisma.postLike.delete({
