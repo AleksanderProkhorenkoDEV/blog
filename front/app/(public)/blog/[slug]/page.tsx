@@ -4,7 +4,9 @@ import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
 import { Button } from "@/components/forms/parts/button"
 import { BackNavigation } from "@/components/link/back-navigation"
+import { isPostLiked } from "@/lib/actions/post"
 import { getPostBySlug } from "@/lib/data/posts"
+import { createClient } from "@/lib/supabase/server"
 import { formatDatePost } from "@/lib/utils/post-date"
 import { Calendar, Eye, Heart, MessageCircle } from "lucide-react"
 import Image from "next/image"
@@ -31,8 +33,12 @@ export default async function SinglePostPage({ params }: { params: Promise<{ slu
 
 const PostContent = async ({ slug }: { slug: string }) => {
     const post = await getPostBySlug(slug)
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
 
     if (!post) return notFound()
+    const isLiked = user ? await isPostLiked(user.email ?? '', post?.id) : false
+    console.log(isLiked);
 
     return (
         <article className="my-10 flex flex-col gap-4">
@@ -68,7 +74,7 @@ const PostContent = async ({ slug }: { slug: string }) => {
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
             <div className="flex gap-3">
-                <LikeButtonWrapper postId={post.id} />
+                <LikeButtonWrapper postId={post.id} isLiked={isLiked} />
                 <Button type="button" variant="icons" ><MessageCircle /></Button>
             </div>
         </article>
