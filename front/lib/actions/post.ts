@@ -118,6 +118,7 @@ export async function archivePost(
 export async function likePost(
     postId: number,
     email: string,
+    slug: string,
     prevState: ActionState,
     formData: FormData
 ): Promise<ActionState> {
@@ -142,10 +143,26 @@ export async function likePost(
                     }
                 }
             })
+            await prisma.postMetrics.update({
+                where: {
+                    postId: postId
+                },
+                data: {
+                    likes: { decrement: 1 }
+                }
+            })
             return { success: true, message: "Articulo eliminado como me gusta" }
         } else {
             await prisma.postLike.create({
                 data: { postId, profileId: uuid }
+            })
+            await prisma.postMetrics.update({
+                where: {
+                    postId: postId
+                },
+                data: {
+                    likes: { increment: 1 }
+                }
             })
             return { success: true, message: "Articulo marcado como me gusta" }
         }
@@ -153,8 +170,7 @@ export async function likePost(
     } catch (error) {
         return formError(error)
     } finally {
-        updateTag(`post-${postId}`)
-
+        updateTag(`post-${slug}`)
     }
 
 }
@@ -179,5 +195,25 @@ export async function isPostLiked(
         return true
     } catch {
         return false
+    }
+}
+
+export async function increaseView(
+    slug: string,
+): Promise<void> {
+    try {
+        const post = await prisma.post.findUnique({
+            where: { slug },
+            select: { id: true }
+        })
+
+        if (!post) return
+
+        await prisma.postMetrics.update({
+            where: { postId: post.id },
+            data: { views: { increment: 1 } }
+        })
+    } catch (error) {
+        console.error(error)
     }
 }
