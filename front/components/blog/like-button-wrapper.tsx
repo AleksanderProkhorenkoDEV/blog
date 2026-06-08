@@ -11,14 +11,15 @@ import { useState } from "react"
 interface Props {
     postId: number
     isLiked: boolean
+    slug: string
 }
 
-export const LikeButtonWrapper = ({ postId, isLiked }: Props) => {
+export const LikeButtonWrapper = ({ postId, isLiked, slug }: Props) => {
 
     const { profile } = useAuth()
     const [showModal, setShowModal] = useState(false)
 
-    const likePostWithData = likePost.bind(null, postId, profile?.email ?? '')
+    const likePostWithData = likePost.bind(null, postId, profile?.email ?? '', slug)
     const { dispatch, pending } = useFormAction(likePostWithData)
 
     if (!profile) {
