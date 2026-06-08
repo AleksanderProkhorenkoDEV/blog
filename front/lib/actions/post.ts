@@ -151,8 +151,33 @@ export async function likePost(
         }
 
     } catch (error) {
-        console.log(error);
-
         return formError(error)
+    } finally {
+        updateTag(`post-${postId}`)
+
+    }
+
+}
+
+export async function isPostLiked(
+    email: string,
+    postId: number,
+): Promise<boolean> {
+    const uuid = await getProfileUUID(email)
+
+    try {
+        const isLiked = await prisma.postLike.findUnique({
+            where: {
+                postId_profileId: {
+                    postId,
+                    profileId: uuid
+                }
+            }
+        })
+
+        if (!isLiked) return false
+        return true
+    } catch {
+        return false
     }
 }
