@@ -2,17 +2,18 @@ import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
 import { BackNavigation } from "@/components/link/back-navigation"
-import { Calendar, Eye, Heart, MessageCircle } from "lucide-react"
 import { ViewTracker } from "@/components/blog/view-tracker"
-import { Button } from "@/components/forms/parts/button"
 import { formatDatePost } from "@/lib/utils/post-date"
 import { createClient } from "@/lib/supabase/server"
+import { Calendar, Eye, Heart } from "lucide-react"
 import { isPostLiked } from "@/lib/actions/post"
 import { getPostBySlug } from "@/lib/data/posts"
 import { Konkhmer } from "@/app/fonts/fonts"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 import Image from "next/image"
+import { Button } from "@/components/forms/parts/button"
+import { CommentCard } from "@/components/blog/comment-card"
 
 export default async function SinglePostPage({ params }: { params: Promise<{ slug: string }> }) {
     const slug = (await params).slug
@@ -74,18 +75,19 @@ const PostContent = async ({ slug }: { slug: string }) => {
                 className="prose prose-invert  text-pretty"
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
-            <div className="flex gap-3">
-                <LikeButtonWrapper postId={post.id} isLiked={isLiked} slug={slug} />
-                <Button type="button" variant="icons" ><MessageCircle /></Button>
-            </div>
+            <LikeButtonWrapper postId={post.id} isLiked={isLiked} slug={slug} />
         </article>
     )
 }
 
 const Comments = async () => {
     return (
-        <article>
-            <h3 className={`${Konkhmer.className} text-2xl`}>Comments</h3>
+        <article className="">
+            <div className="w-full flex justify-between items-center mb-5">
+                <h3 className={`${Konkhmer.className} text-2xl`}>Comments</h3>
+                <Button type="button">Comentar</Button>
+            </div>
+            <CommentCard />
         </article>
     )
 }
