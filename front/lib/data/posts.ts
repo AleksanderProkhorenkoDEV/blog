@@ -149,7 +149,7 @@ export const getBestPost = async () => {
     const topMetric = await prisma.postMetrics.findFirst({
         orderBy: {
             views: 'desc'
-        }
+        },
     })
 
     if (!topMetric) {
@@ -158,7 +158,8 @@ export const getBestPost = async () => {
 
     const post = await prisma.post.findUnique({
         where: {
-            id: topMetric.postId
+            id: topMetric.postId,
+            published: true
         },
         select: {
             id: true,
