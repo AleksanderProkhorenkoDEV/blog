@@ -6,6 +6,7 @@ import { signInSchema, signUpSchema } from "../../schemas"
 import { createClient } from "../supabase/server"
 import { resetPasswordSchema } from "../../schemas/auth"
 import { getProfile } from "../supabase/rol"
+import prisma from "../prisma/prisma"
 
 const singInWithCredentials = async (email: string, password: string) => {
     const supabase = await createClient()
@@ -115,4 +116,21 @@ export const singOutSupabase = async (): Promise<initStateSignOut> => {
     return {
         success: true,
     };
+}
+
+export async function getProfileUUID(
+    email: string
+): Promise<string> {
+    const user = await prisma.profile.findUnique({
+        where: {
+            email: email
+        },
+        select: {
+            id: true
+        }
+    })
+    
+    if (!user) throw new Error(`Usuario no encontrado ${email}`)
+
+    return user.id;
 }
