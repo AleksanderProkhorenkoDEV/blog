@@ -65,7 +65,7 @@ export const userSingIn = async (prevState: initStateSingIn, formData: FormData)
 
     const { error } = await singInWithCredentials(validateFields.data.email, validateFields.data.password)
 
-    if (error) return { success: false, formError: error.message }
+    if (error) return { success: false, formError: "Credenciales invalidas" }
 
 
     const profile = await getProfile()
