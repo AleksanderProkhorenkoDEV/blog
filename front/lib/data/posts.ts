@@ -139,3 +139,44 @@ export const getPostBySlug = async (slug: string) => {
 
     return post
 }
+
+
+export const getBestPost = async () => {
+    'use cache'
+    cacheLife('hours')
+    cacheTag('posts')
+
+    const topMetric = await prisma.postMetrics.findFirst({
+        orderBy: {
+            views: 'desc'
+        }
+    })
+
+    if (!topMetric) {
+        return null
+    }
+
+    const post = await prisma.post.findUnique({
+        where: {
+            id: topMetric.postId
+        },
+        select: {
+            id: true,
+            title: true,
+            slug: true,
+            content: true,
+            createdAt: true,
+            categories: {
+                select: {
+                    category: {
+                        select: {
+                            name: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    return post;
+}
