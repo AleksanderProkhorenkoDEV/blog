@@ -1,15 +1,15 @@
-import { Konkhmer } from "@/app/fonts/fonts"
 import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
-import { Button } from "@/components/forms/parts/button"
 import { BackNavigation } from "@/components/link/back-navigation"
-import { getPostBySlug } from "@/lib/data/posts"
-import { formatDatePost } from "@/lib/utils/post-date"
 import { Calendar, Eye, Heart, MessageCircle } from "lucide-react"
-import Image from "next/image"
+import { Button } from "@/components/forms/parts/button"
+import { formatDatePost } from "@/lib/utils/post-date"
+import { getPostBySlug } from "@/lib/data/posts"
+import { Konkhmer } from "@/app/fonts/fonts"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import Image from "next/image"
 
 export default async function SinglePostPage({ params }: { params: Promise<{ slug: string }> }) {
     const slug = (await params).slug
@@ -20,9 +20,9 @@ export default async function SinglePostPage({ params }: { params: Promise<{ slu
                 <PostContent slug={slug} />
             </Suspense>
             <hr className="border border-secondary mb-10"></hr>
-            <Suspense fallback={<p>loading comments....</p>}>
+            {/* <Suspense fallback={<p>loading comments....</p>}>
                 <Comments />
-            </Suspense>
+            </Suspense> */}
             <BackgroundDecor position="left-15 top-45">/</BackgroundDecor>
             <BackgroundDecor position="right-23 bottom-20">*</BackgroundDecor>
         </>
@@ -75,10 +75,10 @@ const PostContent = async ({ slug }: { slug: string }) => {
     )
 }
 
-const Comments = async () => {
-    return (
-        <article>
-            <h3 className={`${Konkhmer.className} text-2xl`}>Comments</h3>
-        </article>
-    )
-}
+// const Comments = async () => {
+//     return (
+//         <article>
+//             <h3 className={`${Konkhmer.className} text-2xl`}>Comments</h3>
+//         </article>
+//     )
+// }
