@@ -2,9 +2,8 @@ import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
 import { BackNavigation } from "@/components/link/back-navigation"
-import { Calendar, Eye, Heart, MessageCircle } from "lucide-react"
-import { Button } from "@/components/forms/parts/button"
 import { formatDatePost } from "@/lib/utils/post-date"
+import { Calendar, Eye, Heart } from "lucide-react"
 import { getPostBySlug } from "@/lib/data/posts"
 import { Konkhmer } from "@/app/fonts/fonts"
 import { notFound } from "next/navigation"
@@ -19,7 +18,7 @@ export default async function SinglePostPage({ params }: { params: Promise<{ slu
             <Suspense fallback={<p>loading post....</p>}>
                 <PostContent slug={slug} />
             </Suspense>
-            <hr className="border border-secondary mb-10"></hr>
+            {/* <hr className="border border-secondary mb-10"></hr> */}
             {/* <Suspense fallback={<p>loading comments....</p>}>
                 <Comments />
             </Suspense> */}
@@ -69,7 +68,7 @@ const PostContent = async ({ slug }: { slug: string }) => {
             />
             <div className="flex gap-3">
                 <LikeButtonWrapper postId={post.id} />
-                <Button type="button" variant="icons" ><MessageCircle /></Button>
+                {/* <Button type="button" variant="icons" ><MessageCircle /></Button> */}
             </div>
         </article>
     )
