@@ -76,7 +76,7 @@ const PostContent = async ({ slug }: { slug: string }) => {
             />
             <div className="flex gap-3">
                 <LikeButtonWrapper postId={post.id} isLiked={isLiked} slug={slug} />
-                <Button type="button" variant="icons" ><MessageCircle /></Button>
+                {/* <Button type="button" variant="icons" ><MessageCircle /></Button> */}
             </div>
         </article>
     )
