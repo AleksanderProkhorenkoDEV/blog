@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react"
 
 export const HeroSection = () => {
     return (
-        <section className="min-h-[calc(100svh-80px)] p-4 flex items-center justify-center max-w-6xl mx-auto relative  max-md:p-0">
+        <section className="min-h-[calc(100svh-80px)] p-4 flex items-center justify-center container mx-auto relative  max-md:p-0">
             <article className="flex flex-col gap-6">
                 <p className={`text-primary relative ${jetBrain.className} animate-pulse box-border ml-6`}>
                     <span className="before:absolute before:content-[''] before:size-3 before:rounded-full before:bg-primary before:-left-6 before:top-1/2 before:-translate-y-1/2"></span>

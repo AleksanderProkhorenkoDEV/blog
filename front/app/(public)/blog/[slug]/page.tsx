@@ -1,18 +1,17 @@
-import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
+import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { BackNavigation } from "@/components/link/back-navigation"
-import { Calendar, Eye, Heart, MessageCircle } from "lucide-react"
 import { ViewTracker } from "@/components/blog/view-tracker"
 import { formatDatePost } from "@/lib/utils/post-date"
+import { createClient } from "@/lib/supabase/server"
+import { Calendar, Eye, Heart } from "lucide-react"
+import { isPostLiked } from "@/lib/actions/post"
 import { getPostBySlug } from "@/lib/data/posts"
+import { Konkhmer } from "@/app/fonts/fonts"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 import Image from "next/image"
-import { createClient } from "@/lib/supabase/server"
-import { isPostLiked } from "@/lib/actions/post"
-import { Konkhmer } from "@/app/fonts/fonts"
-import { Button } from "@/components/forms/parts/button"
 
 export default async function SinglePostPage({ params }: { params: Promise<{ slug: string }> }) {
     const slug = (await params).slug
