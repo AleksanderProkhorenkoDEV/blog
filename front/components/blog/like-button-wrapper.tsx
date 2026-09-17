@@ -10,14 +10,16 @@ import { useState } from "react"
 
 interface Props {
     postId: number
+    isLiked: boolean
+    slug: string
 }
 
-export const LikeButtonWrapper = ({ postId }: Props) => {
+export const LikeButtonWrapper = ({ postId, isLiked, slug }: Props) => {
 
     const { profile } = useAuth()
     const [showModal, setShowModal] = useState(false)
 
-    const likePostWithData = likePost.bind(null, postId, profile?.email ?? '')
+    const likePostWithData = likePost.bind(null, postId, profile?.email ?? '', slug)
     const { dispatch, pending } = useFormAction(likePostWithData)
 
     if (!profile) {
@@ -49,8 +51,15 @@ export const LikeButtonWrapper = ({ postId }: Props) => {
                 className="hover:text-destructive!"
                 disabled={pending}
             >
-                <Heart />
+                <HeartLike isLiked={isLiked} />
             </Button>
         </form>
+    )
+}
+
+export const HeartLike = ({ isLiked }: { isLiked: boolean }) => {
+
+    return (
+        <Heart className={`${isLiked ? "text-destructive fill-current" : ""}`} />
     )
 }

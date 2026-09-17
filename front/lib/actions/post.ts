@@ -118,17 +118,12 @@ export async function archivePost(
 export async function likePost(
     postId: number,
     email: string,
+    slug: string,
     prevState: ActionState,
     formData: FormData
 ): Promise<ActionState> {
     try {
-
-        console.log('PARAMETROS -> EMAIL', email, 'POST ID', postId);
-
-
         const uuid = await getProfileUUID(email)
-
-        console.log('UUID en el LIKE POST', uuid);
 
         const existingLike = await prisma.postLike.findUnique({
             where: {
@@ -138,7 +133,6 @@ export async function likePost(
                 }
             }
         })
-        console.log('EXISTE EL LIKE', existingLike);
 
         if (existingLike) {
             await prisma.postLike.delete({
@@ -149,17 +143,77 @@ export async function likePost(
                     }
                 }
             })
+            await prisma.postMetrics.update({
+                where: {
+                    postId: postId
+                },
+                data: {
+                    likes: { decrement: 1 }
+                }
+            })
             return { success: true, message: "Articulo eliminado como me gusta" }
         } else {
             await prisma.postLike.create({
                 data: { postId, profileId: uuid }
             })
+            await prisma.postMetrics.update({
+                where: {
+                    postId: postId
+                },
+                data: {
+                    likes: { increment: 1 }
+                }
+            })
             return { success: true, message: "Articulo marcado como me gusta" }
         }
 
     } catch (error) {
-        console.log(error);
-
         return formError(error)
+    } finally {
+        updateTag(`post-${slug}`)
+    }
+
+}
+
+export async function isPostLiked(
+    email: string,
+    postId: number,
+): Promise<boolean> {
+    const uuid = await getProfileUUID(email)
+
+    try {
+        const isLiked = await prisma.postLike.findUnique({
+            where: {
+                postId_profileId: {
+                    postId,
+                    profileId: uuid
+                }
+            }
+        })
+
+        if (!isLiked) return false
+        return true
+    } catch {
+        return false
+    }
+}
+
+export async function increaseView(
+    slug: string,
+): Promise<void> {
+    try {
+        const post = await prisma.post.findUnique({
+            where: { slug },
+            select: { id: true }
+        })
+
+        if (!post) return
+
+        await prisma.postMetrics.update({
+            where: { postId: post.id },
+            data: { views: { increment: 1 } }
+        })
+    } catch (error) {
+        console.error(error)
     }
 }
