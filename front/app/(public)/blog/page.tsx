@@ -5,6 +5,8 @@ import { getPublishedPost } from "@/lib/data/posts";
 import { Konkhmer } from "@/app/fonts/fonts";
 import { Suspense } from "react";
 import { BackgroundDecor } from "@/components/elements/background-decorator";
+import { CategoryListSkeleton } from "@/components/blog/category-list-skeleton";
+import { PostListSkeleton } from "@/components/blog/post-list-skeleton";
 
 export default async function BlogPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
 
@@ -15,10 +17,10 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
             <p className="text-primary mt-8">{"//"} todos los post</p>
             <h1 className={`${Konkhmer.className} text-2xl`}>Blog</h1>
             <p className="text-sm text-muted-foreground">Explorando ideas, exponiendo dudas y soluciones</p>
-            <Suspense fallback={<p>Loading....</p>}>
+            <Suspense fallback={<CategoryListSkeleton />}>
                 <CategoryList categoryName={category} />
             </Suspense>
-            <Suspense fallback={<p>Loading....</p>}>
+            <Suspense fallback={<PostListSkeleton />}>
                 <PostList categoryName={category} />
             </Suspense>
             <BackgroundDecor position="left-10 bottom-1/2 max-sm:hidden">{'{'}</BackgroundDecor>
