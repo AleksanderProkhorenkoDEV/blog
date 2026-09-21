@@ -27,7 +27,7 @@ export const LoginForm = () => {
 
     useEffect(() => {
         if (state.success && state.profile) {
-            login(state.profile) 
+            login(state.profile)
             toast.success("Inicio de sesión correcto.")
             router.push("/")
         }
@@ -50,8 +50,8 @@ export const LoginForm = () => {
                 name="password"
                 error={state.inputErrors?.password?.[0]}
             />
-            <CustomLink href="/register"><p>¿No tienes cuenta? Registrare.</p></CustomLink>
             <Button type="submit" disabled={pending} loading={pending}>Inicia sesión</Button>
+            <CustomLink href="/register" isUnderline={false}><p>¿No tienes cuenta? Registrare.</p></CustomLink>
         </Form>
     )
 }
