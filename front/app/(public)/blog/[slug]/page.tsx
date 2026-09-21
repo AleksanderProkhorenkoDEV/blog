@@ -3,6 +3,7 @@ import { PostContentSkeleton } from "@/components/blog/post-content-skeleton"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
 import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { BackNavigation } from "@/components/link/back-navigation"
+import { PostThumbnail } from "@/components/blog/post-thumbnail"
 import { ViewTracker } from "@/components/blog/view-tracker"
 import { formatDatePost } from "@/lib/utils/post-date"
 import { createClient } from "@/lib/supabase/server"
@@ -12,7 +13,6 @@ import { getPostBySlug } from "@/lib/data/posts"
 import { Konkhmer } from "@/app/fonts/fonts"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
-import Image from "next/image"
 
 export default async function SinglePostPage({ params }: { params: Promise<{ slug: string }> }) {
     const slug = (await params).slug
@@ -22,7 +22,7 @@ export default async function SinglePostPage({ params }: { params: Promise<{ slu
             <ViewTracker slug={slug} />
             <Suspense fallback={<PostContentSkeleton />}>
                 <PostContent slug={slug} />
-                
+
             </Suspense>
             {/* <hr className="border border-secondary mb-10"></hr> */}
             {/* <Suspense fallback={<p>loading comments....</p>}>
@@ -46,13 +46,7 @@ const PostContent = async ({ slug }: { slug: string }) => {
         <article className="my-10 flex flex-col gap-4">
             <BackNavigation text="volver" />
             <div className="relative group w-full h-84 rounded-md overflow-hidden">
-                <Image
-                    src={post.thumbnail}
-                    alt={`${post.title} - ${post.thumbnail}`}
-                    fill
-                    loading="lazy"
-                    className="object-cover pointer-events-none"
-                />
+                <PostThumbnail thumbnail={post.thumbnail} title={post.title} />
             </div>
             <h1 className={`${Konkhmer.className} text-4xl`}>{post.title}</h1>
             <div className="flex flex-wrap gap-2">

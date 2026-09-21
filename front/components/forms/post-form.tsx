@@ -29,7 +29,7 @@ export const PostForm = ({ categories, authorId, post }: Props) => {
     }
 
     const [selectedCategory, setSelectedCategory] = useState<OptionSelect[]>(initCategoriesSelected)
-    const [thumbnail, setThumbnail] = useState<string>(post?.thumbnail ?? "/working-code.webp")
+    const [thumbnail, setThumbnail] = useState<string>(post?.thumbnail ?? "/no-content-imagen.webp")
     const [content, setContent] = useState<string>(post?.content ?? "Escribe tu primer post...")
 
     const { pending, handleCreatePost, getFieldError } = usePostCreate(post?.id)
