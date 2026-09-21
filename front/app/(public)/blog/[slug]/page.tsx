@@ -1,4 +1,5 @@
 import { CategoryBadget } from "@/components/dashboard/badgets/category-badget"
+import { PostContentSkeleton } from "@/components/blog/post-content-skeleton"
 import { BackgroundDecor } from "@/components/elements/background-decorator"
 import { LikeButtonWrapper } from "@/components/blog/like-button-wrapper"
 import { BackNavigation } from "@/components/link/back-navigation"
@@ -19,8 +20,9 @@ export default async function SinglePostPage({ params }: { params: Promise<{ slu
     return (
         <>
             <ViewTracker slug={slug} />
-            <Suspense fallback={<p>loading post....</p>}>
+            <Suspense fallback={<PostContentSkeleton />}>
                 <PostContent slug={slug} />
+                
             </Suspense>
             {/* <hr className="border border-secondary mb-10"></hr> */}
             {/* <Suspense fallback={<p>loading comments....</p>}>
