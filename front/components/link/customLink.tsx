@@ -11,6 +11,7 @@ interface Props {
 export const CustomLink = ({ href, children, isUnderline = true, className }: Props) => {
     return (
         <Link
+            rel="noopener noreferrer"
             href={href}
             className={`font-semibold ${isUnderline ?? "underline"} ${className} flex items-center gap-2 underline-offset-4 hover:text-primary duration-200 transition-colors ease-in-out`}
         >

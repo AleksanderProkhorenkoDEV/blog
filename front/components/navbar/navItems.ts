@@ -12,7 +12,7 @@ export const getNavItems = (): NavItem[] => {
         },
         {
             title: "Contacto",
-            href: "/contact"
+            href: "/contacto"
         }
     ]
 }
