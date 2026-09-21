@@ -107,6 +107,10 @@ export const getPostBySlug = async (slug: string) => {
     cacheLife('days')
     cacheTag(`post-${slug}`)
 
+    if (!slug) {
+        return null;
+    }
+
     const post = await prisma.post.findUnique({
         where: {
             slug: slug,
