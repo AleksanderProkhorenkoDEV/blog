@@ -58,8 +58,9 @@ export const RegisterForm = () => {
                 type="password"
                 error={state.inputErrors?.passwordConfirmation?.[0]}
             />
-            <CustomLink href="/login"><p>Ya tengo una cuenta. Iniciar sesión</p></CustomLink>
+            <p className="flex gap-2">Al registrarte <strong className="uppercase">aceptas</strong> la <CustomLink href="/privacidad" >politica de privacidad</CustomLink></p>
             <Button type="submit" disabled={pending} loading={pending}>Crear cuenta</Button>
+            <CustomLink href="/login" isUnderline={false}><p>Ya tengo una cuenta. Iniciar sesión</p></CustomLink>
         </Form>
     )
 }
