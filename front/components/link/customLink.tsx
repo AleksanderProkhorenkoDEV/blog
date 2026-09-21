@@ -13,7 +13,7 @@ export const CustomLink = ({ href, children, isUnderline = true, className }: Pr
         <Link
             rel="noopener noreferrer"
             href={href}
-            className={`font-semibold ${isUnderline ?? "underline"} ${className} flex items-center gap-2 underline-offset-4 hover:text-primary duration-200 transition-colors ease-in-out`}
+            className={`font-semibold ${isUnderline ? "underline" : ""} ${className} flex items-center gap-2 underline-offset-4 hover:text-primary duration-200 transition-colors ease-in-out`}
         >
             {children}
         </Link>
