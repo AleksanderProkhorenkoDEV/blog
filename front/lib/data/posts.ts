@@ -160,7 +160,7 @@ export const getBestPost = async () => {
         return null
     }
 
-    const post = await prisma.post.findUnique({
+    const post = await prisma.post.findFirst({
         where: {
             id: topMetric.postId,
             published: true
