@@ -1,12 +1,13 @@
 import { CategoryBadgetWrapper } from "@/components/blog/category-bagdet-wrapper";
 import { PostCardItem } from "@/components/elements/post-card";
 import { getAllCategories } from "@/lib/data/categories";
-import { getPublishedPost } from "@/lib/data/posts";
+import { getPostBySlug, getPublishedPost } from "@/lib/data/posts";
 import { Konkhmer } from "@/app/fonts/fonts";
 import { Suspense } from "react";
 import { BackgroundDecor } from "@/components/elements/background-decorator";
 import { CategoryListSkeleton } from "@/components/blog/category-list-skeleton";
 import { PostListSkeleton } from "@/components/blog/post-list-skeleton";
+import { Metadata } from "next";
 
 export default async function BlogPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
 
@@ -59,4 +60,19 @@ export const PostList = async ({ categoryName }: { categoryName: string | undefi
             }
         </>
     )
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const post = await getPostBySlug(slug);
+    if (!post) return {};
+
+    return {
+        title: post.title,
+        description: post.content ?? post.title,
+        openGraph: {
+            title: post.title,
+            images: [post.thumbnail],
+        },
+    };
 }
