@@ -111,7 +111,7 @@ export const getPostBySlug = async (slug: string) => {
         return null;
     }
 
-    const post = await prisma.post.findUnique({
+    const post = await prisma.post.findFirst({
         where: {
             slug: slug,
             published: true
