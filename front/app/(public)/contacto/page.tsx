@@ -9,7 +9,7 @@ export default function Contacto() {
         <section className="container flex flex-col gap-4 mx-auto relative mt-20 p-4">
             <p className={`${jetBrain.className}`}><span className="text-primary">{'_>'}</span> whoami</p>
             <MyName />
-            <div className="flex my-4">
+            <div className="flex my-4 max-md:flex-col max-md:gap-4">
                 <div className="flex-1 flex justify-center items-start">
                     <div className="relative w-40 h-40 rounded-full overflow-hidden border">
                         <Image
@@ -39,7 +39,7 @@ export default function Contacto() {
                 <p>
                     Get in touch
                 </p>
-                <hr className="w-sm text-primary" />
+                <hr className="w-sm text-primary max-sm:w-3/4" />
                 <div className="flex gap-4">
                     <CustomLink href="https://github.com/AleksanderProkhorenkoDEV" className="text-3xl hover:text-primary transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
