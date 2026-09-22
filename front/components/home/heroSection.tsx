@@ -2,6 +2,7 @@ import { BackgroundDecor } from "../elements/background-decorator"
 import { jetBrain, Konkhmer } from "../../app/fonts/fonts"
 import { Button } from "../forms/parts/button"
 import { ArrowRight } from "lucide-react"
+import { CustomLink } from "../link/customLink"
 
 export const HeroSection = () => {
     return (
@@ -18,8 +19,8 @@ export const HeroSection = () => {
                     pero lo mismo ves tu reflejo aqui.
                 </p>
                 <div className="flex flex-wrap gap-6 max-xs:flex-col max-xs:w-xs">
-                    <Button><ArrowRight strokeWidth={2} />Ver posts</Button>
-                    <Button variant="secondary">Sobre mi</Button>
+                    <CustomLink href="/blog" isUnderline={false}><Button><ArrowRight strokeWidth={2} />Ver posts</Button></CustomLink>
+                    <CustomLink href="/contacto" isUnderline={false}><Button variant="secondary">Sobre mi</Button></CustomLink>
                 </div>
             </article>
             <BackgroundDecor position="right-0 bottom-4 opacity-30 max-sm:text-7xl max-sm:right-10 max-xs:hidden">{`{}`}</BackgroundDecor>
