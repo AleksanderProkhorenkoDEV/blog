@@ -66,7 +66,7 @@ const PostContent = async ({ slug }: { slug: string }) => {
                 <p className="flex gap-2"><Eye /> {post.metrics?.views}</p>
             </div>
             <div
-                className="prose prose-invert  text-pretty"
+                className="prose prose-invert  text-pretty tiptap"
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
             <div className="flex gap-3">
