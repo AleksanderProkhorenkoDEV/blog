@@ -11,11 +11,11 @@ WORKDIR /app/front
 # Copiar archivos de dependencias
 COPY front/package.json front/pnpm-lock.yaml* front/pnpm-workspace.yaml ./
 
-# Instalar dependencias
-RUN pnpm install
-
 # Copiar el resto del código (los volúmenes sobrescribirán esto)
 COPY front/ .
+
+# Instalar dependencias
+RUN pnpm install
 
 EXPOSE 3000
 
