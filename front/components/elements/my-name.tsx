@@ -22,7 +22,7 @@ export default function MyName() {
     }, []);
 
     return <h1
-        className={`text-7xl after:content-['|'] after:ml-0.5 after:text-primary ${isDone ? "after:animate-pulse" : ""}`}
+        className={`text-6xl after:content-['|'] after:ml-0.5 after:text-primary max-md:text-4xl max-sm:text-2xl ${isDone ? "after:animate-pulse" : ""}`}
     >
         {title}
     </h1>;
