@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "La casa del Junior",
     description: "Blog de un desarrollador junior contando sus avances, errores y aprendizajes.",
-    url: "https://aprokhorenko.dev",
+    url: "https://blog.aprokhorenko.dev",
     siteName: "La casa del Junior",
     locale: "es_ES",
     type: "website",
