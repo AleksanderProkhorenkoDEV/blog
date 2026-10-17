@@ -1,4 +1,4 @@
-import { LogOut, PanelLeftClose, PanelRightClose } from "lucide-react"
+import { ArrowLeft, LogOut, PanelLeftClose, PanelRightClose } from "lucide-react"
 import { Route, sidebarNavItems } from "./sidebar-nav-items"
 import { useSignOut } from "../../../hooks/useSignOut"
 import { CustomLink } from "../../link/customLink"
@@ -16,7 +16,8 @@ export const SideBar = ({ isOpen, toggleOpen }: Props) => {
 
     return (
         <aside className={`flex flex-col justify-between border-r border-border ${isOpen ? "py-2 px-2" : ""}`}>
-            <div className="flex justify-end w-full p-1">
+            <div className={`flex ${!isOpen ? " justify-end" : "justify-between"} w-full pt-2 px-2`}>
+                {isOpen ? <CustomLink href="/" isUnderline={false}><ArrowLeft /><p>Salir</p></CustomLink> : null}
                 <Button type="button" variant="icons" onClick={toggleOpen}>
                     {isOpen ? <PanelLeftClose /> : <PanelRightClose />}
                 </Button>
