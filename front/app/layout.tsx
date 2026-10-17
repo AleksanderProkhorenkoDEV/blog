@@ -7,7 +7,7 @@ import "./globals.css";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aprokhorenko.dev"),
+  metadataBase: new URL("https://blog.aprokhorenko.dev"),
   title: {
     default: "La casa del Junior",
     template: "%s | La casa del Junior",
