@@ -125,54 +125,52 @@ export async function likePost(
     try {
         const uuid = await getProfileUUID(email)
 
+        const today = new Date()
+        today.setUTCHours(0, 0, 0, 0)
+
         const existingLike = await prisma.postLike.findUnique({
             where: {
-                postId_profileId: {
-                    postId,
-                    profileId: uuid
-                }
+                postId_profileId: { postId, profileId: uuid }
             }
         })
 
         if (existingLike) {
-            await prisma.postLike.delete({
-                where: {
-                    postId_profileId: {
-                        postId,
-                        profileId: uuid
+            await prisma.$transaction([
+                prisma.postLike.delete({
+                    where: {
+                        postId_profileId: { postId, profileId: uuid }
                     }
-                }
-            })
-            await prisma.postMetrics.update({
-                where: {
-                    postId: postId
-                },
-                data: {
-                    likes: { decrement: 1 }
-                }
-            })
+                }),
+                prisma.postMetrics.update({
+                    where: { postId },
+                    data: { likes: { decrement: 1 } }
+                })
+            ])
             return { success: true, message: "Articulo eliminado como me gusta" }
-        } else {
-            await prisma.postLike.create({
-                data: { postId, profileId: uuid }
-            })
-            await prisma.postMetrics.update({
-                where: {
-                    postId: postId
-                },
-                data: {
-                    likes: { increment: 1 }
-                }
-            })
-            return { success: true, message: "Articulo marcado como me gusta" }
         }
+
+        await prisma.$transaction([
+            prisma.postLike.create({
+                data: { postId, profileId: uuid }
+            }),
+            prisma.postMetrics.upsert({
+                where: { postId },
+                create: { postId, likes: 1 },
+                update: { likes: { increment: 1 } }
+            }),
+            prisma.postDailyMetrics.upsert({
+                where: { postId_date: { postId, date: today } },
+                create: { postId, date: today, likes: 1 },
+                update: { likes: { increment: 1 } }
+            })
+        ])
+        return { success: true, message: "Articulo marcado como me gusta" }
 
     } catch (error) {
         return formError(error)
     } finally {
         updateTag(`post-${slug}`)
     }
-
 }
 
 export async function isPostLiked(
