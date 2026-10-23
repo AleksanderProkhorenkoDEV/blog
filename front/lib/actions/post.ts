@@ -198,9 +198,7 @@ export async function isPostLiked(
     }
 }
 
-export async function increaseView(
-    slug: string,
-): Promise<void> {
+export async function increaseView(slug: string): Promise<void> {
     try {
         const post = await prisma.post.findUnique({
             where: { slug },
@@ -209,10 +207,21 @@ export async function increaseView(
 
         if (!post) return
 
-        await prisma.postMetrics.update({
-            where: { postId: post.id },
-            data: { views: { increment: 1 } }
-        })
+        const today = new Date()
+        today.setUTCHours(0, 0, 0, 0)
+
+        await prisma.$transaction([
+            prisma.postMetrics.upsert({
+                where: { postId: post.id },
+                create: { postId: post.id, views: 1 },
+                update: { views: { increment: 1 } }
+            }),
+            prisma.postDailyMetrics.upsert({
+                where: { postId_date: { postId: post.id, date: today } },
+                create: { postId: post.id, date: today, views: 1 },
+                update: { views: { increment: 1 } }
+            })
+        ])
     } catch (error) {
         console.error(error)
     }
