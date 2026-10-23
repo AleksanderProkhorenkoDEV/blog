@@ -11,9 +11,11 @@ model Post {
     authorId String  @db.Uuid
 
     categories CategoryPost[]
-    metrics  PostMetrics?
-    comments Comments[]
-    likes    PostLike[]
+    metrics    PostMetrics?
+    comments   Comments[]
+    likes      PostLike[]
+
+    dailyMetrics PostDailyMetrics[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
