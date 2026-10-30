@@ -27,3 +27,25 @@ export async function getMonthlyMetrics(year: number, month: number) {
         }
     })
 }
+
+export async function getTopPostViews(limit = 8) {
+    const posts = await prisma.post.findMany({
+        where: { published: true, archived: false },
+        select: {
+            id: true,
+            title: true,
+            metrics: {
+                select: { views: true }
+            }
+        }
+    })
+
+    return posts
+        .map(({ id, title, metrics }) => ({
+            id,
+            title,
+            views: metrics?.views ?? 0
+        }))
+        .sort((a, b) => b.views - a.views)
+        .slice(0, limit)
+}
