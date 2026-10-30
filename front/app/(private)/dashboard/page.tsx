@@ -1,6 +1,7 @@
 import { MetricsChart } from "@/components/dashboard/metrics-chart"
+import { PostViewsChart } from "@/components/dashboard/post-views-chart"
 import { Skeleton } from "@/components/ui/skeleton"
-import { getMonthlyMetrics } from "@/lib/data/metrics"
+import { getMonthlyMetrics, getTopPostViews } from "@/lib/data/metrics"
 import { connection } from "next/server"
 import { Suspense } from "react"
 
@@ -20,6 +21,10 @@ export default function Dashboard() {
             <div className="w-full space-y-6">
                 <Suspense fallback={<MetricsSkeleton />}>
                     <MonthlyMetrics />
+                </Suspense>
+
+                <Suspense fallback={<Skeleton className="h-96 rounded-2xl" />}>
+                    <TopPostViews />
                 </Suspense>
             </div>
         </section>
@@ -48,13 +53,33 @@ async function MonthlyMetrics() {
                 <StatCard label="Likes" value={totalLikes} color="bg-[var(--primitive-red)]" />
             </div>
 
-            <div className="rounded-2xl border border-(--primitive-border) bg--primitive-surface) p-4 shadow-sm sm:p-6">
+            <div className="rounded-2xl border border-(--primitive-border) bg-(--primitive-surface) p-4 shadow-sm sm:p-6">
                 <p className="mb-4 text-sm font-medium capitalize text-(--primitive-gray)">
                     {monthName}
                 </p>
                 <MetricsChart data={data} />
             </div>
         </>
+    )
+}
+
+async function TopPostViews() {
+    await connection()
+
+    const posts = await getTopPostViews(8)
+
+    return (
+        <div className="rounded-2xl border border-(--primitive-border) bg-(--primitive-surface) p-4 shadow-sm sm:p-6">
+            <div className="mb-4">
+                <p className="text-sm font-medium text-(--primitive-gray)">
+                    Posts con más visitas
+                </p>
+                <p className="mt-1 text-xs text-(--primitive-gray)">
+                    Top 8 de publicaciones por visitas acumuladas.
+                </p>
+            </div>
+            <PostViewsChart data={posts} />
+        </div>
     )
 }
 
